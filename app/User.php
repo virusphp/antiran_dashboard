@@ -8,9 +8,9 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     // use Notifiable;
-    protected $connection = 'sqlsrv_sms';
-    protected $table = "akun";
-    protected $guard = "api";
+    // protected $connection = 'sqlsrv_sms';
+    // protected $table = "akun";
+    // protected $guard = "api";
     /**
      * The attributes that are mass assignable.
      *

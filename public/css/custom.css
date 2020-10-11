@@ -1,0 +1,14 @@
+.invalid-feedback {
+    display:block;
+}
+.sembunyi {
+    display: none;
+}
+.bg-dark-green {
+    background-color: #734602;
+}
+
+.btn-success {
+    background-color: #25b5e0;
+    border-color: #25b5e0;
+}

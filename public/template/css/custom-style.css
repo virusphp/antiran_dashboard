@@ -1,0 +1,71 @@
+#hero .hero-img img {
+    width: 100%;
+    -webkit-animation: mover 1.5s infinite alternate;
+    animation: mover 1.5s infinite alternate;
+}
+
+@-webkit-keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes mover {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-10px);
+    }
+}
+
+.zoom {
+    transition: transform .5s;
+    /* Animation */
+}
+
+.zoom:hover {
+    transform: scale(1.1);
+    /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    z-index: 2;
+}
+
+.clients .client-logo img {
+    max-width: 50%;
+    /* -webkit-filter: grayscale(100); */
+    /* filter: grayscale(100); */
+    filter: none;
+}
+
+
+.logo-custom img {
+    padding: 0;
+    margin: 0;
+    max-height: 40px;
+}
+
+#header {
+    height: 90px;
+    transition: all 0.5s;
+    z-index: 997;
+    transition: all 0.5s;
+    padding: 15px 0;
+    background: #fff;
+}
+
+
+/* #hero {
+    height: 100vh;
+    background-size: cover;
+  display: flex;
+  align-items: center;
+} */
+
+@media (max-width: 768px) {
+    .header-social-links {
+        padding-right: 0;
+    }
+}

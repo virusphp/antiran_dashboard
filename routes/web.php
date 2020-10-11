@@ -10,15 +10,17 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/admin/home');
 });
 
-Auth::routes();
+Route::group(['namespace' => 'Auth'], function () {
+    Route::get('/admin/login', 'LoginController@showLoginForm')->name('login');
+    Route::post('/admin/login', 'LoginController@login');
+    Route::post('/admin/logout', 'LoginController@logout')->name('logout');
+});
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('/pegawai', 'PegawaiController');
+});
