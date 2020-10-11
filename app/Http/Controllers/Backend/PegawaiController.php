@@ -1,19 +1,28 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
 use Illuminate\Http\Request;
+use App\Models\Pegawai;
+use Illuminate\Support\Facades\DB;
 
-class PegawaiController extends Controller
+class PegawaiController extends BackendController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $bcrum = $this->bcrum("Pegawai");
+        $pegawai = DB::table('pegawai')->where(function ($query) use ($request) {
+            if ($term = $request->get('term')) {
+                $keywords = '%' . $term . '%';
+                $query->where('nama', 'like', $keywords);
+            }
+        })->latest()->paginate($this->limit);
+        return view('backend.pegawai.index', compact('bcrum', 'pegawai'));
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layouts.backend.master-backend')
 
 @section('title')
-Divisi
+Pekerjaan
 @endsection
 
 @section('content')
@@ -13,17 +13,17 @@ Divisi
                     <div class="card-header d-flex-align-items-center pb-0">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item float-left">
-                                <h4><i class="c-icon cil-menu"></i> Daftar Divisi</h4>
+                                <h4><i class="c-icon cil-menu"></i> Daftar Pekerjaan</h4>
                             </li>
                             <li class="list-inline-item float-right">
                                 <div class="d-none d-md-block">
-                                    <a href="{{ route('divisi.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
+                                    <a href="{{ route('pegawai.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
                                         <i class="c-icon cil-plus"></i>
-                                        Divisi
+                                        Pekerjaan
                                     </a>
                                 </div>
                                 <div class="d-md-none float-right">
-                                    <a href="{{ route('divisi.create') }}" class="btn btn-sm btn-primary mb-3">
+                                    <a href="{{ route('pegawai.create') }}" class="btn btn-sm btn-primary mb-3">
                                         <i class="c-icon cil-plus"></i>
 
                                     </a>
@@ -43,8 +43,8 @@ Divisi
 
                         <div class="row">
                             <div class="col-lg-12">
-                                @include('backend.divisi._table')
-                                {!! $divisi->appends(request()->except('page'))->links() !!}
+                                @include('backend.pegawai._table')
+                                {!! $pegawai->appends(request()->except('page'))->links() !!}
                             </div>
                         </div>
                     </div>

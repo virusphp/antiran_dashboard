@@ -11,7 +11,7 @@ class BackendController extends Controller
 
     function __construct()
     {
-        $this->middleware('auth:web');
+        // $this->middleware('auth:web')s
     }
     
     protected function bcrum($current, $urlSecond = null, $nameSecond = null)

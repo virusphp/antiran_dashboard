@@ -2,13 +2,13 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Divisi</th>
+            <th>Nama Pegawai</th>
             <th>Dibuat</th>
             <th class="text-right">Aksi</th>
         </tr>
     </thead>
     <tbody>
-        @foreach($divisi as $d)
+        @foreach($pegawai as $d)
         <tr>
             <td>{{ $loop->iteration + $divisi->firstItem() - 1 }}</td>
             <td>
