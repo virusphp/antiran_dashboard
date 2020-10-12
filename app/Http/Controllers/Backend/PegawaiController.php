@@ -32,7 +32,8 @@ class PegawaiController extends BackendController
      */
     public function create()
     {
-        //
+        $bcrum = $this->bcrum('Create', route('pegawai.index'), 'Pegawai');
+        return view('backend.pegawai.create', compact('bcrum'));
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('layouts.backend.master-backend')
 
 @section('title')
-Tambah Divisi
+Tambah Pegawai
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@ Tambah Divisi
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>Tambah Divisi</h4>
-                        <a class="d-flex align-items-center btn btn-primary" href="{{ route('divisi.index') }}">Kembali</a>
+                        <h4>Tambah Pegawai</h4>
+                        <a class="d-flex align-items-center btn btn-primary" href="{{ route('pegawai.index') }}">Kembali</a>
                     </div>
-                   {!! Form::open(array('route' => 'divisi.store','method'=>'POST')) !!}
+                   {!! Form::open(array('route' => 'pegawai.store','method'=>'POST')) !!}
                     <div class="card-body">
-                        @include('backend.divisi._form', [ 'url' =>route('divisi.store'), 'method' => 'POST'])
+                        @include('backend.pegawai._form', [ 'url' =>route('pegawai.store'), 'method' => 'POST'])
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="reset" class="btn btn-outline-danger btn-sm mx-2">Reset Form</button>
