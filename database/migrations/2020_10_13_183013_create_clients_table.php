@@ -21,7 +21,7 @@ class CreateClientsTable extends Migration
             $table->char('jenis_kelamin', 1);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('alamat_client');
+            $table->text('alamat_client');
             $table->string('no_telepon');
             $table->string('email_client');
             $table->string('npwp_client');

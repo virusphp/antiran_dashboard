@@ -41,6 +41,8 @@ class ClientController extends BackendController
     {
         try {
             $input = $request->all();
+            // $bagong = preg_replace('/\D/', '', $input["npwp_client"]);
+            // dd($input,$bagong);
             $simpan = Client::create($input);
             if ($simpan) {
                 $this->notification("success", "Informasi", $simpan->nama_client. " Berhasil di simpan!!");
@@ -101,5 +103,19 @@ class ClientController extends BackendController
             $this->notification('error', 'Gagal', 'Terjadi kesalahan ' . $e->getMessage());
             return redirect()->route('client.index');
         }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $delete = Anggota::findOrFail($id);
+        $delete->delete();
+
+        return response()->success(200, 'Anggota ' . $delete->nama . ' berhasil dihapus', []);
     }
 }

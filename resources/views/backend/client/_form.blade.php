@@ -1,37 +1,21 @@
 <div class="form-group row">
-    <div class="col-md-6">
+    {{-- <div class="col-md-6">
         <label for="kode_client">KODE CLIENT</label>
         {!! Form::text('kode_client', null, array('placeholder' => 'KODE CLIENT','class' => 'form-control '.($errors->has('kode_client') ? 'is-invalid' : '') ))!!}
         {!! $errors->first('kode_client', '<span class="invalid-feedback">:message</span>') !!}
-    </div>
+    </div> --}}
     <div class="col-md-6">
         <label for="nik_client">NIK</label>
-        {!! Form::text('nik_client', null, array('placeholder' => 'NIK CLIENT','class' => 'form-control '.($errors->has('nik_client') ? 'is-invalid' : '') ))!!}
+        {!! Form::number('nik_client', null, array('placeholder' => 'NIK CLIENT','class' => 'form-control '.($errors->has('nik_client') ? 'is-invalid' : '') ))!!}
         {!! $errors->first('nik_client', '<span class="invalid-feedback">:message</span>') !!}
     </div>
-</div>
-<div class="form-group row">
     <div class="col-md-6">
         <label for="nama_client">NAMA CLIENT</label>
         {!! Form::text('nama_client', null, array('placeholder' => 'NAMA CLIENT','class' => 'form-control '.($errors->has('nama_client') ? 'is-invalid' : '') ))!!}
         {!! $errors->first('nama_client', '<span class="invalid-feedback">:message</span>') !!}
     </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="jenis_kelamin">JENIS KELAMIN</label>
-            <div class="custom-control custom-radio">
-                {!! Form::radio('jenis_kelamin', 'L', false, array('id' => 'laki', 'class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
-                {!! Form::label('laki', 'Laki - Laki', [ 'class' => 'custom-control-label']) !!}
-            </div>
-        
-            <div class="custom-control custom-radio">
-                {!! Form::radio('jenis_kelamin', 'P', false, array('id' => 'perempuan','class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
-                {!! Form::label('perempuan', 'Perempuan', [ 'class' => 'custom-control-label']) !!}
-            </div>
-            {!! $errors->first('jenis_kelamin', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-    </div>
 </div>
+
 <div class="form-group row">
     <div class="col-md-6">
         <label for="tempat_lahir">TEMPAT LAHIR</label>
@@ -40,15 +24,26 @@
     </div>
     <div class="col-md-6">
         <label for="tanggal_lahir">TANGGAL LAHIR</label>
-        {!! Form::date('tanggal_lahir', null, array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
+        {!! Form::date('tanggal_lahir', "dd/MM/yyyy", array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
         <span class="help-block">Isi tanggal lahir dengan Benar</span>
     </div>
 </div>
+
 <div class="form-group row">
     <div class="col-md-6">
-        <label for="alamat_client">ALAMAT</label>
-        {!! Form::text('alamat_client', null, array('placeholder' => 'ALAMAT CLIENT','class' => 'form-control '.($errors->has('alamat_client') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('alamat_client', '<span class="invalid-feedback">:message</span>') !!}
+        <div class="form-group">
+            <label for="jenis_kelamin">JENIS KELAMIN</label>
+            <div class="custom-control custom-radio col-md-3">
+                {!! Form::radio('jenis_kelamin', 'L', false, array('id' => 'laki', 'class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
+                {!! Form::label('laki', 'Laki - Laki', [ 'class' => 'custom-control-label']) !!}
+            </div>
+        
+            <div class="custom-control custom-radio col-md-3">
+                {!! Form::radio('jenis_kelamin', 'P', false, array('id' => 'perempuan','class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
+                {!! Form::label('perempuan', 'Perempuan', [ 'class' => 'custom-control-label']) !!}
+            </div>
+            {!! $errors->first('jenis_kelamin', '<div class="invalid-feedback">:message</div>') !!}
+        </div>
     </div>
     <div class="col-md-6">
         <label for="no_telepon">NOMOR TELEPON</label>
@@ -56,6 +51,15 @@
         {!! $errors->first('no_telepon', '<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
+
+<div class="form-group row">
+    <div class="col-md-12">
+        <label for="alamat_client">ALAMAT</label>
+        {!! Form::textarea('alamat_client', null, array('placeholder' => 'ALAMAT CLIENT','class' => 'form-control '.($errors->has('alamat_client') ? 'is-invalid' : ''), 'rows' => '2' ))!!}
+        {!! $errors->first('alamat_client', '<span class="invalid-feedback">:message</span>') !!}
+    </div>
+</div>
+
 <div class="form-group row">
     <div class="col-md-6">
         <label for="email_client">Email CLIENT</label>
@@ -64,23 +68,27 @@
     </div>
     <div class="col-md-6">
         <label for="npwp_client">NOMOR NPWP</label>
-        {!! Form::text('npwp_client', null, array('placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : '') ))!!}
+        {!! Form::text('npwp_client', null, array('placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : ''), 'maxlength' => "15" ))!!}
         {!! $errors->first('npwp_client', '<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
 
 @push('scripts')
     <script type="text/javascript">
-        $(function () {
-          $('#datetimepicker8').datetimepicker({
-              icons: {
-                  time: "fa fa-clock-o",
-                  date: "fa fa-calendar",
-                  up: "fa fa-arrow-up",
-                  down: "fa fa-arrow-down"
-              }
-          });
-      });
+        $('input[name=npwp_client').keyup(function() {
+            $(this).val(formatNpwp($(this).val()));
+        }) 
+
+        $('input[type=text]').keyup(function() {
+            $(this).val($(this).val().toUpperCase());
+        });
+
+        // function helper
+        function formatNpwp(value) {
+            if (typeof value === 'string') {
+                return value.replace(/(\d{2})(\d{3})(\d{3})(\d{1})(\d{3})(\d{3})/, '$1.$2.$3.$4-$5.$6');
+            }
+        }
     </script> 
 @endpush
     
