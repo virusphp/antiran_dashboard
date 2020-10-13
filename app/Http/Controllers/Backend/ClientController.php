@@ -72,6 +72,10 @@ class ClientController extends BackendController
      */
     public function edit($id)
     {
-        
+        $bcrum = $this->bcrum('Edit', route('client.index'), 'Client');
+
+        $dataClient = Client::find($id);
+
+        return view('backend.client.edit', compact('bcrum', 'dataClient'));
     }
 }
