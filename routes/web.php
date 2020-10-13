@@ -23,4 +23,5 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/pegawai', 'PegawaiController');
+    Route::resource('/client', 'ClientController');
 });

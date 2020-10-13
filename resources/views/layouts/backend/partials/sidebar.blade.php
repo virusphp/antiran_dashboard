@@ -20,8 +20,8 @@
             Management Master
         </li>
         <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('pegawai.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Karyawan
+            <a class="c-sidebar-nav-link" href="{{ route('client.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Client
             </a>
         </li>
 
@@ -30,6 +30,16 @@
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Jenis Pekerjaan
             </a>
         </li>
+
+        <li class="c-sidebar-nav-title">
+            Registrasi Client
+        </li>
+        <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('pegawai.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Registrasi Client
+            </a>
+        </li>
+
 
         <li class="c-sidebar-nav-divider"></li>
 

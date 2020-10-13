@@ -47,8 +47,6 @@
         </div>
     </div>
     <!-- CoreUI and necessary plugins-->
-    <script src="{{ !config('vue.isProduction') ? asset('lib/vue/vue.js') : asset('lib/vue/vue.min.js') }}"></script>
-    <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script type="text/javascript" src="{{ asset('coreui/moment/min/moment.min.js') }}"></script>
