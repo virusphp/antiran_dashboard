@@ -14,7 +14,7 @@ class ClientController extends BackendController
         $client = Client::where(function ($query) use ($request) {
             if ($term = $request->get('term')) {
                 $keywords = '%' . $term . '%';
-                $query->where('nama', 'like', $keywords);
+                $query->where('nama_client', 'like', $keywords);
             }
         })->latest()->paginate($this->limit);
         return view('backend.client.index', compact('bcrum', 'client'));
@@ -77,5 +77,29 @@ class ClientController extends BackendController
         $dataClient = Client::find($id);
 
         return view('backend.client.edit', compact('bcrum', 'dataClient'));
+    }
+
+     /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try {
+            $input = $request->all();
+            $client = Client::find($id);
+            $updateClient = $client->update($input);
+            if ($updateClient) {
+                $this->notification('success', 'Berhasil', 'Berhasil Ubah ' . $request->nama_client);
+                return redirect()->route('client.index');
+            }
+            throw new Exception('Gagal Mengubah client ' . $request->nama_client);
+        } catch (Exception $e) {
+            $this->notification('error', 'Gagal', 'Terjadi kesalahan ' . $e->getMessage());
+            return redirect()->route('client.index');
+        }
     }
 }

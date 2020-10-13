@@ -41,7 +41,6 @@
     <div class="col-md-6">
         <label for="tanggal_lahir">TANGGAL LAHIR</label>
         {!! Form::date('tanggal_lahir', null, array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
-        {{-- <input class="form-control" id="date-input" type="date" name="tanggal_lahir" placeholder="Tanggal Lahir"> --}}
         <span class="help-block">Isi tanggal lahir dengan Benar</span>
     </div>
 </div>
