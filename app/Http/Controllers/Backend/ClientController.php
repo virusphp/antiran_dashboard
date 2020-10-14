@@ -138,9 +138,9 @@ class ClientController extends BackendController
      */
     public function destroy($id)
     {
-        $delete = Anggota::findOrFail($id);
+        $delete = Client::findOrFail($id);
         $delete->delete();
-
-        return response()->success(200, 'Anggota ' . $delete->nama . ' berhasil dihapus', []);
+        $this->notification('success', 'Berhasil', 'Berhasil Diahapus ' . $delete->nama_client);
+        return redirect()->route('client.index');
     }
 }
