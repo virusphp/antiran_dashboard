@@ -35,8 +35,8 @@ Client
                         <form class="form-horizontal">
                             <div class="row mb-3">
                                 <div class="col-lg-12 d-inline-flex justify-content-end align-items-center">
-                                    <input type="text" class="form-control col-lg-3" name="term" placeholder="Pencarian Slider">
-                                    <button type="submit" class="btn btn-sm btn-outline-primary mx-1"><i class="c-icon cil-search"></i></a>
+                                    <input id="term" type="text" class="form-control col-lg-3" name="term" placeholder="Pencarian Slider">
+                                    <button type="submit" class="btn btn-sm btn-outline-primary mx-1"><i class="c-icon cil-search"></i>
                                 </div>
                             </div>
                         </form>
@@ -44,7 +44,6 @@ Client
                         <div class="row">
                             <div class="col-lg-12">
                                 @include('backend.client._table')
-                                {!! $client->appends(request()->except('page'))->links() !!}
                             </div>
                         </div>
                     </div>
@@ -55,72 +54,5 @@ Client
 </div>
 @endsection
 @push('scripts')
-<script>
-    const app = new Vue({
-        el: '#app',
-        data() {
-            return {
-                fields: {
-                    _method: 'DELETE',
-                },
-                errorMessage: '',
-                hasError: false,
-
-            }
-        },
-        methods: {
-            hapus: function(url) {
-                window.Swal.fire({
-                    title: 'Apakah anda yakin?',
-                    text: "Data tidak bisa dikembalikan setelah dihapus!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Ya, Hapus'
-                }).then((result) => {
-                    if (result.value) {
-                        axios
-                            .post(url, this.fields)
-                            .then((response) => {
-                                if (response.data.code === 500) {
-                                    this.hasError = true;
-                                    this.errorMessage = response.data.message;
-                                } else if (response.data.code === 200) {
-
-                                    window.Swal.fire({
-                                        title: 'Berhasil Terhapus!',
-                                        message: response.data.message,
-                                        icon: 'success',
-                                        timer: 1000,
-                                        timerProgressBar: true,
-                                        showConfirmButton: false,
-                                    }).then(() => {
-                                        location.reload()
-                                    });
-
-
-                                }
-
-                            })
-                            .catch((error) => {
-                                if (error.response.status === 422) {
-                                    this.errors = error.response.data.errors || {};
-                                }
-                            });
-                    }
-                })
-
-            },
-            showImage: function(link) {
-
-                    window.Swal.fire({
-                        imageUrl: link,
-                        width: 600,
-                        padding: '3em',
-                    })
-            }
-        }
-    });
-</script>
+    @include('backend.client.scripts')
 @endpush

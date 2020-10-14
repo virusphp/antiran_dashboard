@@ -1,9 +1,4 @@
 <div class="form-group row">
-    {{-- <div class="col-md-6">
-        <label for="kode_client">KODE CLIENT</label>
-        {!! Form::text('kode_client', null, array('placeholder' => 'KODE CLIENT','class' => 'form-control '.($errors->has('kode_client') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('kode_client', '<span class="invalid-feedback">:message</span>') !!}
-    </div> --}}
     <div class="col-md-6">
         <label for="nik_client">NIK</label>
         {!! Form::number('nik_client', null, array('placeholder' => 'NIK CLIENT','class' => 'form-control '.($errors->has('nik_client') ? 'is-invalid' : '') ))!!}
@@ -62,7 +57,7 @@
 
 <div class="form-group row">
     <div class="col-md-6">
-        <label for="email_client">Email CLIENT</label>
+        <label for="email_client">EMAIL CLIENT</label>
         {!! Form::text('email_client', null, array('placeholder' => 'Email CLIENT','class' => 'form-control '.($errors->has('email_client') ? 'is-invalid' : '') ))!!}
         {!! $errors->first('email_client', '<span class="invalid-feedback">:message</span>') !!}
     </div>
@@ -73,7 +68,15 @@
     </div>
 </div>
 
+@push('css')
+<link rel="stylesheet" href="{{ asset('coreui/datepicker/css/bootstrap-datetimepicker.min.css') }}" />
+<link rel="stylesheet" href="{{ asset('lib/sweetalert2/sweetalert2.min.css') }}">
+@endpush
+
 @push('scripts')
+    <script type="text/javascript" src="{{ asset('coreui/datepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
+
     <script type="text/javascript">
         $('input[name=npwp_client').keyup(function() {
             $(this).val(formatNpwp($(this).val()));

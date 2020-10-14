@@ -2,22 +2,47 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\DataTables\ClientDatatable;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Exception;
+use DataTables;
 
 class ClientController extends BackendController
 {
     public function index(Request $request)
     {
         $bcrum = $this->bcrum("Client");
-        $client = Client::where(function ($query) use ($request) {
-            if ($term = $request->get('term')) {
-                $keywords = '%' . $term . '%';
-                $query->where('nama_client', 'like', $keywords);
-            }
-        })->latest()->paginate($this->limit);
-        return view('backend.client.index', compact('bcrum', 'client'));
+        return view('backend.client.index', compact('bcrum'));
+        // dd($ClientDatatable);
+        // return $ClientDatatable->render('backend.client.index', compact('bcrum'));
+    }
+
+    public function indexAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            // next masuk repository change to QUERY BUILDER
+            $client = Client::where(function ($query) use ($request) {
+                if ($term = $request->get('term')) {
+                    $keywords = '%' . $term . '%';
+                    $query->where('nama_client', 'like', $keywords);
+                }
+            })->latest();
+            return DataTables::of($client)
+                    ->setRowId('idx')
+                    ->addIndexColumn()
+                    ->editColumn('jenis_kelamin', function($client){
+                        return jenisKelamin($client->jenis_kelamin);
+                    })
+                    ->addColumn('action', function($client) {
+                        return view('datatables._action-client', [
+                            'form_url' => route('client.destroy', $client->id),
+                            'edit_url' => route('client.edit', $client->id)
+                        ]);
+                    })
+                    ->make(true);
+        }
+       
     }
 
     /**

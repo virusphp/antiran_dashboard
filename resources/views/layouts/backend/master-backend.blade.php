@@ -14,6 +14,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Backend">
     <link href="{{ asset('img/icon.png') }}" rel="icon">
     <link href="{{ asset('img/icon.png') }}" rel="apple-touch-icon">
@@ -22,13 +24,12 @@
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png"> -->
 
     <!-- Main styles for this application-->
+    <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/fontawesome.min.css') }}">
     <link href="{{ asset('coreui/css/style.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('toast/jquery.toast.css') }}">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="https://coreui.io/demo/3.0-beta.0/vendors/@coreui/icons/css/free.min.css">
     <link rel="stylesheet" href="https://coreui.io/demo/3.0-beta.0/vendors/@coreui/icons/css/brand.min.css">
-    <link rel="stylesheet" href="{{ asset('coreui/datepicker/css/bootstrap-datetimepicker.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('lib/sweetalert2/sweetalert2.min.css') }}">
     @stack('css')
 
 </head>
@@ -47,17 +48,15 @@
         </div>
     </div>
     <!-- CoreUI and necessary plugins-->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="{{ asset('coreui/moment/min/moment.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('coreui/datepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
-
     <script src="{{ asset('coreui/node_modules/js/coreui.bundle.min.js') }}"></script>
     <script src="{{ asset('coreui/node_modules/chartjs/coreui-chartjs.bundle.js') }}"></script>
     <script src="{{ asset('coreui/node_modules/utilsjs/coreui-utils.js') }}"></script>
     <script src="{{ asset('toast/jquery.toast.js') }}"></script>
     <script src="{{ asset('coreui/js/tooltips.js') }}"></script>
-    <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
     @stack('scripts')
     @include('layouts.backend.partials._flash')
 </body>
