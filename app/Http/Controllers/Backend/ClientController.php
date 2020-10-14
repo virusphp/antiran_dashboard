@@ -36,7 +36,8 @@ class ClientController extends BackendController
                     })
                     ->addColumn('action', function($client) {
                         return view('datatables._action-client', [
-                            'form_url' => route('client.destroy', $client->id),
+                            'idx' => $client->id,
+                            'nama_client' => $client->nama_client,
                             'edit_url' => route('client.edit', $client->id)
                         ]);
                     })
@@ -140,7 +141,23 @@ class ClientController extends BackendController
     {
         $delete = Client::findOrFail($id);
         $delete->delete();
-        $this->notification('success', 'Berhasil', 'Berhasil Diahapus ' . $delete->nama_client);
-        return redirect()->route('client.index');
+        if ($delete) {
+            return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+        }
+        return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+    }
+
+    public function ajaxDestroy(Request $request)
+    {
+        if ($request->ajax()) {
+            $input = $request->all();
+            dd($input);
+            $delete = Client::findOrFail($input['idx']);
+            $delete->delete();
+            if ($delete) {
+                return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+            }
+            return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+        }
     }
 }

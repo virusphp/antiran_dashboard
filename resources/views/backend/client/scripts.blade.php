@@ -1,4 +1,26 @@
 <script type="text/javascript">
+$(function() {
+    // Config Constanta Toast
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      showConfirmButton: false,
+      timer: 3000,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    }); 
+
+    // Config Constanta Swal
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger'
+      },
+      buttonsStyling: false
+    });
+
     $(document).ready(function() {
         ajaxLoad();
     })
@@ -12,6 +34,45 @@
     $(document).on('change','#term', function() {
         ajaxLoad();
     })
+
+    $(document).on('click', '#delete-client', function() {
+        var id = $(this).data('idx'),
+            nama_client = $(this).data('nama');
+            console.log(id,nama_client)
+
+        swalWithBootstrapButtons.fire({
+          title:  'Anda yakin akan menghapus data??',
+          text:   "Data: "+nama_client,
+          icon:   'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Ya, Posting!',
+          cancelButtonText: 'No, Batalkan!',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.value) {
+            ajaxDestroy(id);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data Unit terpilih batal di hapus:)', 'error')
+          }
+        })
+    })
+
+    function ajaxDestroy(idx1) {
+        var url = '/admin/ajax/client/destroy',
+            method = 'DELETE';
+
+        $.ajax({
+            url: url,
+            method: method,
+            data: {idx:idx},
+            success: function(res) {
+                // Pertnayaantkang t
+                swalWithBootstrapButtons.fire( 'Lapor!', res.message, res.result);
+                $('#tabel-client').dataTable().ajax().realod()
+            },
+            error: function(xhr){}
+        });
+    }
 
     function ajaxLoad() {
         var term = $('#term').val();
@@ -55,4 +116,6 @@
             $('.table').removeAttr('style');
         });
     }
+});
+// Tutup function anonymus
 </script>

@@ -25,4 +25,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::resource('/pegawai', 'PegawaiController');
     Route::resource('/client', 'ClientController');
     Route::get('/ajax/client', 'ClientController@indexAjax');
+    Route::delete('/ajax/client/destroy', 'ClientController@ajaxDestroy');
 });
