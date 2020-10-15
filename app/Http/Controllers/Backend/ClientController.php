@@ -22,7 +22,8 @@ class ClientController extends BackendController
     {
         if ($request->ajax()) {
             // next masuk repository change to QUERY BUILDER
-            $client = Client::where(function ($query) use ($request) {
+            $client = Client::select('id','kode_client','nama_client','alamat_client','no_telepon','npwp_client')
+            ->where(function ($query) use ($request) {
                 if ($term = $request->get('term')) {
                     $keywords = '%' . $term . '%';
                     $query->where('nama_client', 'like', $keywords);

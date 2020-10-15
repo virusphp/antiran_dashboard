@@ -45,14 +45,14 @@ $(function() {
           text:   "Data: "+nama_client,
           icon:   'warning',
           showCancelButton: true,
-          confirmButtonText: 'Ya, Posting!',
-          cancelButtonText: 'No, Batalkan!',
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'No',
           reverseButtons: true
         }).then((result) => {
           if (result.value) {
             ajaxDestroy(id);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data Unit terpilih batal di hapus:)', 'error')
+            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data client terpilih batal di hapus:)', 'error')
           }
         })
     })
@@ -101,11 +101,11 @@ $(function() {
             },
             "columns": [
                 {"mData": "DT_RowIndex"},
-                {"mData": "nik_client"},
+                {"mData": "kode_client"},
                 {"mData": "nama_client"},
                 {"mData": "alamat_client"},
-                {"mData": "jenis_kelamin"},
                 {"mData": "no_telepon"},
+                {"mData": "npwp_client"},
                 {"mData": "action"},
             ],
         })

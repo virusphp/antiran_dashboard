@@ -6,11 +6,11 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>Nik Client</th>
-            <th>Nama Client</th>
-            <th>Alamat Client</th>
-            <th>Kelamin</th>
-            <th>No Telpon</th>
+            <th>NIK CLIENT</th>
+            <th>NAMA CLIENT</th>
+            <th>ALAMAT CLIENT</th>
+            <th>NO TELEPON</th>
+            <th>NO WPWP</th>
             <th class="text-right">Aksi</th>
         </tr>
     </thead>
