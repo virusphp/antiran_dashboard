@@ -78,13 +78,14 @@
     <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script type="text/javascript">
+        // function helper uppercase to text and textarea
+        $(document).on('keyup', 'input[type=text], textarea', function() {
+            $(this).val($(this).val().toUpperCase());
+        })
+
         $('input[name=npwp_client').keyup(function() {
             $(this).val(formatNpwp($(this).val()));
         }) 
-
-        $('input[type=text]').keyup(function() {
-            $(this).val($(this).val().toUpperCase());
-        });
 
         // function helper can move to helper js
         function formatNpwp(value) {

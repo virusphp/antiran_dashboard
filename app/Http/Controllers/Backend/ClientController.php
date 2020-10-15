@@ -151,7 +151,6 @@ class ClientController extends BackendController
     {
         if ($request->ajax()) {
             $input = $request->all();
-            dd($input);
             $delete = Client::findOrFail($input['idx']);
             $delete->delete();
             if ($delete) {

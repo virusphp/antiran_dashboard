@@ -57,7 +57,7 @@ $(function() {
         })
     })
 
-    function ajaxDestroy(idx1) {
+    function ajaxDestroy(idx) {
         var url = '/admin/ajax/client/destroy',
             method = 'DELETE';
 
@@ -66,9 +66,9 @@ $(function() {
             method: method,
             data: {idx:idx},
             success: function(res) {
-                // Pertnayaantkang t
-                swalWithBootstrapButtons.fire( 'Lapor!', res.message, res.result);
-                $('#tabel-client').dataTable().ajax().realod()
+                // Pertnayaantkang 
+                swalWithBootstrapButtons.fire('Lapor!', res.message, "nama : ".res.result.nama_client);
+                $('#tabel-client').DataTable().ajax.reload();
             },
             error: function(xhr){}
         });
