@@ -16,7 +16,7 @@
     <meta name="author" content="MegonoDev">
     <link href="{{ asset('img/icon.png') }}" rel="icon">
     <link href="{{ asset('img/icon.png') }}" rel="apple-touch-icon">
-    <title>@yield('title') | EONESIA.ID</title>
+    <title>@yield('title') | {{ config('app.name') }} </title>
     <!-- Main styles for this application-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('coreui/css/style.css') }}" rel="stylesheet">
