@@ -20,7 +20,7 @@
     <link href="{{ asset('img/icon.png') }}" rel="icon">
     <link href="{{ asset('img/icon.png') }}" rel="apple-touch-icon">
     <meta name="author" content="MegonoDev">
-    <title>@yield('title') | EONESIA</title>
+    <title>@yield('title') | {{ config('app.name') }} </title>
     <!-- <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png"> -->
 
     <!-- Main styles for this application-->

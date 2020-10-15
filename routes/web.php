@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/pegawai', 'PegawaiController');
     Route::resource('/client', 'ClientController');
+    Route::resource('/pekerjaan', 'PekerjaanController');
     Route::get('/ajax/client', 'ClientController@indexAjax');
     Route::delete('/ajax/client/destroy', 'ClientController@ajaxDestroy');
 });
