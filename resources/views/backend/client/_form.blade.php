@@ -19,7 +19,7 @@
     </div>
     <div class="col-md-6">
         <label for="tanggal_lahir">TANGGAL LAHIR</label>
-        {!! Form::date('tanggal_lahir', "dd/MM/yyyy", array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
+        {!! Form::date('tanggal_lahir', isset($dataClient) ? $dataClient->tanggal_lahir : "dd/MM/yyyy", array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
         <span class="help-block">Isi tanggal lahir dengan Benar</span>
     </div>
 </div>

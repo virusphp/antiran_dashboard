@@ -127,6 +127,7 @@ class ClientController extends BackendController
             throw new Exception('Gagal Mengubah client ' . $request->nama_client);
         } catch (Exception $e) {
             $this->notification('error', 'Gagal', 'Terjadi kesalahan ' . $e->getMessage());
+            dd($e->getMessage());
             return redirect()->route('client.index');
         }
     }
