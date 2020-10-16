@@ -3,18 +3,47 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\ProsesPekerjaan;
 use Illuminate\Http\Request;
 
-class ProsesPekerjaanController extends Controller
+class ProsesPekerjaanController extends BackendController
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $bcrum = $this->bcrum("Proses Pekerjaan");
+        return view('backend.proses.index', compact('bcrum'));
+    }
+
+    public function indexAjax(Request $request)
+    {
+        if ($request->ajax()) {
+            // next masuk repository change to QUERY BUILDER
+            $proses = ProsesPekerjaan::where(function ($query) use ($request) {
+                if ($term = $request->get('term')) {
+                    $keywords = '%' . $term . '%';
+                    $query->where('nama_proses', 'like', $keywords);
+                }
+            })->latest();
+            return DataTables::of($proses)
+                ->setRowId('idx')
+                ->addIndexColumn()
+                ->editColumn('status_proses', function ($proses) {
+                    return statusPekerjaan($proses->status_proses);
+                })
+                ->addColumn('action', function ($proses) {
+                    return view('datatables._action-client', [
+                        'idx' => $proses->id,
+                        'nama_proses' => $proses->nama_proses,
+                        'edit_url' => route('proses.edit', $proses->id)
+                    ]);
+                })
+                ->make(true);
+        }
     }
 
     /**

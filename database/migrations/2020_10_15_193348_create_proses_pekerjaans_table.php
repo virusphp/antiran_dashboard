@@ -30,6 +30,6 @@ class CreateProsesPekerjaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proses_pekerjaans');
+        Schema::dropIfExists('proses_pekerjaan');
     }
 }
