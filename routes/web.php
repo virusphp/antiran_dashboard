@@ -10,6 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+use App\Http\Controllers\Backend\ClientController;
+
 Route::get('/', function () {
     return redirect('/admin/home');
 });
@@ -24,6 +27,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/pegawai', 'PegawaiController');
     Route::resource('/proses', 'ProsesPekerjaanController');
+    Route::get('/ajax/proses', 'ProsesPekerjaanController@indexAjax');
     Route::resource('/client', 'ClientController');
     Route::get('/ajax/client', 'ClientController@indexAjax');
     Route::delete('/ajax/client/destroy', 'ClientController@ajaxDestroy');

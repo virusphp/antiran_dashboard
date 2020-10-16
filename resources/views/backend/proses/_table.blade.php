@@ -9,7 +9,6 @@
             <th>Nama Proses</th>
             <th>Waktu Proses</th>
             <th>Status Proses</th>
-
             <th class="text-right">Aksi</th>
         </tr>
     </thead>

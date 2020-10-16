@@ -58,7 +58,7 @@ $(function() {
     })
 
     function ajaxDestroy(idx) {
-        var url = '/admin/ajax/client/destroy',
+        var url = '/admin/ajax/proses/destroy',
             method = 'DELETE';
 
         $.ajax({
