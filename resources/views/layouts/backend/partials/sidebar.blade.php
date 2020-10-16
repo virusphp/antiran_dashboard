@@ -26,6 +26,12 @@
         </li>
 
         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('divisi.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Divisi
+            </a>
+        </li>
+
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="#">
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Jenis Pekerjaan
             </a>

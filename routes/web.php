@@ -34,4 +34,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
 
     //divisi
     Route::resource('/divisi', 'DivisiController');
+    Route::get('/ajax/divisi', 'DivisiController@indexAjax');
 });
