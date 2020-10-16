@@ -17,9 +17,7 @@ class PekerjaanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        
-    }
+    { }
 
     /**
      * Show the form for creating a new resource.
@@ -29,7 +27,7 @@ class PekerjaanController extends Controller
     public function create()
     {
         $bcrum = $this->bcrum('Jenis Pekerjaan');
-        return view('backend.pekerjaan.create',compact('bcrum'));
+        return view('backend.pekerjaan.create', compact('bcrum'));
     }
 
     /**
@@ -40,15 +38,16 @@ class PekerjaanController extends Controller
      */
     public function store(PekerjaanRequest $request)
     {
-        $data = $request->all();
         try {
+            $data = $request->all();
             $newPekerjaan = Pekerjaan::create($data);
-            if($newPekerjaan) {
-                $this->notification('success','Perhatian!','Pekerjaan berhasil dibuat!');
+            if ($newPekerjaan) {
+                $this->notification('success', 'Perhatian!', 'Pekerjaan berhasil dibuat!');
                 return redirect()->route('pekerjaan.index');
             }
+            throw new Exception('Gagal menyimpan pekerjaan dengan nama ' . $request->nama_pekerjaan, 1);
         } catch (Exception $e) {
-            $this->notification('error','Peringatan!',$e->getMessage());
+            $this->notification('error', 'Peringatan!', $e->getMessage());
             return redirect()->back();
         }
     }
@@ -72,7 +71,10 @@ class PekerjaanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $bcrum = $this->bcrum('edit', route('pekerjaan.index'), 'Data Pekerjaan');
+        $dataPekerjaan = Pekerjaan::find($id);
+
+        return view('backend.pekerjaan.edit', compact('bcrum', 'dataPekerjaan'));
     }
 
     /**
@@ -82,9 +84,23 @@ class PekerjaanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PekerjaanRequest $request, $id)
     {
-        //
+        try {
+            $data = $request->all();
+            $dataPekerjaan = Pekerjaan::find($id);
+            $updatePekerjaan = $dataPekerjaan->update($data);
+
+            if ($updatePekerjaan) {
+                $this->notification('success', 'Perhatian!', 'Pekerjaan ' . $request->nama_pekerjaan . ' berhasil diubah!');
+                return redirect()->route('pekerjaan.index');
+            }
+            throw new Exception('Gagal mengubah pekerjaan dengan nama ' . $request->nama_pekerjaan, 1);
+        } catch (Exception $e) {
+
+            $this->notification('error', 'Peringatan!', $e->getMessage());
+            return redirect()->back();
+        }
     }
 
     /**
