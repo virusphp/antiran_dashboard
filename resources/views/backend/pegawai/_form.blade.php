@@ -1,8 +1,8 @@
 <div class="form-group row">
     <div class="col-md-12">
-        <label for="nama_divisi">NAMA DIVISI</label>
-        {!! Form::text('nama_divisi', null, array('placeholder' => 'NAMA DIVISI', 'tabindex' => '1', 'class' => 'form-control '.($errors->has('nama_client') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('nama_divisi', '<span class="invalid-feedback">:message</span>') !!}
+        <label for="nama_pegawai">NAMA PEGAWAI</label>
+        {!! Form::text('nama_pegawai', null, array('placeholder' => 'NAMA PEGAWAI', 'tabindex' => '1', 'class' => 'form-control '.($errors->has('nama_client') ? 'is-invalid' : '') ))!!}
+        {!! $errors->first('nama_pegawai', '<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
 
@@ -16,13 +16,13 @@
     <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
 
     <script type="text/javascript">
-        $('input[name=nama_divisi]').focus();
+        $('input[name=nama_pegawai]').focus();
         // function helper uppercase to text and textarea
         $(document).on('keyup', 'input[type=text], textarea', function() {
             $(this).val($(this).val().toUpperCase());
         })
 
-        $('input[name=npwp_divisi').keyup(function() {
+        $('input[name=npwp_pegawai').keyup(function() {
             $(this).val(formatNpwp($(this).val()));
         }) 
 
