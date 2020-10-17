@@ -15,8 +15,8 @@ $(function() {
     // Config Constanta Swal
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn btn-success mx-4',
+        cancelButton: 'btn btn-danger mx-4'
       },
       buttonsStyling: false
     });
