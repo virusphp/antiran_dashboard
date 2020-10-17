@@ -40,6 +40,9 @@ class PekerjaanController extends Controller
             return DataTables::of($pekerjaan)
                 ->setRowId('idx')
                 ->addIndexColumn()
+                ->editColumn('insentif_pekerjaan', function($pekerjaan){
+                    return rupiah($pekerjaan->insentif_pekerjaan);
+                })
                 ->addColumn('action', function ($pekerjaan) {
                     return view('datatables._action-pekerjaan', [
                         'idx' => $pekerjaan->id,
