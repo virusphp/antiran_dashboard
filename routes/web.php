@@ -26,6 +26,8 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     // Master
     Route::resource('/pegawai', 'PegawaiController');
     Route::resource('/pekerjaan', 'PekerjaanController');
+    Route::get('/ajax/pekerjaan', 'PekerjaanController@indexAjax');
+    Route::delete('/ajax/pekerjaan/destroy', 'PekerjaanController@ajaxDestroy');
 
     // CLient
     Route::resource('/client', 'ClientController');

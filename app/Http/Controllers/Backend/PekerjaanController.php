@@ -8,16 +8,49 @@ use App\Models\Pekerjaan;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Repository\Pekerjaan\Pekerjaan as PekerjaanRepo;
+use Yajra\DataTables\Facades\DataTables;
 
 class PekerjaanController extends Controller
 {
+    protected $pekerjaan;
+
+    public function __construct()
+    {
+        $this->pekerjaan = new PekerjaanRepo;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { }
+    {
+        $bcrum = $this->bcrum('Pekerjaan');
+
+        return view('backend.pekerjaan.index', compact('bcrum'));
+    }
+
+    public function indexAjax(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $pekerjaan = $this->pekerjaan->getPekerjaan();
+
+            return DataTables::of($pekerjaan)
+                ->setRowId('idx')
+                ->addIndexColumn()
+                ->addColumn('action', function ($pekerjaan) {
+                    return view('datatables._action-pekerjaan', [
+                        'idx' => $pekerjaan->id,
+                        'nama_pekerjaan' => $pekerjaan->nama_pekerjaan,
+                        'edit_url' => route('pekerjaan.edit', $pekerjaan->id)
+                    ]);
+                })
+                ->make(true);
+        }
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -112,5 +145,18 @@ class PekerjaanController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function ajaxDestroy(Request $request)
+    {
+        if ($request->ajax()) {
+            $input = $request->all();
+            $delete = Pekerjaan::findOrFail($input['idx']);
+            $delete->delete();
+            if ($delete) {
+                return response()->jsonSuccess(200, "Sukses Menghapus Pekerjaan", ['nama_pekerjaan' => $delete->nama_pekerjaan]);
+            }
+            return response()->jsonSuccess(201, "Gagal Menghapus Pekerjaan", ['nama_pekerjaan' => $delete->nama_pekerjaan]);
+        }
     }
 }
