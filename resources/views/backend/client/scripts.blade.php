@@ -67,7 +67,7 @@ $(function() {
             data: {idx:idx},
             success: function(res) {
                 // Pertnayaantkang 
-                swalWithBootstrapButtons.fire('Lapor!', res.message, "nama : ".res.result.nama_client);
+                swalWithBootstrapButtons.fire('Lapor!', res.message,"success");
                 $('#tabel-client').DataTable().ajax.reload();
             },
             error: function(xhr){}
