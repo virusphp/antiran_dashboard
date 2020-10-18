@@ -35,7 +35,7 @@ $(function() {
         ajaxLoad();
     })
 
-    $(document).on('click', '#delete-user', function() {
+    $(document).on('click', '#delete-role', function() {
         var id = $(this).data('idx'),
             name = $(this).data('name');
 
@@ -57,7 +57,7 @@ $(function() {
     })
 
     function ajaxDestroy(idx) {
-        var url = '/admin/ajax/users/destroy',
+        var url = '/admin/ajax/roles/destroy',
             method = 'DELETE';
 
         $.ajax({
@@ -67,7 +67,7 @@ $(function() {
             success: function(res) {
                 console.log(res.result);
                 swalWithBootstrapButtons.fire('Lapor!', res.message,'success');
-                $('#tabel-users').DataTable().ajax.reload();
+                $('#tabel-roles').DataTable().ajax.reload();
             },
             error: function(xhr){}
         });
@@ -76,7 +76,7 @@ $(function() {
     function ajaxLoad() {
         var term = $('#term').val();
 
-       $('#tabel-users').dataTable({
+       $('#tabel-roles').dataTable({
             "autoWidth": false,
             "Processing": true,
             "ServerSide": true,
@@ -92,7 +92,7 @@ $(function() {
                 "sLoadingRecords": '<img src="{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
-                "url" : "/admin/ajax/users",
+                "url" : "/admin/ajax/roles",
                 "type": "GET",
                 "data": {
                     "term" : term
@@ -101,13 +101,10 @@ $(function() {
             "columns": [
                 {"mData": "DT_RowIndex"},
                 {"mData": "name"},
-                {"mData": "username"},
-                {"mData": "email"},
-                {"mData": "roles"},
                 {"mData": "action"},
             ],
         })
-        oTable = $('#tabel-users').DataTable();
+        oTable = $('#tabel-roles').DataTable();
 
         $('#term').keyup(function(){
         oTable.search($(this).val()).draw() ;

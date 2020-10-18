@@ -48,4 +48,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/users', 'UserController@indexAjax');
     Route::delete('/ajax/users/destroy', 'UserController@ajaxDestroy');
 
+    //role
+    Route::resource('/roles','RoleController');
+    Route::get('/ajax/roles', 'RoleController@indexAjax');
+    Route::get('roles/check/{id}','RoleController@check')->name('roles.check');
+    Route::delete('/ajax/roles/destroy', 'RoleController@ajaxDestroy');
 });

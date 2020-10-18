@@ -57,9 +57,11 @@
         <li class="c-sidebar-nav-item c-sidebar-nav-dropdown"><a class="c-sidebar-nav-dropdown-toggle" href="#">
                 <i class="c-sidebar-nav-icon c-icon cil-star"></i> Users and Roles</a>
             <ul class="c-sidebar-nav-dropdown-items">
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="" target="_top">
+                @can('read-role')
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('roles.index') }}">
                         <i class="c-sidebar-nav-icon c-icon cil-settings"> </i>Manage Roles</a>
                 </li>
+                @endcan
                 @can('read-user')
                 <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('users.index') }}">
                         <i class="c-sidebar-nav-icon c-icon cil-user"> </i>Manage User</a>
