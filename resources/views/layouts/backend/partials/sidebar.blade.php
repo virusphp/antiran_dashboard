@@ -43,12 +43,6 @@
             </a>
         </li>
 
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="#">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Jenis Pekerjaan
-            </a>
-        </li>
-
         <li class="c-sidebar-nav-title">
             Registrasi Client
         </li>
@@ -57,7 +51,6 @@
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Registrasi Client
             </a>
         </li>
-
 
         <li class="c-sidebar-nav-divider"></li>
 
