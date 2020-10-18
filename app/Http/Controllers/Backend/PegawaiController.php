@@ -35,6 +35,9 @@ class PegawaiController extends BackendController
             return DataTables::of($pegawai)
                     ->setRowId('idx')
                     ->addIndexColumn()
+                    ->editColumn('divisi_id', function($pegawai){
+                        return $pegawai->divisi->nama_divisi;
+                    })
                     ->addColumn('action', function($pegawai) {
                         return view('datatables._action-pegawai', [
                             'idx' => $pegawai->id,

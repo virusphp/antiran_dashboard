@@ -12,6 +12,11 @@ class Pegawai extends Model
     protected $table = "pegawai";
     protected $fillable = ['kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin','divisi_id'];
 
+    public function divisi()
+    {
+        return $this->belongsTo(Divisi::class, "divisi_id");
+    }
+
     public function getAutoNumberOptions()
     {
         return [

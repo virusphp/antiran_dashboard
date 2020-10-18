@@ -12,7 +12,12 @@ class Divisi extends Model
     protected $fillable = ['kode_divisi','nama_divisi'];
     protected $table = 'divisi';
 
-     public function getAutoNumberOptions()
+    public function pegawai()
+    {
+        return $this->hasMany(Pegawai::class, "divisi_id");
+    }
+
+    public function getAutoNumberOptions()
     {
         return [
             'kode_divisi' => [
