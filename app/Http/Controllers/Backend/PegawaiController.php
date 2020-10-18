@@ -38,6 +38,9 @@ class PegawaiController extends BackendController
                     ->editColumn('divisi_id', function($pegawai){
                         return $pegawai->divisi->nama_divisi;
                     })
+                    ->editColumn('tanggal_lahir', function($pegawai){
+                        return tanggalLahir($pegawai->tanggal_lahir);
+                    })
                     ->editColumn('jenis_kelamin', function($pegawai){
                         return jenisKelamin($pegawai->jenis_kelamin);
                     })
@@ -107,7 +110,11 @@ class PegawaiController extends BackendController
      */
     public function edit($id)
     {
-        //
+        $bcrum = $this->bcrum('Edit', route('pegawai.index'), 'Pegawai');
+
+        $dataPegawai = Pegawai::find($id);
+        $divisi = Divisi::pluck('nama_divisi','id');
+        return view('backend.pegawai.edit', compact('bcrum','divisi','dataPegawai'));
     }
 
     /**
@@ -119,7 +126,19 @@ class PegawaiController extends BackendController
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $input = $request->all();
+            $pegawai = Pegawai::find($id);
+            $updatePegawai = $pegawai->update($input);
+            if ($updatePegawai) {
+                $this->notification('success', 'Berhasil', 'Berhasil Ubah ' . $request->nama_pegawai);
+                return redirect()->route('pegawai.index');
+            }
+            throw new Exception('Gagal Mengubah divisi ' . $request->nama_pegawai);
+        } catch (Exception $e) {
+            $this->notification('error', 'Gagal', 'Terjadi kesalahan ' . $e->getMessage());
+            return redirect()->route('pegawai.index');
+        }
     }
 
     /**
