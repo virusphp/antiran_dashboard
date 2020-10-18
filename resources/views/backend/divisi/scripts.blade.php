@@ -67,7 +67,8 @@ $(function() {
             data: {idx:idx},
             success: function(res) {
                 // Pertnayaantkang 
-                swalWithBootstrapButtons.fire('Lapor!', res.message, "nama : ".res.result.nama_divisi);
+                console.log(res, res.result.nama_divisi)
+                swalWithBootstrapButtons.fire('Lapor!', res.message + '\nnama : '+res.result.nama_divisi, 'success');
                 $('#tabel-divisi').DataTable().ajax.reload();
             },
             error: function(xhr){}

@@ -15,8 +15,8 @@ $(function() {
     // Config Constanta Swal
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success mx-4',
-        cancelButton: 'btn btn-danger mx-4'
+        confirmButton: 'btn btn-success mx-3',
+        cancelButton: 'btn btn-danger mx-3'
       },
       buttonsStyling: false
     });
@@ -67,7 +67,7 @@ $(function() {
             data: {idx:idx},
             success: function(res) {
                 // Pertnayaantkang 
-                swalWithBootstrapButtons.fire('Lapor!', res.message,"success");
+                swalWithBootstrapButtons.fire('Lapor!', res.message+' nama : '+res.result.nama_client,'success');
                 $('#tabel-client').DataTable().ajax.reload();
             },
             error: function(xhr){}

@@ -20,13 +20,14 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/admin/logout', 'LoginController@logout')->name('logout');
 });
 
-Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
 
     // Master
     //pegawai
     Route::resource('/pegawai', 'PegawaiController');
     Route::get('/ajax/pegawai', 'PegawaiController@indexAjax');
+    Route::delete('/ajax/pegawai/destroy', 'PegawaiController@ajaxDestroy');
 
     Route::resource('/pekerjaan', 'PekerjaanController');
     Route::get('/ajax/pekerjaan', 'PekerjaanController@indexAjax');
@@ -40,6 +41,7 @@ Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'adm
     //divisi
     Route::resource('/divisi', 'DivisiController');
     Route::get('/ajax/divisi', 'DivisiController@indexAjax');
+    Route::delete('/ajax/divisi/destroy', 'DivisiController@ajaxDestroy');
 
     //user
     Route::resource('/users','UserController');
