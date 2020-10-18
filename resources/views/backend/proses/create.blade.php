@@ -15,7 +15,7 @@ Tambah Proses Pekerjaan
                         <h4>Tambah Proses Pekerjaan</h4>
                         <a class="d-flex align-items-center btn btn-primary" href="{{ route('proses.index') }}">Kembali</a>
                     </div>
-                   {!! Form::open(array('route' => 'proses.store','method'=>'POST')) !!}
+                   {!! Form::open(['route' => 'proses.store','method'=>'POST']) !!}
                     <div class="card-body">
                         @include('backend.proses._form', [ 'url' =>route('proses.store'), 'method' => 'POST'])
                     </div>

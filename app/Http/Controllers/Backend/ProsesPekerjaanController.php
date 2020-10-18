@@ -67,7 +67,18 @@ class ProsesPekerjaanController extends BackendController
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $input = $request->all();
+            $simpan = ProsesPekerjaan::create($input);
+            if ($simpan) {
+                $this->notification("success", "informasi", $simpan->nama_proses . " Berhasil disimpan");
+                return redirect()->route('proses.index');
+            }
+            throw new Exception($input->nama_proses . " Gagal disimpan!");
+        } catch (Exception $ex) {
+            $this->notification("error", "Gagal", "Terjadi Kesalahan " . $ex->getMessage());
+            return redirect()->route("proses.index");
+        }
     }
 
     /**
