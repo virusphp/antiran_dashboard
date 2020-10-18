@@ -107,7 +107,7 @@ $(function() {
                 {"mData": "action"}
             ],
         })
-        oTable = $('#tabel-proses').DataTable();
+        oTable = $('#tabel-p roses').DataTable();
 
         $('#term').keyup(function(){
         oTable.search($(this).val()).draw() ;

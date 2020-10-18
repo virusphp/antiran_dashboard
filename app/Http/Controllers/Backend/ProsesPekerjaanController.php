@@ -55,7 +55,8 @@ class ProsesPekerjaanController extends BackendController
      */
     public function create()
     {
-        //
+        $bcrum = $this->bcrum('Create', route('proses.index'), 'Proses Pekerjaan');
+        return view('backend.proses.create', compact('bcrum'));
     }
 
     /**
