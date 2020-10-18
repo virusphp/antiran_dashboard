@@ -7,5 +7,5 @@ function jenisKelamin($nilai)
 
 function statusPekerjaan($nilai)
 {
-    return $nilai === 1 ? "Semua Pekerjaan" : "Status milik BPN";
+    return $nilai === 0 ? "Semua Pekerjaan" : "Status milik BPN";
 }

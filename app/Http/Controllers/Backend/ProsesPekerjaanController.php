@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\ProsesPekerjaan;
 use Illuminate\Http\Request;
+use Exception;
+use DataTables;
 
 class ProsesPekerjaanController extends BackendController
 {
@@ -36,7 +38,7 @@ class ProsesPekerjaanController extends BackendController
                     return statusPekerjaan($proses->status_proses);
                 })
                 ->addColumn('action', function ($proses) {
-                    return view('datatables._action-client', [
+                    return view('datatables._action-proses', [
                         'idx' => $proses->id,
                         'nama_proses' => $proses->nama_proses,
                         'edit_url' => route('proses.edit', $proses->id)
