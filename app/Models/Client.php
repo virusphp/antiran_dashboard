@@ -19,7 +19,7 @@ class Client extends Model
     {
         return [
             'kode_client' => [
-                'format' => 'P'.date('Ymd').'?', // Format kode yang akan digunakan.
+                'format' => 'C'.date('Ymd').'?', // Format kode yang akan digunakan.
                 'length' => 4 // Jumlah digit yang akan digunakan sebagai nomor urut
             ]
         ];

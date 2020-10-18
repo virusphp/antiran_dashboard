@@ -20,8 +20,8 @@ Tambah Pegawai
                         @include('backend.pegawai._form', [ 'url' =>route('pegawai.store'), 'method' => 'POST'])
                     </div>
                     <div class="card-footer d-flex justify-content-end">
-                        <button type="reset" class="btn btn-outline-danger btn-sm mx-2">Reset Form</button>
-                        <button type="submit" class="btn btn-primary btn-sm" >Simpan</button>
+                        <button tabindex="1" type="reset" class="btn btn-outline-danger btn-sm mx-2">Reset Form</button>
+                        <button tabindex="1" type="submit" class="btn btn-primary btn-sm" >Simpan</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
