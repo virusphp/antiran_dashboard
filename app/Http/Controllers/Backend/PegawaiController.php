@@ -38,6 +38,9 @@ class PegawaiController extends BackendController
                     ->editColumn('divisi_id', function($pegawai){
                         return $pegawai->divisi->nama_divisi;
                     })
+                    ->editColumn('jenis_kelamin', function($pegawai){
+                        return jenisKelamin($pegawai->jenis_kelamin);
+                    })
                     ->addColumn('action', function($pegawai) {
                         return view('datatables._action-pegawai', [
                             'idx' => $pegawai->id,
