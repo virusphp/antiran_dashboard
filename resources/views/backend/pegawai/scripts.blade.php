@@ -35,14 +35,14 @@ $(function() {
         ajaxLoad();
     })
 
-    $(document).on('click', '#delete-divisi', function() {
+    $(document).on('click', '#delete-pegawai', function() {
         var id = $(this).data('idx'),
-            nama_divisi = $(this).data('nama');
-            console.log(id,nama_divisi)
+            nama_pegawai = $(this).data('nama');
+            console.log(id,nama_pegawai)
 
         swalWithBootstrapButtons.fire({
           title:  'Anda yakin akan menghapus data??',
-          text:   "Data: "+nama_divisi,
+          text:   "Data: "+nama_pegawai,
           icon:   'warning',
           showCancelButton: true,
           confirmButtonText: 'Ya',
@@ -52,13 +52,13 @@ $(function() {
           if (result.value) {
             ajaxDestroy(id);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data divisi terpilih batal di hapus:)', 'error')
+            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data pegawai terpilih batal di hapus:)', 'error')
           }
         })
     })
 
     function ajaxDestroy(idx) {
-        var url = '/admin/ajax/divisi/destroy',
+        var url = '/admin/ajax/pegawai/destroy',
             method = 'DELETE';
 
         $.ajax({
@@ -67,8 +67,8 @@ $(function() {
             data: {idx:idx},
             success: function(res) {
                 // Pertnayaantkang 
-                swalWithBootstrapButtons.fire('Lapor!', res.message, "nama : ".res.result.nama_divisi);
-                $('#tabel-divisi').DataTable().ajax.reload();
+                swalWithBootstrapButtons.fire('Lapor!', res.message, "nama : ".res.result.nama_pegawai);
+                $('#tabel-pegawai').DataTable().ajax.reload();
             },
             error: function(xhr){}
         });
@@ -77,7 +77,7 @@ $(function() {
     function ajaxLoad() {
         var term = $('#term').val();
 
-       $('#tabel-divisi').dataTable({
+       $('#tabel-pegawai').dataTable({
             "autoWidth": false,
             "Processing": true,
             "ServerSide": true,
@@ -93,7 +93,7 @@ $(function() {
                 "sLoadingRecords": '<img src="{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
-                "url" : "/admin/ajax/divisi",
+                "url" : "/admin/ajax/pegawai",
                 "type": "GET",
                 "data": {
                     "term" : term
@@ -101,12 +101,16 @@ $(function() {
             },
             "columns": [
                 {"mData": "DT_RowIndex"},
-                {"mData": "kode_divisi"},
-                {"mData": "nama_divisi"},
+                {"mData": "kode_pegawai"},
+                {"mData": "nama_pegawai"},
+                {"mData": "tempat_lahir"},
+                {"mData": "tanggal_lahir"},
+                {"mData": "jenis_kelamin"},
+                {"mData": "divisi_id"},
                 {"mData": "action"},
             ],
         })
-        oTable = $('#tabel-divisi').DataTable();
+        oTable = $('#tabel-pegawai').DataTable();
 
         $('#term').keyup(function(){
         oTable.search($(this).val()).draw() ;

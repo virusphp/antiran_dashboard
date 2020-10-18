@@ -24,7 +24,7 @@ class PegawaiController extends BackendController
     {
         if ($request->ajax()) {
             // next masuk repository change to QUERY BUILDER
-            $pegawai = Pegawai::select('id','kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin')
+            $pegawai = Pegawai::select('id','kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin', 'divisi_id')
             ->where(function ($query) use ($request) {
                 if ($term = $request->get('term')) {
                     $keywords = '%' . $term . '%';
