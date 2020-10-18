@@ -156,9 +156,9 @@ class ClientController extends BackendController
             $delete = Client::findOrFail($input['idx']);
             $delete->delete();
             if ($delete) {
-                return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+                return response()->jsonSuccess(200, "Sukses Menghapus data", ['nama_client' => $delete->nama_client]);
             }
-            return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+            return response()->jsonSuccess(201, "Gagal Menghapus data", ['nama_client' => $delete->nama_client]);
         }
     }
 }

@@ -149,6 +149,19 @@ class PegawaiController extends BackendController
      */
     public function destroy($id)
     {
-        //
+        
+    }
+
+    public function ajaxDestroy(Request $request)
+    {
+        if ($request->ajax()) {
+            $input = $request->all();
+            $delete = Pegawai::findOrFail($input['idx']);
+            $delete->delete();
+            if ($delete) {
+                return response()->jsonSuccess(200, "Sukses Menghapus Data", ['nama_pegawai' => $delete->nama_pegawai]);
+            }
+            return response()->jsonSuccess(201, "Gagal Menghapus Data", ['nama_divisi' => $delete->nama_pegawai]);
+        }
     }
 }

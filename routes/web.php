@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     //pegawai
     Route::resource('/pegawai', 'PegawaiController');
     Route::get('/ajax/pegawai', 'PegawaiController@indexAjax');
+    Route::delete('/ajax/pegawai/destroy', 'PegawaiController@ajaxDestroy');
 
     Route::resource('/pekerjaan', 'PekerjaanController');
     Route::get('/ajax/pekerjaan', 'PekerjaanController@indexAjax');
@@ -40,4 +41,5 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     //divisi
     Route::resource('/divisi', 'DivisiController');
     Route::get('/ajax/divisi', 'DivisiController@indexAjax');
+    Route::delete('/ajax/divisi/destroy', 'DivisiController@ajaxDestroy');
 });

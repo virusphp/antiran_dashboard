@@ -150,9 +150,9 @@ class DivisiController extends BackendController
             $delete = Divisi::findOrFail($input['idx']);
             $delete->delete();
             if ($delete) {
-                return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_divisi' => $delete->nama_divisi]);
+                return response()->jsonSuccess(200, "Sukses Menghapus data", ['nama_divisi' => $delete->nama_divisi]);
             }
-            return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_divisi' => $delete->nama_divisi]);
+            return response()->jsonSuccess(201, "Gagal Menghapus data", ['nama_divisi' => $delete->nama_divisi]);
         }
     }
 }
