@@ -20,7 +20,7 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('/admin/logout', 'LoginController@logout')->name('logout');
 });
 
-Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
+Route::group(['middleware' => 'auth', 'namespace' => 'Backend', 'prefix' => 'admin'], function() {
     Route::get('/home', 'HomeController@index')->name('home');
 
     // Master
@@ -40,4 +40,10 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'admin'], function() {
     //divisi
     Route::resource('/divisi', 'DivisiController');
     Route::get('/ajax/divisi', 'DivisiController@indexAjax');
+
+    //user
+    Route::resource('/users','UserController');
+    Route::get('/ajax/users', 'UserController@indexAjax');
+    Route::delete('/ajax/users/destroy', 'UserController@ajaxDestroy');
+
 });

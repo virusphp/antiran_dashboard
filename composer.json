@@ -10,11 +10,14 @@
     "require": {
         "php": "^7.2",
         "alfa6661/laravel-autonumber": "^1.2",
+        "doctrine/dbal": "^2.11",
         "fideloper/proxy": "^4.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.2",
+        "spatie/laravel-permission": "^3.17",
+        "webpatser/laravel-uuid": "3.0",
         "yajra/laravel-datatables": "^1.5"
     },
     "require-dev": {

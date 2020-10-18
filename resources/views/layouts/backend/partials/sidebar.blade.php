@@ -60,9 +60,11 @@
                 <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="" target="_top">
                         <i class="c-sidebar-nav-icon c-icon cil-settings"> </i>Manage Roles</a>
                 </li>
-                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="" target="_top">
+                @can('read-user')
+                <li class="c-sidebar-nav-item"><a class="c-sidebar-nav-link" href="{{ route('users.index') }}">
                         <i class="c-sidebar-nav-icon c-icon cil-user"> </i>Manage User</a>
                 </li>
+                @endcan
             </ul>
         </li>
     </ul>

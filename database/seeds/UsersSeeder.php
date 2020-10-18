@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;;
@@ -15,12 +16,11 @@ class UsersSeeder extends Seeder
     public function run()
     {
         
-        DB::table('users')->insert([
+        User::create([
             'name' => 'sugandi',
-            'username' => 'virusphp',
+            'username' => 'superadmin',
             'email' => 'virusphp@gmail.com',
-            'password' => Hash::make('password.'),
-            'created_at' => Carbon::Now()
+            'password' => 'password.',
         ]);
     }
 }
