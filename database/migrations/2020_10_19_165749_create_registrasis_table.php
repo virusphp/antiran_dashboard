@@ -23,6 +23,8 @@ class CreateRegistrasisTable extends Migration
             $table->date('tanggal_registrasi');
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreign('pekerjaan_id')->references('id')->on('pekerjaan')->onDelete('cascade');
         });
     }
 
