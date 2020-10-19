@@ -98,9 +98,13 @@ class ProsesPekerjaanController extends BackendController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+public function edit($id)
     {
-        //
+        $bcrum = $this->bcrum('Edit', route('proses.index'), 'Proses Pekerjaan');
+
+        $dataProses = ProsesPekerjaan::find($id);
+
+        return view('backend.proses.edit', compact('bcrum', 'dataProses'));
     }
 
     /**
@@ -112,7 +116,18 @@ class ProsesPekerjaanController extends BackendController
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $input = $request->all();
+            $proses = ProsesPekerjaan::find($id);
+            $updateProses = $proses->update($input);
+            if ($updateProses) {
+                $this->notification('success', 'informasi', "Data $updateProses->nama_proses Berhasil Diubah!");
+                return redirect()->route("proses.index");
+            }
+            throw new Exception("Data $input->nama_proses Gagal Diubah!");
+        } catch (Exception $e) {
+            $this->notification('error', 'Gagal', "Terjadi Kesalahan " . $e->getMessage());
+        }
     }
 
     /**
@@ -123,6 +138,24 @@ class ProsesPekerjaanController extends BackendController
      */
     public function destroy($id)
     {
-        //
+        $delete = ProsesPekerjaan::findOrFail($id);
+        $delete->delete();
+        if ($delete) {
+            return response()->jsonSuccess(200, "Data Berhasil Dihapus!", ['nama_proses' => $delete->nama_proses]);
+        }
+        return response()->jsonSuccess(201, "Data Gagal Dihapus", ['nama_proses' => $delete->nama_proses]);
+    }
+
+    public function ajaxDestroy(Request $request)
+    {
+        if ($request->ajax()) {
+            $input = $request->all();
+            $delete = ProsesPekerjaan::findOrFail($input['idx']);
+            $delete->delete();
+            if ($delete) {
+                return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_proses' => $delete->nama_proses]);
+            }
+            return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_proses' => $delete->nama_proses]);
+        }
     }
 }

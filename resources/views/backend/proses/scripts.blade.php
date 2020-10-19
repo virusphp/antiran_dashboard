@@ -15,8 +15,8 @@ $(function() {
     // Config Constanta Swal
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success',
-        cancelButton: 'btn btn-danger'
+        confirmButton: 'btn btn-success mx-4',
+        cancelButton: 'btn btn-danger mx-4'
       },
       buttonsStyling: false
     });
@@ -45,8 +45,8 @@ $(function() {
           text:   "Data: "+nama_proses,
           icon:   'warning',
           showCancelButton: true,
-          confirmButtonText: 'Ya, Posting!',
-          cancelButtonText: 'No, Batalkan!',
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'No',
           reverseButtons: true
         }).then((result) => {
           if (result.value) {
@@ -107,7 +107,7 @@ $(function() {
                 {"mData": "action"}
             ],
         })
-        oTable = $('#tabel-p roses').DataTable();
+        oTable = $('#tabel-proses').DataTable();
 
         $('#term').keyup(function(){
         oTable.search($(this).val()).draw() ;
