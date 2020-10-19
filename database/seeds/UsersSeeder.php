@@ -17,9 +17,9 @@ class UsersSeeder extends Seeder
     {
         
         User::create([
-            'name' => 'sugandi',
+            'name' => 'superadmin',
             'username' => 'superadmin',
-            'email' => 'virusphp@gmail.com',
+            'email' => 'master@gmail.com',
             'password' => 'password.',
         ]);
     }
