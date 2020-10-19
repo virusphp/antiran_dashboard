@@ -15,7 +15,7 @@ class CreateRegistrasisTable extends Migration
     {
         Schema::create('registrasi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_registrasi');
+            $table->string('no_registrasi')->unique();
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('pekerjaan_id');
             $table->string('no_akta');
