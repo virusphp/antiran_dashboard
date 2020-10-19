@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePekerjaanTable extends Migration
+class CreateProsesPekerjaansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreatePekerjaanTable extends Migration
      */
     public function up()
     {
-        Schema::create('pekerjaan', function (Blueprint $table) {
+        Schema::create('proses_pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode_pekerjaan')->unique();
-            $table->string('nama_pekerjaan');
-            $table->string('keterangan_pekerjaan');
-            $table->decimal('insentif_pekerjaan',12,2);
+            $table->string('kode_proses');
+            $table->string('nama_proses', 100)->nullable();
+            $table->integer('waktu_proses')->nullable();
+            $table->char('status_proses', 1)->nullable()->comment('0: semua pekerjaan, 1: status milik bpn');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreatePekerjaanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pekerjaan');
+        Schema::dropIfExists('proses_pekerjaan');
     }
 }

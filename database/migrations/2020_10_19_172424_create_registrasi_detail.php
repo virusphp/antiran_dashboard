@@ -23,7 +23,11 @@ class CreateRegistrasiDetail extends Migration
             $table->foreign('no_registrasi')
                 ->references('no_registrasi')
                 ->on('registrasi');
+<<<<<<< HEAD
+               
+=======
 
+>>>>>>> 998a6c7b6ac45ac90dc22d89762b92b37b72f6b7
             $table->char('status_proses', '1')
                 ->default(0)
                 ->comment('0 = belum dikerjakan, 1 = sudah dikerjakan');

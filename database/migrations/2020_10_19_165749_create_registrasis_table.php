@@ -21,8 +21,12 @@ class CreateRegistrasisTable extends Migration
             $table->string('no_akta');
             $table->string('lokasi_akta');
             $table->date('tanggal_registrasi');
-            $table->unsignedBigInteger('user_id');
+            $table->string('user_id');
             $table->timestamps();
+
+            $table->foreign('pekerjaan_id')->references('id')->on('pekerjaan');
+            $table->foreign('client_id')->references('id')->on('client');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
