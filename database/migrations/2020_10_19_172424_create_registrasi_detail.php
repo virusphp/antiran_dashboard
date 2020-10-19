@@ -22,8 +22,8 @@ class CreateRegistrasiDetail extends Migration
             $table->date('tanggal_selesai');
             $table->foreign('no_registrasi')
                 ->references('no_registrasi')
-                ->on('registrasi')
-                ->onDelete('cascade');
+                ->on('registrasi');
+
             $table->char('status_proses', '1')
                 ->default(0)
                 ->comment('0 = belum dikerjakan, 1 = sudah dikerjakan');
