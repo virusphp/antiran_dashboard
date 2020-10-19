@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\ProsesPekerjaan;
 use Illuminate\Http\Request;
+use App\Http\Requests\ProsesPekerjaanRequest;
 use Exception;
 use DataTables;
 
@@ -114,19 +115,20 @@ public function edit($id)
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request,ProsesPekerjaanRequest $requestData, $id)
     {
         try {
-            $input = $request->all();
+            $input = $requestData->all();
             $proses = ProsesPekerjaan::find($id);
             $updateProses = $proses->update($input);
             if ($updateProses) {
-                $this->notification('success', 'informasi', "Data $updateProses->nama_proses Berhasil Diubah!");
+                $this->notification('success', 'informasi', "Data ".$proses->nama_proses." Berhasil Diubah!");
                 return redirect()->route("proses.index");
             }
-            throw new Exception("Data $input->nama_proses Gagal Diubah!");
+            throw new Exception("Data ".$input->nama_proses." Gagal Diubah!");
         } catch (Exception $e) {
             $this->notification('error', 'Gagal', "Terjadi Kesalahan " . $e->getMessage());
+            return redirect()->back();
         }
     }
 
