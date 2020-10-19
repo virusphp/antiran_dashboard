@@ -53,4 +53,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/roles', 'RoleController@indexAjax');
     Route::get('roles/check/{id}','RoleController@check')->name('roles.check');
     Route::delete('/ajax/roles/destroy', 'RoleController@ajaxDestroy');
+
+    //transaksi
+    //registrasi
+    Route::resource('/registrasi','RegistrasiController');
 });
