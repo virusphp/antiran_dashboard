@@ -22,7 +22,8 @@ class ClientController extends BackendController
     {
         if ($request->ajax()) {
             // next masuk repository change to QUERY BUILDER
-            $client = Client::where(function ($query) use ($request) {
+            $client = Client::select('id','kode_client','nama_client','alamat_client','no_telepon','npwp_client')
+            ->where(function ($query) use ($request) {
                 if ($term = $request->get('term')) {
                     $keywords = '%' . $term . '%';
                     $query->where('nama_client', 'like', $keywords);
@@ -127,6 +128,7 @@ class ClientController extends BackendController
             throw new Exception('Gagal Mengubah client ' . $request->nama_client);
         } catch (Exception $e) {
             $this->notification('error', 'Gagal', 'Terjadi kesalahan ' . $e->getMessage());
+            dd($e->getMessage());
             return redirect()->route('client.index');
         }
     }
@@ -154,9 +156,9 @@ class ClientController extends BackendController
             $delete = Client::findOrFail($input['idx']);
             $delete->delete();
             if ($delete) {
-                return response()->jsonSuccess(200, "Sukses Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+                return response()->jsonSuccess(200, "Sukses Menghapus data", ['nama_client' => $delete->nama_client]);
             }
-            return response()->jsonSuccess(201, "Gagal Menghapus Kenangan", ['nama_client' => $delete->nama_client]);
+            return response()->jsonSuccess(201, "Gagal Menghapus data", ['nama_client' => $delete->nama_client]);
         }
     }
 }

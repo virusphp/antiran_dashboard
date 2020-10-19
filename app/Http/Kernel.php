@@ -63,6 +63,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\Cors::class, 
         'signature' => \App\Http\Middleware\Signature::class, 
+        
+        //role
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'checkRolePermission' => \App\Http\Middleware\CheckRolePermission::class,
     ];
 
     /**

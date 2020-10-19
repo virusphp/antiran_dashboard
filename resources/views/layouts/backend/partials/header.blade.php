@@ -1,9 +1,14 @@
 <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
     <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
         <i class="c-icon c-icon-lg cil-menu"></i>
-    </button><a class="c-header-brand d-lg-none" href="#">
-            <img src="{{ asset('img/profile/logo-new.png') }}"  width="118" height="50">
+    </button>
+    <div class="row  d-lg-none">
+        <div class="col-sm-12">
+        <a class="c-header-brand" href="#">
+            <img src="{{ asset('img/profile/login-new.png') }}" class="img-fluid" style="max-height:50px">
     </a>
+        </div>
+    </div>
     <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
         <i class="c-icon c-icon-lg cil-menu"></i>
     </button>

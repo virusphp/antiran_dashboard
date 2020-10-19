@@ -21,7 +21,7 @@ Edit Client
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="reset" class="btn btn-outline-danger btn-sm mx-2">Reset</button>
-                        <button type="submit" class="btn btn-primary btn-sm">Simpan</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Update</button>
                     </div>
                     {!! Form::close() !!}
                 </div>
