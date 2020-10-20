@@ -29,11 +29,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     // Master
     //pegawai
     Route::resource('/pegawai', 'PegawaiController');
-    Route::resource('/proses', 'ProsesPekerjaanController');
-    Route::get('/ajax/proses', 'ProsesPekerjaanController@indexAjax');
     Route::get('/ajax/pegawai', 'PegawaiController@indexAjax');
     Route::delete('/ajax/pegawai/destroy', 'PegawaiController@ajaxDestroy');
 
+    // pekerjaan
     Route::resource('/pekerjaan', 'PekerjaanController');
     Route::get('/ajax/pekerjaan', 'PekerjaanController@indexAjax');
     Route::delete('/ajax/pekerjaan/destroy', 'PekerjaanController@ajaxDestroy');

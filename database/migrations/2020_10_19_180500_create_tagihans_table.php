@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKwitansiTable extends Migration
+class CreateTagihansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,24 @@ class CreateKwitansiTable extends Migration
      */
     public function up()
     {
-        Schema::create('Kwitansi', function (Blueprint $table) {
+        Schema::create('tagihan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('no_tagihan')->unique()->index();
-            $table->string('kode_pembayaran');
-            $table->decimal('jumlah_bayar');
-            $table->string('no_referensi');
+            $table->string('no_registrasi');
             $table->date('tanggal_tagihan');
+            $table->decimal('total_biaya_proses');
+            $table->decimal('total_biaya_pajak');
+            $table->char('status_bayar',1)->default(0);
+            $table->text('keterangan');
             $table->string('kode_pegawai');
             $table->timestamps();
 
-            $table->foreign('no_tagihan')
-                  ->references('no_tagihan')
-                  ->on('tagihan');
+            $table->foreign('no_registrasi')
+                  ->references('no_registrasi')
+                  ->on('registrasi');
             $table->foreign('kode_pegawai')
                   ->references('kode_pegawai')
                   ->on('pegawai');
-            $table->foreign('kode_pembayaran')
-                  ->references('kode_pembayaran')
-                  ->on('pembayaran');
         });
     }
 
@@ -42,6 +41,6 @@ class CreateKwitansiTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kwitansi');
+        Schema::dropIfExists('tagihan');
     }
 }

@@ -13,20 +13,20 @@ class CreateKwitansiDetailTable extends Migration
      */
     public function up()
     {
-        Schema::create('kwitansi_detail', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('no_kwitansi');
-            $table->string('no_referensi');
-            $table->unsignedBigInteger('pembayaran_id');
-            $table->decimal('jumlah_bayar',10,0);
+        // Schema::create('kwitansi_detail', function (Blueprint $table) {
+        //     $table->bigIncrements('id');
+        //     $table->string('no_kwitansi');
+        //     $table->string('no_referensi');
+        //     $table->unsignedBigInteger('pembayaran_id');
+        //     $table->decimal('jumlah_bayar',10,0);
 
-            $table->foreign('no_kwitansi')
-                  ->references('no_kwitansi')
-                  ->on('kwitansi');
+        //     $table->foreign('no_kwitansi')
+        //           ->references('no_kwitansi')
+        //           ->on('kwitansi');
 
-            $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
-            $table->timestamps();
-        });
+        //     $table->foreign('pembayaran_id')->references('id')->on('pembayaran');
+        //     $table->timestamps();
+        // });
     }
 
     /**
@@ -36,6 +36,6 @@ class CreateKwitansiDetailTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kwitansi_detail');
+        // Schema::dropIfExists('kwitansi_detail');
     }
 }
