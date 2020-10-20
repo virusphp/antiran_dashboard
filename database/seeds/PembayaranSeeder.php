@@ -14,12 +14,12 @@ class PembayaranSeeder extends Seeder
     {
         DB::table('pembayaran')->insert([
             'kode_pembayaran' => 'PB20201020001',
-            'nama_proses' => 'BIAYA_PROSES',
+            'nama_pembayaran' => 'BIAYA_PROSES',
             'keterangan' => 'UNTUK BIAYA PROSES'
         ]);
         DB::table('pembayaran')->insert([
             'kode_pembayaran' => 'PB20201020002',
-            'nama_proses' => 'BIAYA_PAJAK',
+            'nama_pembayaran' => 'BIAYA_PAJAK',
             'keterangan' => 'UNTUK BIAYA PAJAK'
         ]);
     }

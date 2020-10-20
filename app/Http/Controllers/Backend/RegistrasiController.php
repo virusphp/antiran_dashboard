@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
+use App\Models\Pekerjaan;
 use Illuminate\Http\Request;
 
 class RegistrasiController extends Controller
@@ -14,7 +15,8 @@ class RegistrasiController extends Controller
      */
     public function index()
     {
-        //
+        $bcrum = $this->bcrum('Registrasi');
+        return view('backend.registrasi.index', compact('bcrum'));
     }
 
     /**
@@ -83,5 +85,29 @@ class RegistrasiController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function cariPekerjaan(Request $request)
+    {
+        if($request->ajax())
+        {
+            $json = [];
+            if ($request->has('q') && strlen($request->q) >= 3) {
+                $data = Pekerjaan::select('kode_pekerjaan', 'nama_pekerjaan')
+                    ->where(function ($query) use ($request) {
+                        $keywords = '%' . $request->q . '%';
+                        $query->where('kode_pekerjaan', 'like', $keywords)
+                            ->orWhere('nama_pekerjaan', 'like', $keywords);
+                    })
+                    ->get();
+                foreach ($data as $d) {
+                    $json[] = [
+                        'kode_pekerjaan' => $d->kode_pekerjaan,
+                        'nama_pekerjaan' => '[' .$d->kode_pekerjaan. '] ' . $d->nama_pekerjaan
+                    ];
+                }
+            }
+            return response()->json($json);
+        }
     }
 }

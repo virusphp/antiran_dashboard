@@ -19,6 +19,12 @@
         <li class="c-sidebar-nav-title">
             Management Master
         </li>
+         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('divisi.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Divisi
+            </a>
+        </li>
+
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('pegawai.index') }}">
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Pegawai
@@ -28,12 +34,6 @@
         <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('client.index') }}">
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Client
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('divisi.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Divisi
             </a>
         </li>
 
