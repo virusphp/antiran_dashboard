@@ -15,7 +15,7 @@ class CreatePekerjaanTable extends Migration
     {
         Schema::create('pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode_pekerjaan')->unique();
+            $table->string('kode_pekerjaan')->unique()->index();
             $table->string('nama_pekerjaan');
             $table->string('keterangan_pekerjaan');
             $table->decimal('insentif_pekerjaan',12,2);

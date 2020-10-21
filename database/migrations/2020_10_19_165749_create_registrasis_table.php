@@ -15,18 +15,18 @@ class CreateRegistrasisTable extends Migration
     {
         Schema::create('registrasi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_registrasi')->unique();
-            $table->unsignedBigInteger('client_id');
-            $table->unsignedBigInteger('pekerjaan_id');
+            $table->string('no_registrasi')->unique()->index();
+            $table->string('kode_client');
+            $table->string('kode_pekerjaan');
             $table->string('no_akta');
             $table->string('lokasi_akta');
             $table->date('tanggal_registrasi');
-            $table->string('user_id');
+            $table->uuid('user_id');
             $table->timestamps();
 
-            $table->foreign('pekerjaan_id')->references('id')->on('pekerjaan');
-            $table->foreign('client_id')->references('id')->on('client');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('kode_pekerjaan')->references('kode_pekerjaan')->on('pekerjaan')->ondelete('restrict');
+            $table->foreign('kode_client')->references('kode_client')->on('client')->onDelete('restrict');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 

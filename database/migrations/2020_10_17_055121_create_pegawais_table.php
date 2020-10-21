@@ -15,7 +15,7 @@ class CreatePegawaisTable extends Migration
     {
         Schema::create('pegawai', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode_pegawai')->unique();
+            $table->string('kode_pegawai')->unique()->index();
             $table->string('nama_pegawai');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');

@@ -15,7 +15,7 @@ class CreateProsesPekerjaansTable extends Migration
     {
         Schema::create('proses_pekerjaan', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('kode_proses');
+            $table->string('kode_proses')->unique()->index();
             $table->string('nama_proses', 100)->nullable();
             $table->integer('waktu_proses')->nullable();
             $table->char('status_proses', 1)->nullable()->comment('0: semua pekerjaan, 1: status milik bpn');

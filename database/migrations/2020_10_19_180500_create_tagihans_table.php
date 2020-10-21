@@ -22,15 +22,15 @@ class CreateTagihansTable extends Migration
             $table->decimal('total_biaya_pajak');
             $table->char('status_bayar',1)->default(0);
             $table->text('keterangan');
-            $table->string('kode_pegawai');
+            $table->uuid('user_id');
             $table->timestamps();
 
             $table->foreign('no_registrasi')
                   ->references('no_registrasi')
                   ->on('registrasi');
-            $table->foreign('kode_pegawai')
-                  ->references('kode_pegawai')
-                  ->on('pegawai');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users');
         });
     }
 

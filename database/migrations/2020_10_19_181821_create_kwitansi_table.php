@@ -13,22 +13,23 @@ class CreateKwitansiTable extends Migration
      */
     public function up()
     {
-        Schema::create('Kwitansi', function (Blueprint $table) {
+        Schema::create('kwitansi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('no_tagihan')->unique()->index();
+            $table->string('no_kwitansi')->unique()->index();
+            $table->string('no_tagihan');
             $table->string('kode_pembayaran');
             $table->decimal('jumlah_bayar');
             $table->string('no_referensi');
             $table->date('tanggal_tagihan');
-            $table->string('kode_pegawai');
+            $table->uuid('user_id');
             $table->timestamps();
 
             $table->foreign('no_tagihan')
                   ->references('no_tagihan')
                   ->on('tagihan');
-            $table->foreign('kode_pegawai')
-                  ->references('kode_pegawai')
-                  ->on('pegawai');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users');
             $table->foreign('kode_pembayaran')
                   ->references('kode_pembayaran')
                   ->on('pembayaran');
