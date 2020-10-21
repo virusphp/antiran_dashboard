@@ -14,7 +14,7 @@ Formulir Registrasi
                 <div class="row">
 
                     <div class="col-sm-4">
-                        <div data-target="#form-client" class="card bg-info card-accent-primary move">
+                        <div data-target="#form-client" id="form-client-step" class="card bg-info card-accent-primary move">
                             <div class="card-body text-center">
                                 <h5>1. Detail Client</h5>
                             </div>
@@ -22,7 +22,7 @@ Formulir Registrasi
                     </div>
 
                     <div class="col-sm-4">
-                        <div data-target="#form-pekerjaan" class="card card-accent-primary move">
+                        <div data-target="#form-pekerjaan"  id="form-pekerjaan-step" class="card-move card card-accent-primary move">
                             <div class="card-body text-center">
                                 <h5>2. Detail Pekerjaan</h5>
                             </div>
@@ -30,9 +30,9 @@ Formulir Registrasi
                     </div>
 
                     <div class="col-sm-4">
-                        <div data-target="#form-pembayaran" class="card card-accent-primary move">
+                        <div data-target="#form-tagihan" id="form-tagihan-step" class="card-move card card-accent-primary move">
                             <div class="card-body text-center">
-                                <h5>3. Detail Pembayaran</h5>
+                                <h5>3. Detail Tagihan</h5>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@ Formulir Registrasi
                 @include('backend.registrasi._form-pekerjaan')
 
                 {{-- form pembayaran --}}
-                @include('backend.registrasi._form-pembayaran')
+                @include('backend.registrasi._form-tagihan')
 
                 {!! Form::close() !!}
             </div>
