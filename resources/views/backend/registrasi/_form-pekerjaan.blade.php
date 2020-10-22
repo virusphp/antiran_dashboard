@@ -1,15 +1,16 @@
 <div class="card card-content sembunyi" id="form-pekerjaan">
     <div class="card-body">
         <div class="form-group row">
-            <div class="col-sm-6">
-                <label for="kode_pekerjaan">PEKERJAAN</label>
-                <select name="kode_pekerjaan" class="select2" id="kode_pekerjaan">
+            <div class="col-sm-12">
+                <label for="kode_pekerjaan-key">PEKERJAAN</label>
+                <select name="kode_pekerjaan" class="select2" id="kode_pekerjaan-key">
                 </select>
             </div>
         </div>
         <div class="form-group row">
             <div class="col-sm-12">
-                <button class="btn btn-primary mb-3" type="button" data-toggle="modal" data-target="#prosesModal"><i class="c-icon cil-plus"></i> Proses</button>
+                <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
+
                 <table class="table table-responsive-sm table-bordered">
                     <thead>
                         <tr>
@@ -33,8 +34,10 @@
     </div>
 
 </div>
+
 <!-- Modal  -->
-<div class="modal fade" id="prosesModal" tabindex="-1" role="dialog" aria-labelledby="prosesLabel" style="display: none;" aria-modal="true">
+<div class="modal fade" id="prosesModal" role="dialog" style="display: none;" aria-modal="true">
+
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -44,8 +47,8 @@
             <div class="modal-body">
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label for="proses_pekerjaan_id">Pilih Proses Pekerjaan</label>
-                        <select class="form-control" name="proses_pekerjaan" id="proses_pekerjaan_id-key">
+                        <label for="kode_proses-key">Pilih Proses Pekerjaan</label>
+                        <select class="form-control" name="kode_proses" id="kode_proses-key">
 
                         </select>
                     </div>
@@ -53,39 +56,37 @@
 
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label for="prioritas">Pilih Prioritas</label>
+                        <label for="prioritas-key">Pilih Prioritas</label>
                         <select class="form-control" name="prioritas" id="prioritas-key">
-                            <option disabled>-- Pilih Prioritas --</option>
-                            <option value="1">Option1</option>
-                            <option value="2">Option2</option>
-                            <option value="3">Option3</option>
+                            <option disabled selected>-- Pilih Prioritas --</option>
+                            <option value="SESUAI">Sesuai</option>
+                            <option value="SEGERA">Segera</option>
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label for="tanggal_mulai">Tanggal Mulai</label>
-                        <input class="form-control" type="text" name="tanggal_mulai">
+                        <label for="tanggal_mulai-key">Tanggal Mulai</label>
+                        <input class="date-input form-control" type="text" name="tanggal_mulai" id="tanggal_mulai-key">
                     </div>
-                    
+
                     <div class="col-sm-6">
-                        <label for="tanggal_selesai">Tanggal Selesai</label>
-                        <input class="form-control" type="text" name="tanggal_selesai">
+                        <label for="tanggal_selesai-key">Tanggal Selesai</label>
+                        <input class="date-input form-control" type="text" name="tanggal_selesai-key">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Close</button>
+                <button type="reset" class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
                 <button class="btn btn-primary" type="button">Save changes</button>
             </div>
         </div>
-
     </div>
-
 </div>
 <!-- end of modal -->
 @push('css')
+<link rel="stylesheet" href="{{ asset('lib/datedropper/standart.css') }}">
 <link rel="stylesheet" href="{{ asset('lib/select2/css/select2.min.css') }}">
 <style>
     .select2 {
@@ -102,10 +103,62 @@
 
 @push('scripts')
 <script src="{{ asset('lib/select2/js/select2.full.js') }}"></script>
+<script src="{{ asset('lib/datedropper/datedropper.pro.min.js') }}"></script>
 <script>
     $(document).ready(function() {
 
-        $('#kode_pekerjaan').select2({
+        $('#prosesModal').on('hidden.coreui.modal', function() {
+            //todo reset modal
+        });
+
+        $('#createProses').click(function() {
+            $('#prosesModal').modal('show');
+        });
+
+        $('.date-input').dateDropper({
+            theme: 'leaf',
+            format: 'd-m-Y',
+            modal: true,
+            largeDefault: true,
+            largeOnly: true,
+            minYear: 2020,
+            autofill: false
+        });
+        $('#kode_proses-key').select2({
+
+            placeholder: "Pilih Pekerjaan",
+            closeOnSelect: true,
+            width: '100%',
+            minimumInputLength: 3, // only start searching when the user has input 3 or more characters
+            language: {
+                inputTooShort: function() {
+                    return "Ketik minimal 3 huruf";
+                },
+            },
+            escapeMarkup: function(markup) {
+                return markup;
+            },
+            ajax: {
+                url: "<?= route('registrasi.cari.proses') ?>",
+                dataType: 'json',
+                delay: 100,
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.nama_proses,
+                                id: item.kode_proses
+                            }
+                        })
+                    };
+                },
+                cache: true
+            }
+        });
+
+
+
+        $('#kode_pekerjaan-key').select2({
 
             placeholder: "Pilih Pekerjaan",
             closeOnSelect: true,
@@ -135,10 +188,13 @@
                 },
                 cache: true
             }
-        }).on('change',function(){
-            let textPekerjaan =  $(this).select2('data')[0].text;
-            $('#pekerjaan-text').html(textPekerjaan);
+        }).on('change', function() {
+            setPekerjaan($(this).select2('data')[0].text);
         });
     });
+
+    window.setPekerjaan = function setPekerjaan(textPekerjaan) {
+        $('#pekerjaan-text').html(textPekerjaan);
+    }
 </script>
 @endpush

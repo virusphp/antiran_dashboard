@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
 use App\Models\Pekerjaan;
+use App\Models\ProsesPekerjaan;
 use Illuminate\Http\Request;
 
 class RegistrasiController extends Controller
@@ -28,7 +29,7 @@ class RegistrasiController extends Controller
     {
         $bcrum = $this->bcrum('Registrasi Client');
 
-        return view('backend.registrasi.create',compact('bcrum'));
+        return view('backend.registrasi.create', compact('bcrum'));
     }
 
     /**
@@ -89,8 +90,7 @@ class RegistrasiController extends Controller
 
     public function cariPekerjaan(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $json = [];
             if ($request->has('q') && strlen($request->q) >= 3) {
                 $data = Pekerjaan::select('kode_pekerjaan', 'nama_pekerjaan')
@@ -103,7 +103,30 @@ class RegistrasiController extends Controller
                 foreach ($data as $d) {
                     $json[] = [
                         'kode_pekerjaan' => $d->kode_pekerjaan,
-                        'nama_pekerjaan' => '[' .$d->kode_pekerjaan. '] ' . $d->nama_pekerjaan
+                        'nama_pekerjaan' => '[' . $d->kode_pekerjaan . '] ' . $d->nama_pekerjaan
+                    ];
+                }
+            }
+            return response()->json($json);
+        }
+    }
+
+    public function cariProses(Request $request)
+    {
+        if ($request->ajax()) {
+            $json = [];
+            if ($request->has('q') && strlen($request->q) >= 3) {
+                $data = ProsesPekerjaan::select('kode_proses', 'nama_proses','waktu_proses')
+                    ->where(function ($query) use ($request) {
+                        $keywords = '%' . $request->q . '%';
+                        $query->where('kode_proses', 'like', $keywords)
+                            ->orWhere('nama_proses', 'like', $keywords);
+                    })
+                    ->get();
+                foreach ($data as $d) {
+                    $json[] = [
+                        'kode_proses' => $d->kode_proses,
+                        'nama_proses' => $d->nama_proses.' (' . $d->waktu_proses .' hari)',
                     ];
                 }
             }

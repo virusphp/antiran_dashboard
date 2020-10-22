@@ -67,4 +67,5 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     //registrasi
     Route::resource('/registrasi','RegistrasiController');
     Route::get('/ajax/registrasi/pekerjaan/cari','RegistrasiController@cariPekerjaan')->name('registrasi.cari.pekerjaan');
+    Route::get('/ajax/registrasi/proses/cari','RegistrasiController@cariProses')->name('registrasi.cari.proses');
 });
