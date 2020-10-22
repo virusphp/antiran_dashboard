@@ -4,7 +4,8 @@
         $('.move').click(function() {
             move($(this).data('target'));
             validate($(this).data('current'));
-            $(this).addClass('bg-info');
+            //menambahkan step menjadi aktif
+            $($(this).data('target') + '-step').addClass('bg-info');
         });
     });
 

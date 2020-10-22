@@ -29,7 +29,7 @@
     <div class="card-footer d-flex justify-content-end">
         <button type="button" data-target="#form-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
         <button type="button" data-target="#form-client" class="btn btn-success btn-sm  mx-1">Simpan</button>
-        <button type="button" data-target="#form-pembayaran" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
+        <button type="button" data-target="#form-tagihan" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
     </div>
 
 </div>
@@ -135,7 +135,10 @@
                 },
                 cache: true
             }
-        })
+        }).on('change',function(){
+            let textPekerjaan =  $(this).select2('data')[0].text;
+            $('#pekerjaan-text').html(textPekerjaan);
+        });
     });
 </script>
 @endpush
