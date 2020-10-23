@@ -11,7 +11,11 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
+                    <div class="card bg-danger" style="display:none;" id="error-proses">
+                        <div class="card-body" id="error-proses-text">
 
+                        </div>
+                    </div>
                     <table class="table table-responsive-sm table-bordered">
                         <thead id="thead">
                             <tr>
@@ -31,7 +35,7 @@
         <div class="card-footer d-flex justify-content-end">
             <button type="button" data-validate="#form-pekerjaan" data-target="#card-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
             <button type="button" class="btn btn-success btn-sm  mx-1">Simpan</button>
-            <button type="button" data-validate="#form-pekerjaan" data-target="#card-tagihan" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
+            <button type="button" data-validate="#form-pekerjaan" data-target="#card-pembayaran" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
         </div>
     </form>
 </div>
@@ -245,6 +249,8 @@
             result_tr = trOpen + td1 + td2 + td3 + td4 + td5 + trClose;
         $('#tbody').append(result_tr);
 
+        $('#proses-text').html($('.del').length);
+        $('#error-proses').hide();
     }
 
     function resetModalForm() {

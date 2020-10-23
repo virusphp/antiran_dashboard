@@ -1,9 +1,9 @@
-<div class="card card-content sembunyi" id="card-tagihan">
-    <form id="form-tagihan" class="form-input">
+<div class="card card-content sembunyi" id="card-pembayaran">
+    <form id="form-pembayaran" class="form-input">
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-lg-12">
-                    <h4 class="text-center">FORMULIR TAGIHAN </h4>
+                    <h4 class="text-center">FORMULIR PEMBAYARAN </h4>
                     <div class="row">
                         <div class="col-sm-6">
                             Nama Client : <span id="nama_client-text"></span><br />
@@ -25,7 +25,7 @@
                                 Rp
                             </span>
                         </div>
-                        <input type="text" class="form-control" name="total_biaya_proses" placeholder="total biaya proses" id="total_biaya_proses-key">
+                        <input type="text" class="rupiah form-control" name="total_biaya_proses" placeholder="total biaya proses" id="total_biaya_proses-key">
                     </div>
                 </div>
 
@@ -37,8 +37,9 @@
                                 Rp
                             </span>
                         </div>
-                        <input type="text" value="0" class="form-control" name="total_biaya_pajak" placeholder="total biaya pajak" id="total_biaya_pajak-key">
+                        <input type="text" value="0" class="rupiah form-control" name="total_biaya_pajak" placeholder="total biaya pajak" id="total_biaya_pajak-key">
                     </div>
+                    <small class="help-block text-muted">isian biaya pajak dapat diupdate ketika sudah mengetahui biaya pajak</small>
                 </div>
 
             </div>
@@ -54,7 +55,7 @@
                                 Rp
                             </span>
                         </div>
-                        <input type="text" class="form-control" value="0" name="total_bayar" placeholder="total bayar" id="total_bayar-key">
+                        <input type="text" class="form-control rupiah" value="0" name="total_bayar" placeholder="total bayar" id="total_bayar-key">
                     </div>
 
                 </div>
@@ -73,18 +74,21 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-end">
-            <button type="button" data-validate="#form-tagihan" data-target="#card-pekerjaan" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
+            <button type="button" data-validate="#form-pembayaran" data-target="#card-pekerjaan" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
             <button type="button" class="btn btn-success btn-sm  mx-1">Simpan</button>
         </div>
     </form>
 </div>
 
 @push('scripts')
-
+<script src="{{ asset('lib\jquery.mask\jquery.mask.min.js') }}"></script>
 <script>
     $(document).ready(function() {
 
 
+        $('.rupiah').mask('000.000.000.000.000', {
+            reverse: true
+        });
 
     });
 </script>

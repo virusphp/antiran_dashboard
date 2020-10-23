@@ -28,9 +28,9 @@ Formulir Registrasi
                     </div>
 
                     <div class="col-sm-4">
-                        <div data-validate="#form-pekerjaan" data-target="#card-tagihan" id="card-tagihan-step" class="card-move card card-accent-primary">
+                        <div data-validate="#form-pekerjaan" data-target="#card-pembayaran" id="card-pembayaran-step" class="card-move card card-accent-primary">
                             <div class="card-body text-center">
-                                <h5>3. Detail Tagihan</h5>
+                                <h5>3. Detail Pembayaran</h5>
                             </div>
                         </div>
                     </div>
@@ -44,7 +44,7 @@ Formulir Registrasi
                 @include('backend.registrasi._form-pekerjaan')
 
                 {{-- form pembayaran --}}
-                @include('backend.registrasi._form-tagihan')
+                @include('backend.registrasi._form-pembayaran')
             </div>
         </div>
     </div>

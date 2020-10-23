@@ -5,7 +5,14 @@
             if ($($(this).data('validate')).valid()) {
                 $('.card-move').removeClass('bg-info');
                 $($(this).data('target') + '-step').addClass('bg-info');
-                move($(this).data('target'));
+                
+                if ($(this).data('target') == '#card-pembayaran') {
+                    if (!($('.del').length)) {
+                        showErrorProses();
+                    }
+                } else {
+                    move($(this).data('target'));
+                }
             } else {
                 return false;
             }
@@ -22,8 +29,8 @@
             }
         });
 
-        $('#card-tagihan-step').click(function() {
-            if ($('#form-pekerjaan').valid()) {
+        $('#card-pembayaran-step').click(function() {
+            if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('.del').length) {
                 //memindahkan jika valid
                 $('.card-move').removeClass('bg-info');
                 $($(this).data('target') + '-step').addClass('bg-info');
@@ -40,6 +47,14 @@
         $('.card-content').hide(100);
         $('div .move').removeClass('bg-info');
         $(id).show(100);
+    }
 
+    function showErrorProses() {
+        $('#error-proses').show();
+        $('#error-proses-text').text('Proses pekerjaan diperlukan');
+    }
+
+    function hideErrorProses() {
+        $('#error-proses').hide();
     }
 </script>

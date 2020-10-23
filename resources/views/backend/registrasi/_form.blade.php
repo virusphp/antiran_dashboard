@@ -6,4 +6,4 @@
     @include('backend.registrasi._form-pekerjaan')
 
     {{-- form pembayaran --}}
-    @include('backend.registrasi._form-tagihan')
+    @include('backend.registrasi._form-pembayaran')
