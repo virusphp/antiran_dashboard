@@ -1,5 +1,5 @@
 <div class="card card-content" id="card-client">
-    <form id="form-client">
+    <form id="form-client" class="form-input">
         <div class="card-body">
 
             <div class="form-group row">

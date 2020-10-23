@@ -3,7 +3,6 @@
 
         $('.move').click(function() {
             move($(this).data('target'));
-            validate($(this).data('current'));
             //menambahkan step menjadi aktif
             $($(this).data('target') + '-step').addClass('bg-info');
         });
@@ -14,10 +13,6 @@
         $('.card-content').hide(100);
         $('div .move').removeClass('bg-info');
         $(id).show(100);
-        
-    }
 
-    function validate(){
-        return false; //blm ada validasi jquery
     }
 </script>

@@ -1,5 +1,5 @@
 <div class="card card-content sembunyi" id="card-pekerjaan">
-    <form id="form-pekerjaan">
+    <form id="form-pekerjaan" class="form-input">
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-sm-12">
@@ -40,7 +40,7 @@
 <div class="modal fade" id="prosesModal" role="dialog" style="display: none;" aria-modal="true">
 
     <div class="modal-dialog modal-lg" role="document">
-        <form id="prosesModalForm">
+        <form id="prosesModalForm" class="form-input">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Tambah Proses Pekerjaan</h4>
@@ -50,7 +50,7 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <label for="kode_proses-key">Pilih Proses Pekerjaan</label>
-                            <select class="form-control" name="kode_proses" id="kode_proses-key">
+                            <select class="form-control" name="kode_proses" id="kode_proses-key" required aria-required="true">
 
                             </select>
                         </div>
@@ -59,7 +59,7 @@
                     <div class="form-group row">
                         <div class="col-sm-12">
                             <label for="prioritas-key">Pilih Prioritas</label>
-                            <select class="form-control" name="prioritas" id="prioritas-key">
+                            <select class="form-control" name="prioritas" id="prioritas-key" required aria-required="true">
                                 <option disabled selected>-- Pilih Prioritas --</option>
                                 <option value="SESUAI">Sesuai</option>
                                 <option value="SEGERA">Segera</option>
@@ -70,18 +70,18 @@
                     <div class="form-group row">
                         <div class="col-sm-6">
                             <label for="tanggal_mulai-key">Tanggal Mulai</label>
-                            <input class="date-input form-control" type="text" name="tanggal_mulai" id="tanggal_mulai-key">
+                            <input class="date-input form-control" type="text" name="tanggal_mulai" id="tanggal_mulai-key" required aria-required="true">
                         </div>
 
                         <div class="col-sm-6">
                             <label for="tanggal_selesai-key">Tanggal Selesai</label>
-                            <input class="date-input form-control" type="text" name="tanggal_selesai-key">
+                            <input class="date-input form-control" type="text" name="tanggal_selesai-key" required aria-required="true">
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="reset" class="btn btn-secondary" type="button" data-dismiss="modal">Reset</button>
-                    <button class="btn btn-primary" type="button">Save changes</button>
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Batal</button>
+                    <button class="btn btn-primary" id="btnModalTambah" type="button">Tambahkan</button>
                 </div>
             </div>
         </form>
@@ -106,12 +106,37 @@
 
 @push('scripts')
 <script src="{{ asset('lib/select2/js/select2.full.js') }}"></script>
+<script src="{{ asset('lib/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('lib/jquery-validation/localization/messages_id.js') }}"></script>
 <script src="{{ asset('lib/datedropper/datedropper.pro.min.js') }}"></script>
 <script>
+    var validate = $(".form-input").validate({
+
+        errorClass: "text-danger",
+        errorElement: "small",
+        lang: 'id', // or whatever language option you have.
+        errorPlacement: function(error, element) {
+            if (element.parent().hasClass('form-group')) {
+                error.insertAfter(element.parent());
+            } else if (element.hasClass('select2') && element.next('.select2-container').length) {
+                error.insertAfter(element.next('.select2-container'));
+            } else {
+                error.insertAfter(element);
+            }
+        },
+    });
+
     $(document).ready(function() {
 
+        $('#btnModalTambah').click(function() {
+            if ($('#prosesModalForm').valid()) {
+                alert('valid bos');
+            } else {
+                return false;
+            }
+        });
         $('#prosesModal').on('hidden.coreui.modal', function() {
-            //todo reset modal
+            resetModalForm();
         });
 
         $('#createProses').click(function() {
@@ -196,6 +221,11 @@
         });
     });
 
+    function resetModalForm() {
+        $('#prosesModal form')[0].reset();
+        $("#prosesModalForm").validate().resetForm();
+        $('#kode_proses-key').val("").trigger('change');
+    }
     window.setPekerjaan = function setPekerjaan(textPekerjaan) {
         $('#pekerjaan-text').html(textPekerjaan);
     }

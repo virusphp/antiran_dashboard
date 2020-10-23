@@ -1,5 +1,5 @@
 <div class="card card-content sembunyi" id="form-tagihan">
-    <form id="form-tagihan">
+    <form id="form-tagihan" class="form-input">
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-lg-12">
