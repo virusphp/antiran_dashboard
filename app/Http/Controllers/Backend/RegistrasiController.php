@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
+use App\Http\Requests\RegistrasiRequest;
 use App\Models\Pekerjaan;
 use App\Models\ProsesPekerjaan;
 use Illuminate\Http\Request;
@@ -40,6 +41,7 @@ class RegistrasiController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request->all());
         //
     }
 

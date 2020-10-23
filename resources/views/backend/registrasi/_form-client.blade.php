@@ -1,5 +1,6 @@
 <div class="card card-content" id="card-client">
     <form id="form-client" class="form-input">
+        @csrf
         <div class="card-body">
 
             <div class="form-group row">
@@ -60,6 +61,11 @@
     $('input[name=npwp_client').keyup(function() {
         $(this).val(formatNpwp($(this).val()));
     })
+
+    $('input[name=nama_client').keyup(function() {
+        $('#nama_client-text').html($(this).val());
+    })
+
 
     // function helper can move to helper js
     function formatNpwp(value) {

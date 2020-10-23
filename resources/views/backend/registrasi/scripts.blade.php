@@ -69,4 +69,32 @@
     function hideErrorProses() {
         $('#error-proses').hide();
     }
+
+
+    function saveData(data) {
+
+        $.ajax({
+            url: "<?= route('registrasi.store'); ?>",
+            method: "POST",
+            data: data,
+            dataType: 'json',
+            error: function(json) {
+
+                var errors = $.parseJSON(json.responseText);
+                $.each(errors.errors, function(key, value) {
+                    $('.' + key + '-error').html(value);
+                });
+            },
+            success: function(d) {
+                console.log(d);
+                if (d.status == 'success') {
+
+                    // return ketika sukses
+                } else if ((d.status == 'error')) {
+
+                    // return ketika eror
+                }
+            }
+        });
+    }
 </script>
