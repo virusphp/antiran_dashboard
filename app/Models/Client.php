@@ -25,6 +25,16 @@ class Client extends Model
         ];
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function registrasis()
+    {
+        return $this->hasMany(Registrasi::class,'kode_client');
+    }
+
     public function setNpwpClientAttribute($value)
     {
         if(!empty($value)) $this->attributes['npwp_client'] = preg_replace('/\D/', '', $value);

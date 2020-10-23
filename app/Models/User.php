@@ -44,6 +44,17 @@ class User extends Authenticatable
         if (!empty($value)) $this->attributes['password'] = bcrypt($value);
     }
 
+    public function clients()
+    {
+        return $this->hasMany(Client::class,'user_id');
+    }
+
+    public function registrasis()
+    {
+        return $this->hasMany(Registrasi::class,'user_id');
+    }
+
+
     // UUID
     public static function boot()
     {
