@@ -9,6 +9,19 @@
                 </div>
             </div>
             <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <label for="no_akta-key">NOMOR AKTA</label>
+                    <input class="form-control" type="text" placeholder="NOMOR AKTA" name="no_akta" id="no_akta-key" required aria-required="true">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="lokasi_akta-key">LOKASI AKTA</label>
+                    <input class="form-control" type="text" placeholder="LOKASI AKTA" name="lokasi_akta" id="lokasi_akta-key" required aria-required="true">
+                </div>
+
+            </div>
+            <div class="form-group row">
                 <div class="col-sm-12">
                     <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
                     <div class="card bg-danger" style="display:none;" id="error-proses">

@@ -56,6 +56,8 @@ class RegistrasiRequest extends FormRequest
 
             //registrasi
             'kode_pekerjaan' => 'required|exists:pekerjaan,kode_pekerjaan',
+            'no_akta' => 'required',
+            'lokasi_akta' => 'required',
             //registrasi_detail
             'details.*.kode_proses' => 'required',
             'details.*.prioritas' => 'required|in:SESUAI,SEGERA',
