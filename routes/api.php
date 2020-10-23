@@ -19,18 +19,10 @@ Route::group(['namespace' => 'Api'], function() {
     Route::post('/access/login', 'LoginPlatformController@login')->name('login.acceess');
 
     Route::group(['middleware' => ['signature:api']], function (){
-        Route::post('/pegawai/verif', "RegistrasiController@verified");
-        Route::post('/register', 'RegistrasiController@register')->name('register.api');
-        Route::post('/login', 'LoginController@login')->name('login.api');
-        Route::post('/edit/smartphone', 'UpdateSmartphoneController@editSmartphone')->name('edit.smartphone');
-        Route::post('/update/smartphone', 'UpdateSmartphoneController@updateSmartphone')->name('update.smartphone');
-        Route::get('/pegawai', 'PegawaiController@getPegawai')->name('pegawai.all');
-        Route::get('/pegawai/{pegawai}', 'PegawaiController@getPegawaiDetail')->name('pegawai.detail');
+        // get and list divisi
+        Route::get('/divisi/getlist', 'DivisiController@getList');
 
-        Route::group(["middleware" => ["cors:api",]], function() {
-            Route::post('/absen', 'AbsenController@postAbsen')->name('absen');
-            Route::post('/absen/ulang', 'AbsenController@reAbsen')->name('absen');
-            Route::post('/daftar/absen', 'AbsenController@postDaftarAbsen')->name('daftar.absen');
-        });
+        // get and list pegawai
+        Route::get('/pegawai/getlist', 'PegawaiController@getList');
     });
 });

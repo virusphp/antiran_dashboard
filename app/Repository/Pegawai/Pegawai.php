@@ -7,12 +7,10 @@ class Pegawai
 {
     public function getPegawai()
     {
-        return DB::connection('sqlsrv_simrs')->table('pegawai as p')->select(
-            'p.kd_pegawai', 'p.nama_pegawai', 'p.alamat', 'p.nip', 'p.gelar_depan', 'p.gelar_belakang',
-            'su.nama_sub_unit'
+        return DB::table('pegawai')->select(
+           'kode_pegawai','nama_pegawai','jenis_kelamin','tempat_lahir', 'tanggal_lahir','divisi.nama_divisi'
         )
-        ->join('sub_unit as su', 'p.kd_sub_unit','=', 'su.kd_sub_unit')
-        ->whereRaw('LEN(p.nip) > 5')
+        ->join('divisi', 'pegawai.kode_divisi','=','divisi.kode_divisi')
         ->get();
     }
 

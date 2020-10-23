@@ -21,7 +21,7 @@ class Signature
         }
 
         $token = $request->header('x-signature-x');
-        $user = DB::connection('sqlsrv_sms')->table('access')->where('api_token', '=', $token)->toSql();
+        $user = DB::table('access')->where('api_token', '=', $token)->toSql();
         // dd($user);
 
         if (!$user) {

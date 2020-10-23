@@ -2,7 +2,7 @@
 
 namespace App\Transform;
 
-class TransformAbsen
+class TransformDivisi
 {
     public function mapperFirst($table)
     {
@@ -14,14 +14,12 @@ class TransformAbsen
         return $data;
     }
 
-    public function mapperDaftar($table)
+    public function mapperDivisi($table)
     {
         foreach ($table as $value) {
-            $data["list_absen"][] = [
-                'tanggal'   => tanggal($value->tanggal),
-                'jam'   => waktu($value->jam),
-                'status_absen'    => absensi($value->status_absen),
-                'nama_unit' => $value->nama_sub_unit,
+            $data["list"][] = [
+                'kode_divisi'   => $value->kode_divisi,
+                'nama_divisi'   => $value->nama_divisi
             ];
         }
         return $data;

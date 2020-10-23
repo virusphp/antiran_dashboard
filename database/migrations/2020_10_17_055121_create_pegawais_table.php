@@ -20,10 +20,10 @@ class CreatePegawaisTable extends Migration
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->char('jenis_kelamin', 1);
-            $table->unsignedBigInteger('divisi_id');
+            $table->string('kode_divisi');
             $table->timestamps();
 
-            $table->foreign('divisi_id')->references('id')->on('divisi')->onDelete('restrict');
+            $table->foreign('kode_divisi')->references('kode_divisi')->on('divisi')->onDelete('restrict');
         });
     }
 

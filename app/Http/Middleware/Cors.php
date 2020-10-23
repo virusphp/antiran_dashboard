@@ -23,7 +23,7 @@ class Cors
         }
 
         $token = $request->header('x-token-x');
-        $user = DB::connection('sqlsrv_sms')->table('akun')->where('api_token', '=', $token)->first();
+        $user = DB::table('akun')->where('api_token', '=', $token)->first();
 
         if (!$user) {
             return response()->jsonError(false, "Token user tidak diketahui", ['x-token-x' => 'Token user Tidak di ketahui!']);

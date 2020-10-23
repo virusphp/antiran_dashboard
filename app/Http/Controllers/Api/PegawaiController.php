@@ -19,16 +19,17 @@ class PegawaiController extends Controller
         $this->transform = new TransformPegawai;
     }
 
-    public function getPegawai()
+    public function getList()
     {
-        $data   = $this->pegawai->getPegawai();
+        $pegawai   = $this->pegawai->getPegawai();
 
-        if(!$data) {
-            return response()->jsonError(201, "Data tidak ditemukan!", $data);
+        if(!$pegawai->count()) {
+            return response()->jsonApi(201, "Data tidak ditemukan!");
         }
 
-        $transform = $this->transform->mapperAll($data);
-        return response()->jsonSuccess(200, "Data Ditemukan", $transform);
+        $transform = $this->transform->mapperAll($pegawai);
+
+        return response()->jsonApi(200, "OK", $transform);
     }
 
     public function getPegawaiDetail($kodaPegawai)

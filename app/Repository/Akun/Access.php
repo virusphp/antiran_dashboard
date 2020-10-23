@@ -18,7 +18,7 @@ class Access
     }
 
     public function simpan($params)
-    {
+    { 
         try {
             $akun =  DB::table('access')->insert([
                 'nama' => $params->nama,

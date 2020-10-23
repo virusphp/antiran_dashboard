@@ -24,7 +24,7 @@ class ResponseServiceProvider extends ServiceProvider
      */
     public function boot(ResponseFactory $factory)
     {
-        $factory->macro('jsonSuccess', function($code = 200, $message = '', $data = null) use ($factory) {
+        $factory->macro('jsonApi', function($code = 200, $message = '', $data = null) use ($factory) {
             $format = [
                 'code' => $code,
                 'message' => $message,
