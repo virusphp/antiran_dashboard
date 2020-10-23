@@ -3,19 +3,24 @@
 
         $('.move').click(function() {
             if ($($(this).data('validate')).valid()) {
-                $('.card-move').removeClass('bg-info');
-                $($(this).data('target') + '-step').addClass('bg-info');
-                
                 if ($(this).data('target') == '#card-pembayaran') {
                     if (!($('.del').length)) {
                         showErrorProses();
+                    } else {
+                        $('.card-move').removeClass('bg-info');
+                        $($(this).data('target') + '-step').addClass('bg-info');
+                        move($(this).data('target'));
                     }
                 } else {
+                    $('.card-move').removeClass('bg-info');
+                    $($(this).data('target') + '-step').addClass('bg-info');
                     move($(this).data('target'));
                 }
             } else {
                 return false;
             }
+
+
         });
 
         $('#card-pekerjaan-step').click(function() {
@@ -27,6 +32,13 @@
             } else {
                 return false;
             }
+        });
+
+        $('#card-client-step').click(function() {
+            move($(this).data('target'));
+            $('.card-move').removeClass('bg-info');
+            $($(this).data('target') + '-step').addClass('bg-info');
+
         });
 
         $('#card-pembayaran-step').click(function() {
