@@ -2,47 +2,55 @@
     $(document).ready(function() {
 
         $('.move').click(function() {
-                if ($($(this).data('validate')).valid()) {
-                    $('.card-move').removeClass('bg-info');
-                    $($(this).data('target') + '-step').addClass('bg-info');
-
-                    if ($(this).data('target') == '#card-pembayaran') {
-                        if (!($('.del').length)) {
-                            showErrorProses();
-                        } else {
-                            move($(this).data('target'));
-                        }
-                    }else{
+            if ($($(this).data('validate')).valid()) {
+                if ($(this).data('target') == '#card-pembayaran') {
+                    if (!($('.del').length)) {
+                        showErrorProses();
+                    } else {
+                        $('.card-move').removeClass('bg-info');
+                        $($(this).data('target') + '-step').addClass('bg-info');
                         move($(this).data('target'));
                     }
-                }else{
-                    return false;
+                } else {
+                    $('.card-move').removeClass('bg-info');
+                    $($(this).data('target') + '-step').addClass('bg-info');
+                    move($(this).data('target'));
                 }
-            
+            } else {
+                return false;
+            }
+
 
         });
 
-    $('#card-pekerjaan-step').click(function() {
-        if ($('#form-client').valid()) {
-            //memindahkan jika valid
-            move($(this).data('target'));
-            $('.card-move').removeClass('bg-info');
-            $($(this).data('target') + '-step').addClass('bg-info');
-        } else {
-            return false;
-        }
-    });
+        $('#card-pekerjaan-step').click(function() {
+            if ($('#form-client').valid()) {
+                //memindahkan jika valid
+                move($(this).data('target'));
+                $('.card-move').removeClass('bg-info');
+                $($(this).data('target') + '-step').addClass('bg-info');
+            } else {
+                return false;
+            }
+        });
 
-    $('#card-pembayaran-step').click(function() {
-        if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('.del').length) {
-            //memindahkan jika valid
+        $('#card-client-step').click(function() {
+            move($(this).data('target'));
             $('.card-move').removeClass('bg-info');
             $($(this).data('target') + '-step').addClass('bg-info');
-            move($(this).data('target'));
-        } else {
-            return false;
-        }
-    });
+
+        });
+
+        $('#card-pembayaran-step').click(function() {
+            if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('.del').length) {
+                //memindahkan jika valid
+                $('.card-move').removeClass('bg-info');
+                $($(this).data('target') + '-step').addClass('bg-info');
+                move($(this).data('target'));
+            } else {
+                return false;
+            }
+        });
 
     });
 

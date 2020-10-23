@@ -12,7 +12,7 @@
                 <div class="col-sm-12">
                     <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
                     <div class="card bg-danger" style="display:none;" id="error-proses">
-                        <div class="card-body" id="error-proses-text">
+                        <div class="text-light text-center" id="error-proses-text">
 
                         </div>
                     </div>
