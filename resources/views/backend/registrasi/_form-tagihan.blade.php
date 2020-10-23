@@ -1,4 +1,4 @@
-<div class="card card-content sembunyi" id="form-tagihan">
+<div class="card card-content sembunyi" id="card-tagihan">
     <form id="form-tagihan" class="form-input">
         <div class="card-body">
             <div class="form-group row">
@@ -73,7 +73,7 @@
             </div>
         </div>
         <div class="card-footer d-flex justify-content-end">
-            <button type="button" data-target="#card-pekerjaan" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
+            <button type="button" data-validate="#form-tagihan" data-target="#card-pekerjaan" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
             <button type="button" class="btn btn-success btn-sm  mx-1">Simpan</button>
         </div>
     </form>

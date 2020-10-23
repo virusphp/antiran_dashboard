@@ -6,7 +6,7 @@
 
                 <div class="col-md-12">
                     <label for="nama_client">NAMA CLIENT</label>
-                    {!! Form::text('nama_client', null, array('placeholder' => 'NAMA CLIENT','class' => 'form-control '.($errors->has('nama_client') ? 'is-invalid' : '') ))!!}
+                    {!! Form::text('nama_client', null, array('required'=>'true', 'placeholder' => 'NAMA CLIENT','class' => 'form-control '.($errors->has('nama_client') ? 'is-invalid' : '') ))!!}
                     {!! $errors->first('nama_client', '<span class="invalid-feedback">:message</span>') !!}
                 </div>
 
@@ -15,7 +15,7 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label for="alamat_client">ALAMAT</label>
-                    {!! Form::textarea('alamat_client', null, array('placeholder' => 'ALAMAT CLIENT','class' => 'form-control '.($errors->has('alamat_client') ? 'is-invalid' : ''), 'rows' => '2' ))!!}
+                    {!! Form::textarea('alamat_client', null, array('required'=>'true','placeholder' => 'ALAMAT CLIENT','class' => 'form-control '.($errors->has('alamat_client') ? 'is-invalid' : ''), 'rows' => '2' ))!!}
                     {!! $errors->first('alamat_client', '<span class="invalid-feedback">:message</span>') !!}
                 </div>
             </div>
@@ -23,19 +23,19 @@
             <div class="form-group row">
                 <div class="col-md-6">
                     <label for="no_telepon">NOMOR TELEPON</label>
-                    {!! Form::text('no_telepon', null, array('placeholder' => 'NOMOR TELEPON','class' => 'form-control '.($errors->has('no_telepon') ? 'is-invalid' : '') ))!!}
+                    {!! Form::text('no_telepon', null, array('required'=>'true','placeholder' => 'NOMOR TELEPON','class' => 'form-control '.($errors->has('no_telepon') ? 'is-invalid' : '') ))!!}
                     {!! $errors->first('no_telepon', '<span class="invalid-feedback">:message</span>') !!}
                 </div>
                 <div class="col-md-6">
                     <label for="npwp_client">NOMOR NPWP</label>
-                    {!! Form::text('npwp_client', null, array('placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : ''), 'maxlength' => "15" ))!!}
+                    {!! Form::text('npwp_client', null, array('required'=>'true','placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : ''), 'maxlength' => "15" ))!!}
                     {!! $errors->first('npwp_client', '<span class="invalid-feedback">:message</span>') !!}
                 </div>
             </div>
 
         </div>
         <div class="card-footer d-flex justify-content-end">
-            <button type="button" data-target="#card-pekerjaan" class="btn btn-primary btn-sm move">Selanjutnya</button>
+            <button type="button" data-validate="#form-client" data-target="#card-pekerjaan" class="btn btn-primary btn-sm move">Selanjutnya</button>
         </div>
     </form>
 </div>

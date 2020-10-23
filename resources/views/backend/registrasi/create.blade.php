@@ -12,7 +12,7 @@ Formulir Registrasi
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div data-target="#card-client" id="card-client-step" class="card bg-info card-accent-primary move">
+                        <div data-validate="#form-client" data-target="#card-client" id="card-client-step" class="card-move card bg-info card-accent-primary">
                             <div class="card-body text-center">
                                 <h5>1. Detail Client</h5>
                             </div>
@@ -20,7 +20,7 @@ Formulir Registrasi
                     </div>
 
                     <div class="col-sm-4">
-                        <div data-target="#card-pekerjaan" id="card-pekerjaan-step" class="card-move card card-accent-primary move">
+                        <div data-validate="#form-client"  data-target="#card-pekerjaan" id="card-pekerjaan-step" class="card-move card card-accent-primary">
                             <div class="card-body text-center">
                                 <h5>2. Detail Pekerjaan</h5>
                             </div>
@@ -28,7 +28,7 @@ Formulir Registrasi
                     </div>
 
                     <div class="col-sm-4">
-                        <div data-target="#card-tagihan" id="card-tagihan-step" class="card-move card card-accent-primary move">
+                        <div data-validate="#form-pekerjaan" data-target="#card-tagihan" id="card-tagihan-step" class="card-move card card-accent-primary">
                             <div class="card-body text-center">
                                 <h5>3. Detail Tagihan</h5>
                             </div>

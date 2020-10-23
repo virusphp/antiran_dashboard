@@ -4,7 +4,7 @@
             <div class="form-group row">
                 <div class="col-sm-12">
                     <label for="kode_pekerjaan-key">PEKERJAAN</label>
-                    <select name="kode_pekerjaan" class="select2" id="kode_pekerjaan-key">
+                    <select name="kode_pekerjaan" class="select2" id="kode_pekerjaan-key" required aria-required="true">
                     </select>
                 </div>
             </div>
@@ -13,25 +13,25 @@
                     <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
 
                     <table class="table table-responsive-sm table-bordered">
-                        <thead>
+                        <thead id="thead">
                             <tr>
                                 <th>Nama Proses</th>
                                 <th>Prioritas</th>
                                 <th>Tanggal Mulai</th>
                                 <th>Tanggal Selesai</th>
+                                <th>Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
-
+                        <tbody id="tbody">
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
         <div class="card-footer d-flex justify-content-end">
-            <button type="button" data-target="#form-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
-            <button type="button" data-target="#form-client" class="btn btn-success btn-sm  mx-1">Simpan</button>
-            <button type="button" data-target="#form-tagihan" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
+            <button type="button" data-validate="#form-pekerjaan" data-target="#card-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
+            <button type="button" class="btn btn-success btn-sm  mx-1">Simpan</button>
+            <button type="button" data-validate="#form-pekerjaan" data-target="#card-tagihan" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
         </div>
     </form>
 </div>
@@ -75,7 +75,7 @@
 
                         <div class="col-sm-6">
                             <label for="tanggal_selesai-key">Tanggal Selesai</label>
-                            <input class="date-input form-control" type="text" name="tanggal_selesai-key" required aria-required="true">
+                            <input class="date-input form-control" type="text" name="tanggal_selesai" id="tanggal_selesai-key" required aria-required="true">
                         </div>
                     </div>
                 </div>
@@ -130,17 +130,24 @@
 
         $('#btnModalTambah').click(function() {
             if ($('#prosesModalForm').valid()) {
-                alert('valid bos');
+                tambahProses();
+                $('#prosesModal').modal('hide');
             } else {
                 return false;
             }
         });
+
         $('#prosesModal').on('hidden.coreui.modal', function() {
             resetModalForm();
         });
 
         $('#createProses').click(function() {
             $('#prosesModal').modal('show');
+        });
+
+        $('#tbody').on('click', '.del', function() {
+            var id = parseInt($(this).val());
+            $('#item_' + id).remove();
         });
 
         $('.date-input').dateDropper({
@@ -220,6 +227,25 @@
             setPekerjaan($(this).select2('data')[0].text);
         });
     });
+
+    function tambahProses() {
+
+        var $kode_proses = $('#kode_proses-key'),
+            $prioritas = $('#prioritas-key'),
+            $tanggal_mulai = $('#tanggal_mulai-key'),
+            $tanggal_selesai = $('#tanggal_selesai-key'),
+            tr_id = parseInt(($('#tbody tr').length == 0) ? 0 : $('#tbody tr').length),
+            trOpen = '<tr id="item_' + tr_id + '">',
+            td1 = '<td class="input">' + $kode_proses.select2("data")[0].text + ' <input type="hidden" name="details[' + tr_id + '][kode_proses]" value="' + $kode_proses.select2("data")[0].id + '"></td>',
+            td2 = '<td class="input text-center">' + $prioritas.val() + '<input type="hidden" name="details[' + tr_id + '][prioritas]" value="' + $prioritas.val() + '"></td>',
+            td3 = '<td class="input text-center">' + $tanggal_mulai.val() + '<input type="hidden" name="details[' + tr_id + '][tanggal_mulai]" value="' + $tanggal_mulai.val() + '"></td>',
+            td4 = '<td class="input text-center">' + $tanggal_selesai.val() + '<input type="hidden" name="details[' + tr_id + '][tanggal_selesai]" value="' + $tanggal_selesai.val() + '"></td>',
+            td5 = '<td class="text-center"> <button class="btn btn-danger del" type="button" value="' + tr_id + '">Hapus</button></td>',
+            trClose = '</tr>',
+            result_tr = trOpen + td1 + td2 + td3 + td4 + td5 + trClose;
+        $('#tbody').append(result_tr);
+
+    }
 
     function resetModalForm() {
         $('#prosesModal form')[0].reset();
