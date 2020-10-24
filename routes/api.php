@@ -24,5 +24,6 @@ Route::group(['namespace' => 'Api'], function() {
 
         // get and list pegawai
         Route::get('/pegawai/getlist', 'PegawaiController@getList');
+        Route::get('/pegawai/getdetail/{kode}', 'PegawaiController@getDetail');
     });
 });

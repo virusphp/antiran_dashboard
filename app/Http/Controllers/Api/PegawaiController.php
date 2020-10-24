@@ -27,20 +27,20 @@ class PegawaiController extends Controller
             return response()->jsonApi(201, "Data tidak ditemukan!");
         }
 
-        $transform = $this->transform->mapperAll($pegawai);
+        $transform = $this->transform->mapperPegawai($pegawai);
 
         return response()->jsonApi(200, "OK", $transform);
     }
 
-    public function getPegawaiDetail($kodaPegawai)
+    public function getDetail($kodePegawai)
     {
-        $data = $this->pegawai->getPegawaiDetail($kodaPegawai);
+        $data = $this->pegawai->getPegawaiDetail($kodePegawai);
 
         if(!$data) {
-            return response()->jsonError(201, "Data tidak ditemukan!", $data);
+            return response()->jsonApi(201, "Data tidak ditemukan!");
         }
 
-        $transform = $this->transform->mapperFirst($data);
-        return response()->jsonSuccess(200, "Data Ditemukan", $transform);
+        $transform = $this->transform->mapperDetail($data);
+        return response()->jsonApi(200, "Data Ditemukan", $transform);
     }
 }
