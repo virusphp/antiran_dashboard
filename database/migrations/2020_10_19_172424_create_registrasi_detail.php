@@ -32,7 +32,6 @@ class CreateRegistrasiDetail extends Migration
                 ->references('kode_proses')
                 ->on('proses_pekerjaan')->onDelete('restrict');
                 // ->onDelete('cascade');
-            //dicomment dulu karena belum ada table proses_pekerjaan
 
             $table->timestamps();
         });

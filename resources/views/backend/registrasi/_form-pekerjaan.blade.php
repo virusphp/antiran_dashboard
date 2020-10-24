@@ -9,6 +9,19 @@
                 </div>
             </div>
             <div class="form-group row">
+
+                <div class="col-sm-6">
+                    <label for="no_akta-key">NOMOR AKTA</label>
+                    <input class="form-control" type="text" placeholder="NOMOR AKTA" name="no_akta" id="no_akta-key" required aria-required="true">
+                </div>
+
+                <div class="col-sm-6">
+                    <label for="lokasi_akta-key">LOKASI AKTA</label>
+                    <input class="form-control" type="text" placeholder="LOKASI AKTA" name="lokasi_akta" id="lokasi_akta-key" required aria-required="true">
+                </div>
+
+            </div>
+            <div class="form-group row">
                 <div class="col-sm-12">
                     <button id="createProses" class="btn btn-primary mb-3 float-right" type="button"><i class="c-icon cil-plus"></i> Proses</button>
                     <div class="card bg-danger" style="display:none;" id="error-proses">
@@ -34,7 +47,6 @@
         </div>
         <div class="card-footer d-flex justify-content-end">
             <button type="button" data-validate="#form-pekerjaan" data-target="#card-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
-            <button type="button" class="btn btn-success btn-sm  mx-1">Simpan</button>
             <button type="button" data-validate="#form-pekerjaan" data-target="#card-pembayaran" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
         </div>
     </form>
@@ -131,6 +143,23 @@
     });
 
     $(document).ready(function() {
+
+        // $('#btnSimpanPekerjaan').click(function(e) {
+        //     e.preventDefault();
+        //     if ($('#form-pekerjaan').valid() && $('#form-client').valid()) {
+        //         if (!($('.del').length)) {
+        //             showErrorProses();
+        //         } else {
+        //             //save hanya client dan pekerjaan
+        //             var data = $('#form-client, #form-pekerjaan').serialize();
+        //             saveData(data);
+        //         }
+        //     } else {
+        //         //todo msg warning lengkapi isian
+        //     }
+
+        // });
+        
 
         $('#btnModalTambah').click(function() {
             if ($('#prosesModalForm').valid()) {
