@@ -22,7 +22,7 @@ class PekerjaanController extends Controller
         $pekerjaan = $this->pekerjaan->getPekerjaan();
 
         if(!$pekerjaan->count()) {
-            return response()->jsonApi(201, "Data divisi tidak ada!!");
+            return response()->jsonApi(201, "Data pekerjaan tidak ada!!");
         } 
 
         $transform = $this->transform->mapperPekerjaan($pekerjaan);
