@@ -106,7 +106,7 @@ $(function() {
                 {"mData": "tempat_lahir"},
                 {"mData": "tanggal_lahir"},
                 {"mData": "jenis_kelamin"},
-                {"mData": "divisi_id"},
+                {"mData": "kode_divisi"},
                 {"mData": "action"},
             ],
         })

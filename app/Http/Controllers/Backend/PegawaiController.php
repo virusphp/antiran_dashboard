@@ -24,7 +24,7 @@ class PegawaiController extends BackendController
     {
         if ($request->ajax()) {
             // next masuk repository change to QUERY BUILDER
-            $pegawai = Pegawai::select('id','kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin', 'divisi_id')
+            $pegawai = Pegawai::select('id','kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin', 'kode_divisi')
             ->where(function ($query) use ($request) {
                 if ($term = $request->get('term')) {
                     $keywords = '%' . $term . '%';
@@ -35,7 +35,8 @@ class PegawaiController extends BackendController
             return DataTables::of($pegawai)
                     ->setRowId('idx')
                     ->addIndexColumn()
-                    ->editColumn('divisi_id', function($pegawai){
+                    ->editColumn('kode_divisi', function($pegawai){
+                        // dd($pegawai->divisi());
                         return $pegawai->divisi->nama_divisi;
                     })
                     ->editColumn('tanggal_lahir', function($pegawai){
@@ -64,7 +65,7 @@ class PegawaiController extends BackendController
     public function create()
     {
         $bcrum = $this->bcrum('Create', route('pegawai.index'), 'Pegawai');
-        $divisi = Divisi::pluck('nama_divisi','id');
+        $divisi = Divisi::pluck('nama_divisi','kode_divisi');
         return view('backend.pegawai.create', compact('bcrum','divisi'));
     }
 
@@ -113,7 +114,7 @@ class PegawaiController extends BackendController
         $bcrum = $this->bcrum('Edit', route('pegawai.index'), 'Pegawai');
 
         $dataPegawai = Pegawai::find($id);
-        $divisi = Divisi::pluck('nama_divisi','id');
+        $divisi = Divisi::pluck('nama_divisi','kode_divisi');
         return view('backend.pegawai.edit', compact('bcrum','divisi','dataPegawai'));
     }
 

@@ -36,9 +36,9 @@
 
 <div class="form-group row">
     <div class="col-md-6">
-        <label for="divisi_id">DIVISI</label>
-        {!! Form::select('divisi_id', $divisi, null, array('id'=> 'divisi','placeholder' => 'DIVISI', 'tabindex' => '1', 'class' => 'form-control '.($errors->has('divisi_id') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('divisi_id', '<span class="invalid-feedback">:message</span>') !!}
+        <label for="kode_divisi">DIVISI</label>
+        {!! Form::select('kode_divisi', $divisi, null, array('id'=> 'divisi','placeholder' => 'DIVISI', 'tabindex' => '1', 'class' => 'form-control '.($errors->has('kode_divisi') ? 'is-invalid' : '') ))!!}
+        {!! $errors->first('kode_divisi', '<span class="invalid-feedback">:message</span>') !!}
     </div>
 </div>
 
