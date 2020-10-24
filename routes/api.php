@@ -19,8 +19,10 @@ Route::group(['namespace' => 'Api'], function() {
     Route::post('/access/login', 'LoginPlatformController@login')->name('login.acceess');
 
     Route::group(['middleware' => ['signature:api']], function (){
+        Route::post('/login', 'LoginController@login');
         // get and list divisi
         Route::get('/divisi/getlist', 'DivisiController@getList');
+        Route::get('/divisi/getdetail/{kode}', 'DivisiController@getDetail');
 
         // get and list pegawai
         Route::get('/pegawai/getlist', 'PegawaiController@getList');

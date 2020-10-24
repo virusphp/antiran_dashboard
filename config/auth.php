@@ -41,10 +41,10 @@ return [
             'provider' => 'users',
         ],
 
-        'akun' => [
-            'driver' => 'session',
-            'provider' => 'akun',
-        ], 
+        // 'user' => [
+        //     'driver' => 'session',
+        //     'provider' => 'users',
+        // ], 
 
         'access' => [
             'driver' => 'session',

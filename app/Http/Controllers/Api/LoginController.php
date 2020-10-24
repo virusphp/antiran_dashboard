@@ -6,18 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Validation\LoginValidation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Repository\Akun\Akun;
-use App\Transform\TransformAkun;
+use App\Repository\User\User;
+use App\Transform\TransformUser;
 
 class LoginController extends Controller
 {
-    private $akun;
+    private $user;
     private $transform;
 
     public function __construct()
     {
-        $this->akun = new Akun;
-        $this->transform = new TransformAkun();
+        $this->user = new User;
+        $this->transform = new TransformUser();
     }
 
     public function login(Request $r, LoginValidation $valid)
@@ -26,31 +26,22 @@ class LoginController extends Controller
 
         if ($validate->fails()) {
             $message = $valid->messages($validate->errors());
-            return response()->jsonError(422, "Error Require Form", $message);
+            return response()->jsonApi(422, implode(",",$message));
         }
 
-        $verifMac = $this->akun->verifMac($r);
+        $data = ["email" => $r->email, "password" => $r->password];
 
-        if(!$verifMac) {
-            $getPhone = $this->akun->getPhone($r);
-            $message = [
-                "messageError" => "Smartphone tidak sesuai dengan smartphon terdaftar!! ($getPhone->device)"
-            ];
-            return response()->jsonError(403, "Terjadi Kesalahan!", $message);
-        }
-
-        $data = ["kd_pegawai" => $r->username, "password" => $r->password];
-
-        if (!Auth::guard("akun")->attempt($data)) {
+        if (!Auth::attempt($data)) {
             $message = [
                 "messageError" => "Username atau password salah! tidak di izinkan"
             ];
-            return response()->jsonError(403, "Terjadi Kesalahan!", $message);
+            return response()->jsonApi(403, $message["messageError"]);
         }
-        
-        $akun =  $this->akun->getProfil($data["kd_pegawai"]);
-        $transform = $this->transform->mapperLogin($akun);
 
-        return response()->jsonSuccess(200, "Login Sukses!", $transform);
+        $user =  $this->user->getProfil($data["email"]);
+
+        $transform = $this->transform->mapperDetail($user);
+
+        return response()->jsonApi(200, "OK", $transform);
     }
 }

@@ -8,7 +8,7 @@ class LoginValidation
     public function rules($request)
     {
         return Validator::make($request->all(), [
-            'username' => 'required',
+            'email' => 'required|email',
             'password' => 'required',
         ],[
             'required' => 'Tidak boleh kosong!!'

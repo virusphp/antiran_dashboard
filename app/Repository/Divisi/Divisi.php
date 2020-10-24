@@ -10,4 +10,9 @@ class Divisi
     {
         return DB::table('divisi')->select('kode_divisi', 'nama_divisi')->get();
     }
+
+    public function getDivisiDetail($kode)
+    {
+        return DB::table('divisi')->select('kode_divisi','nama_divisi')->where('kode_divisi', $kode)->first();
+    }
 }

@@ -31,4 +31,15 @@ class DivisiController extends Controller
         return response()->jsonApi(200, "Ok", $transform);
     }
 
+    public function getDetail($kodePegawai)
+    {
+        $data = $this->divisi->getDivisiDetail($kodePegawai);
+
+        if(!$data) {
+            return response()->jsonApi(201, "Data tidak ditemukan!");
+        }
+
+        $transform = $this->transform->mapperDetail($data);
+        return response()->jsonApi(200, "OK", $transform);
+    }
 }
