@@ -8,6 +8,7 @@ use App\Models\Client;
 use App\Models\Pekerjaan;
 use App\Models\ProsesPekerjaan;
 use App\Models\RegistrasiDetail;
+use App\Models\Pembayaran;
 use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
@@ -73,9 +74,7 @@ class RegistrasiController extends Controller
 
     public function getKodePembayaran()
     {
-        // todo mendapatkan kode pembayaran yang valuenya proses
-
-        return 1234;
+        return Pembayaran::where('nama_pembayaran','BIAYA_PROSES')->first()->kode_pembayaran;
     }
 
     //return array data
