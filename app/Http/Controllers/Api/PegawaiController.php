@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\PegawaiResource;
-use Illuminate\Http\Request;
 use App\Repository\Pegawai\Pegawai;
 use App\Transform\TransformPegawai;
 
@@ -32,15 +30,15 @@ class PegawaiController extends Controller
         return response()->jsonApi(200, "OK", $transform);
     }
 
-    public function getDetail($kodePegawai)
+    public function getDetail($kode)
     {
-        $data = $this->pegawai->getPegawaiDetail($kodePegawai);
+        $pegawai = $this->pegawai->getPegawaiDetail($kode);
 
-        if(!$data) {
+        if(!$pegawai) {
             return response()->jsonApi(201, "Data tidak ditemukan!");
         }
 
-        $transform = $this->transform->mapperDetail($data);
+        $transform = $this->transform->mapperDetail($pegawai);
         return response()->jsonApi(200, "Data Ditemukan", $transform);
     }
 }

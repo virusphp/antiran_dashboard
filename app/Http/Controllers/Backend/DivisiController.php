@@ -30,6 +30,9 @@ class DivisiController extends BackendController
             return DataTables::of($divisi)
                     ->setRowId('idx')
                     ->addIndexColumn()
+                    ->editColumn('kode_divisi', function($divisi){
+                        return $divisi->kode_divisi;
+                    })
                     ->addColumn('action', function($divisi) {
                         return view('datatables._action-divisi', [
                             'idx' => $divisi->id,
