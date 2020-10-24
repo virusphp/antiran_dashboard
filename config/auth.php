@@ -90,7 +90,7 @@ return [
         ],
         'access' => [
             'driver' => 'eloquent',
-            'model' => App\Access::class,
+            'model' => App\Models\Access::class,
         ],
 
 

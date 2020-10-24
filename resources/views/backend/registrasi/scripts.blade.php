@@ -74,12 +74,11 @@
     function saveData(data) {
 
         $.ajax({
-            url: "<?= route('registrasi.store'); ?>",
+            url: "/admin/registrasi",
             method: "POST",
             data: data,
             dataType: 'json',
             error: function(json) {
-
                 var errors = $.parseJSON(json.responseText);
                 $.each(errors.errors, function(key, value) {
                     $('.' + key + '-error').html(value);

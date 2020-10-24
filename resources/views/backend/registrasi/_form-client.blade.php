@@ -29,7 +29,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="npwp_client">NOMOR NPWP</label>
-                    {!! Form::text('npwp_client', null, array('required'=>'true','placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : ''), 'maxlength' => "15" ))!!}
+                    {!! Form::text('npwp_client', null, array('required'=>'true','placeholder' => 'NOMOR NPWP','class' => 'form-control '.($errors->has('npwp_client') ? 'is-invalid' : ''), 'maxlength' => "22" ))!!}
                     {!! $errors->first('npwp_client', '<span class="invalid-feedback">:message</span>') !!}
                 </div>
             </div>
@@ -75,49 +75,3 @@
     }
 </script>
 @endpush
-
-
-
-{{--
-<div class="form-group row">
-    <div class="col-md-6">
-        <label for="email_client">EMAIL CLIENT</label>
-        {!! Form::text('email_client', null, array('placeholder' => 'Email CLIENT','class' => 'form-control '.($errors->has('email_client') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('email_client', '<span class="invalid-feedback">:message</span>') !!}
-    </div>
-</div> --}}
-
-{{-- <div class="col-md-6">
-        <label for="nik_client">NIK</label>
-        {!! Form::number('nik_client', null, array('placeholder' => 'NIK CLIENT','class' => 'form-control '.($errors->has('nik_client') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('nik_client', '<span class="invalid-feedback">:message</span>') !!}
-    </div> --}}
-
-{{-- <div class="form-group row">
-    <div class="col-md-6">
-        <label for="tempat_lahir">TEMPAT LAHIR</label>
-        {!! Form::text('tempat_lahir', null, array('placeholder' => 'TEMPAT LAHIR','class' => 'form-control '.($errors->has('tempat_lahir') ? 'is-invalid' : '') ))!!}
-        {!! $errors->first('tempat_lahir', '<span class="invalid-feedback">:message</span>') !!}
-    </div>
-    <div class="col-md-6">
-        <label for="tanggal_lahir">TANGGAL LAHIR</label>
-        {!! Form::date('tanggal_lahir', isset($dataClient) ? $dataClient->tanggal_lahir : "dd/MM/yyyy", array('placeholder' => 'Tanggal Lahir', 'class' => 'form-control '.($errors->has('tanggal_lahir') ? 'is-invalid' : ''), 'id' => 'date-input')) !!}
-        <span class="help-block">Isi tanggal lahir dengan Benar</span>
-    </div>
-</div> --}}
-
-{{-- <div class="col-md-6">
-        <div class="form-group">
-            <label for="jenis_kelamin">JENIS KELAMIN</label>
-            <div class="custom-control custom-radio col-md-3">
-                {!! Form::radio('jenis_kelamin', 'L', false, array('id' => 'laki', 'class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
-                {!! Form::label('laki', 'Laki - Laki', [ 'class' => 'custom-control-label']) !!}
-            </div>
-        
-            <div class="custom-control custom-radio col-md-3">
-                {!! Form::radio('jenis_kelamin', 'P', false, array('id' => 'perempuan','class' => 'custom-control-input '.($errors->has('jenis_kelamin') ? 'is-invalid' : ''))) !!}
-                {!! Form::label('perempuan', 'Perempuan', [ 'class' => 'custom-control-label']) !!}
-            </div>
-            {!! $errors->first('jenis_kelamin', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-    </div> --}}

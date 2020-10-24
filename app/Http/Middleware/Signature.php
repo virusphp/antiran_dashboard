@@ -17,15 +17,15 @@ class Signature
     public function handle($request, Closure $next)
     {
         if(!$request->hasHeader('x-signature-x')) {
-            return response()->jsonError(false, "Unauthorized",['header' => 'header access tidak di ketahui!!']);
+            return response()->jsonApi(201, "header access tidak di ketahui!!");
         }
 
         $token = $request->header('x-signature-x');
-        $user = DB::table('access')->where('api_token', '=', $token)->toSql();
+        $user = DB::table('access')->where('api_token', '=', $token)->first();
         // dd($user);
 
         if (!$user) {
-            return response()->jsonError(false, "Token access tidak diketahui", ['x-signature-x' => 'Token access Tidak di ketahui!']);
+            return response()->jsonApi(403, "Token access Tidak di ketahui!");
         }
 
         return $next($request)

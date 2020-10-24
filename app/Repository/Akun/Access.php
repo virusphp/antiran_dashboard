@@ -10,8 +10,7 @@ class Access
 {
     public function getProfil($username)
     {
-        return DB::connection('sqlsrv_sms')
-            ->table('access')
+        return DB::table('access')
             ->select('nama','email','username','phone','api_token','created_at','updated_at')
             ->where('username', $username)
             ->first();

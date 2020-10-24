@@ -10,6 +10,8 @@ class LoginValidation
         return Validator::make($request->all(), [
             'username' => 'required',
             'password' => 'required',
+        ],[
+            'required' => 'Tidak boleh kosong!!'
         ]);
     }
 
@@ -18,7 +20,7 @@ class LoginValidation
         $error = [];
         foreach($errors->getMessages() as $key => $value)
         {
-                $error[$key] = $value[0]; 
+            $error[] = $key. ' '.$value[0];
         }
         return $error;
     }

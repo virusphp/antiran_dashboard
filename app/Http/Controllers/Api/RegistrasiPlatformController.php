@@ -24,18 +24,18 @@ class RegistrasiPlatformController extends Controller
 
         if ($validate->fails()) {
             $message = $valid->messages($validate->errors());
-            return response()->jsonError(422, "Error Require Form", $message);
+            return response()->jsonApi(422, implode(",",$message));
         }
 
         $akun = $this->access->simpan($r);
 
         if ($akun) {
             $transform = $this->transform->mapperFirst($akun);
-            return response()->jsonSuccess(200, "Registrasi Sukses!", $transform);
+            return response()->jsonApi(200, "Registrasi Sukses!", $transform);
         }
         $message = [
             "messageError" => "Internal server error"
         ];
-        return response()->jsonError(500, "Terjadi Error Server", $message);
+        return response()->jsonError(500, $message["messageError"]);
     }
 }

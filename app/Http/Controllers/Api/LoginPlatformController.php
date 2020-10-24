@@ -23,7 +23,7 @@ class LoginPlatformController extends Controller
 
         if ($validate->fails()) {
             $message = $valid->messages($validate->errors());
-            return response()->jsonError(422, "Error Require Form", $message);
+            return response()->jsonApi(422, implode(",",$message));
         }
 
         $data = ["username" => $r->username, "password" => $r->password];
@@ -32,13 +32,13 @@ class LoginPlatformController extends Controller
             $message = [
                 "messageError" => "Username atau password salah! tidak di izinkan"
             ];
-            return response()->jsonError(403, "Terjadi Kesalahan!", $message);
+            return response()->jsonApi(403, $message["messageError"]);
         }
 
         $akun =  $this->access->getProfil($data["username"]);
         $transform = $this->transform->mapperFirst($akun);
 
-        return response()->jsonSuccess(200, "Login Sukses!", $transform);
+        return response()->jsonApi(200, "Login Sukses!", $transform);
 
     }
 }
