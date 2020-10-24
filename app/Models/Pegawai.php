@@ -10,11 +10,11 @@ class Pegawai extends Model
     use AutoNumberTrait;
 
     protected $table = "pegawai";
-    protected $fillable = ['kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin','divisi_id'];
+    protected $fillable = ['kode_pegawai','nama_pegawai','tempat_lahir','tanggal_lahir','jenis_kelamin','kode_divisi'];
 
     public function divisi()
     {
-        return $this->belongsTo(Divisi::class, "divisi_id");
+        return $this->belongsTo(Divisi::class, "kode_divisi");
     }
 
     public function getAutoNumberOptions()

@@ -11,10 +11,11 @@ class Divisi extends Model
 
     protected $fillable = ['kode_divisi','nama_divisi'];
     protected $table = 'divisi';
+    protected $primaryKey = "kode_divisi";
 
     public function pegawai()
     {
-        return $this->hasMany(Pegawai::class, "divisi_id");
+        return $this->hasMany(Pegawai::class, "kode_divisi");
     }
 
     public function getAutoNumberOptions()
