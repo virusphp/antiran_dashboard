@@ -31,15 +31,15 @@ class DivisiController extends Controller
         return response()->jsonApi(200, "Ok", $transform);
     }
 
-    public function getDetail($kodePegawai)
+    public function getDetail($kode)
     {
-        $data = $this->divisi->getDivisiDetail($kodePegawai);
+        $divisi = $this->divisi->getDivisiDetail($kode);
 
-        if(!$data) {
+        if(!$divisi) {
             return response()->jsonApi(201, "Data tidak ditemukan!");
         }
 
-        $transform = $this->transform->mapperDetail($data);
+        $transform = $this->transform->mapperDetail($divisi);
         return response()->jsonApi(200, "OK", $transform);
     }
 }
