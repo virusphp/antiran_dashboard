@@ -10,6 +10,13 @@ class Client extends Model
     use AutoNumberTrait;
     
     protected $table = "client";
+
+    protected $primaryKey = 'kode_client';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
     protected $fillable = [
         'kode_client','nik_client','nama_client','jenis_kelamin','tempat_lahir','tanggal_lahir',
         'alamat_client','no_telepon','email_client','npwp_client'

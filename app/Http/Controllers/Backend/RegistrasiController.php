@@ -54,8 +54,7 @@ class RegistrasiController extends Controller
         try {
             $dataRegistrasiDetails = $this->handleRequestDetail($request->details);
             $newClient             = Client::create($data['client']);
-            $kodeClient            = ['kode_client' => $newClient->kode_client];
-            $newRegistrasi         = $request->user()->registrasis()->create($data['registrasi']+$kodeClient);
+            $newRegistrasi         = $newClient->registrasis()->create($data['registrasi']);
             $newRegistrasiDetails  = $newRegistrasi->details()->saveMany($dataRegistrasiDetails);
             $newTagihan            = $newRegistrasi->tagihans()->create($data['tagihan']);
             if ($data['kwitansi'] !== null) {
