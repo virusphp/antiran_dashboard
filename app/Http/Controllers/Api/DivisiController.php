@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Repository\Divisi\Divisi;
 use App\Transform\TransformDivisi;
-use App\Validation\DivisiValidation;
-use Illuminate\Http\Request;
 
 class DivisiController extends Controller
 {

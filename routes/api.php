@@ -35,5 +35,9 @@ Route::group(['namespace' => 'Api'], function() {
         // get and list proses
         Route::get('/proses/getlist', 'ProsesController@getList');
         Route::get('/proses/getdetail/{kode}', 'ProsesController@getDetail');
+
+        // get and list client
+        Route::get('/client/getlist', 'ClientController@getList');
+        Route::get('/client/getdetail/{kode}', 'ClientController@getDetail');
     });
 });
