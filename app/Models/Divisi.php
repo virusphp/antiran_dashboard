@@ -12,6 +12,7 @@ class Divisi extends Model
     protected $fillable = ['kode_divisi','nama_divisi'];
     protected $table = 'divisi';
     protected $primaryKey = "kode_divisi";
+    protected $keyType = 'string';
 
     public function pegawai()
     {
