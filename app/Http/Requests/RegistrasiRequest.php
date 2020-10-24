@@ -64,12 +64,14 @@ class RegistrasiRequest extends FormRequest
             'details.*.tanggal_mulai' => 'required|date|date_format:d-m-Y',
             'details.*.tanggal_selesai' => 'required|date|date_format:d-m-Y|after:details.*.tanggal_mulai',
 
-            //kwitansi
-            'total_biaya_proses' => 'required_if:_pembayaran,1',
-            'total_bayar' => 'required_if:_pembayaran,1',
+            //tagihan
+            'total_biaya_proses' => 'required',
             'total_biaya_pajak' => 'nullable',
-            'no_referensi' => 'required_if:_pembayaran,1',
-            'keterangan' => 'nullable'
+            'keterangan' => 'required',
+
+             //kwitansi
+             'jumlah_bayar' => 'nullable',
+             'no_referensi' => 'required_with:jumlah_bayar',
         ];
     }
 }

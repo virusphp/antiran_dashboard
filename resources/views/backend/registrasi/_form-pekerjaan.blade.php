@@ -47,7 +47,6 @@
         </div>
         <div class="card-footer d-flex justify-content-end">
             <button type="button" data-validate="#form-pekerjaan" data-target="#card-client" class="btn btn-outline-info btn-sm move mx-1">Sebelumnya</button>
-            <button type="button" id="btnSimpanPekerjaan" class="btn btn-success btn-sm  mx-1">Simpan</button>
             <button type="button" data-validate="#form-pekerjaan" data-target="#card-pembayaran" class="btn btn-primary btn-sm move  mx-1">Selanjutnya</button>
         </div>
     </form>
@@ -145,21 +144,22 @@
 
     $(document).ready(function() {
 
-        $('#btnSimpanPekerjaan').click(function(e) {
-            e.preventDefault();
-            if ($('#form-pekerjaan').valid() && $('#form-client').valid()) {
-                if (!($('.del').length)) {
-                    showErrorProses();
-                } else {
-                    //save hanya client dan pekerjaan
-                    var data = $('#form-client, #form-pekerjaan').serialize();
-                    saveData(data);
-                }
-            } else {
-                //todo msg warning lengkapi isian
-            }
+        // $('#btnSimpanPekerjaan').click(function(e) {
+        //     e.preventDefault();
+        //     if ($('#form-pekerjaan').valid() && $('#form-client').valid()) {
+        //         if (!($('.del').length)) {
+        //             showErrorProses();
+        //         } else {
+        //             //save hanya client dan pekerjaan
+        //             var data = $('#form-client, #form-pekerjaan').serialize();
+        //             saveData(data);
+        //         }
+        //     } else {
+        //         //todo msg warning lengkapi isian
+        //     }
 
-        });
+        // });
+        
 
         $('#btnModalTambah').click(function() {
             if ($('#prosesModalForm').valid()) {

@@ -9,7 +9,15 @@ use Illuminate\Database\Eloquent\Model;
 class Tagihan extends Model
 {
     use AutoNumberTrait;
+    protected $table = 'tagihan';
+    
+    protected $primaryKey = 'no_tagihan';
 
+    public $incrementing = false;
+
+    protected $keyType = 'string';
+
+    protected $fillable =['no_registrasi','no_tagihan','tanggal_tagihan','total_biaya_proses','total_biaya_pajak','status_bayar','keterangan','user_id'];
     //no_registrasi
     public function registrasi()
     {
@@ -21,15 +29,16 @@ class Tagihan extends Model
         return $this->hasMany(Kwitansi::class,'no_tagihan');
     }
 
-    //set tanggal_tagihan
-    public function setTanggalTagihanAttribute()
-    {
-        return $this->attributes['tanggal_tagihan'] = Carbon::now();
-    }
+    // public function setTotalBiayaPajakAttribute($value)
+    // {
+    //     if (empty($value)) return 0; //default
+    // }
     
-    public function setTotalBiayaPajakAttribute($value)
+    //user_id
+
+    public function user()
     {
-        if (empty($value)) return 0; //default
+        return $this->belongsTo(User::class,'user_id');
     }
 
     public static function boot()
@@ -42,19 +51,13 @@ class Tagihan extends Model
                 return  $model->status_bayar = 0;
             }
             $total_harga = $model->total_harga_proses + $model->total_harga_pajak;
-            if ($model->total_bayar !== $total_harga) {
+            if ($model->jumlah_bayar !== $total_harga) {
                 return $model->status_bayar = 0; //belum lunas
             }
             return $model->status_bayar = 1;
         });
     }
 
-    //user_id
-
-    public function user()
-    {
-        return $this->belongsTo(User::class,'user_id');
-    }
 
     public function getAutoNumberOptions()
     {

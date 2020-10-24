@@ -1,7 +1,6 @@
 <div class="card card-content sembunyi" id="card-pembayaran">
     <form id="form-pembayaran" class="form-input">
         {{-- untuk mengetahui jika simpan sampai pembayaran --}}
-        <input type="hidden" name="_pembayaran" value="1">
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-lg-12">
@@ -50,27 +49,27 @@
                     <strong>Telah dibayarkan sejumlah</strong><br>
                 </div>
                 <div class="col-lg-6">
-                    <label for="total_bayar">Total Bayar</label>
+                    <label for="jumlah_bayar">Jumlah Bayar</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text">
                                 Rp
                             </span>
                         </div>
-                        <input type="text" class="form-control rupiah" value="0" name="total_bayar" placeholder="total bayar" id="total_bayar-key"  required aria-required="true">
+                        <input type="text" class="form-control rupiah" value="0" name="jumlah_bayar" placeholder="total bayar" id="jumlah_bayar-key" required aria-required="true">
                     </div>
 
                 </div>
 
                 <div class="col-sm-6">
                     <label for="no_referensi">Nomor Referensi Kwitansi</label>
-                    <input type="text" class="form-control" name="no_referensi" id="no_referensi-key"  required aria-required="true">
+                    <input type="text" class="form-control" name="no_referensi" id="no_referensi-key" required aria-required="true">
                 </div>
             </div>
             <div class="form-group row">
                 <div class="col-sm-12">
                     <label for="keterangan">Keterangan</label>
-                    <textarea class="form-control" name="keterangan" id="keterangan-key" rows="2"></textarea>
+                    <textarea class="form-control" name="keterangan" id="keterangan-key" rows="2" required aria-required="true"></textarea>
                 </div>
             </div>
         </div>
@@ -89,7 +88,7 @@
 
         $('#btnSimpanPembayaran').click(function(e) {
             e.preventDefault();
-            if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('#form-pembayaran').valid() ) {
+            if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('#form-pembayaran').valid()) {
                 if (!($('.del').length)) {
                     showErrorProses();
                 } else {

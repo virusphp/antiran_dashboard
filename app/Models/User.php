@@ -54,6 +54,11 @@ class User extends Authenticatable
         return $this->hasMany(Registrasi::class,'user_id');
     }
 
+    public function tagihans()
+    {
+        return $this->hasMany(Tagihan::class,'user_id');
+    }
+
 
     // UUID
     public static function boot()

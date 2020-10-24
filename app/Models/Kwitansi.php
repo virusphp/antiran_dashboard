@@ -17,7 +17,7 @@ class Kwitansi extends Model
         'kode_pembayaran',
         'jumlah_bayar',
         'no_referensi',
-        'tanggal_tagihan',
+        'tanggal_kwitansi',
         'user_id'
     ];
 
@@ -29,9 +29,13 @@ class Kwitansi extends Model
     {
         return $this->belongsTo(Pembayaran::class,'kode_pembayaran');
     }
-    public function setTanggalTagihanAttribute()
+    public function user()
     {
-        return $this->attributes['tanggal_tagihan'] = Carbon::now();
+        return $this->belongsTo(User::class,'user_id');
+    }
+    public function setTanggalKwitansiAttribute()
+    {
+        return $this->attributes['tanggal_kwitansi'] = Carbon::now();
     }
     public function getAutoNumberOptions()
     {

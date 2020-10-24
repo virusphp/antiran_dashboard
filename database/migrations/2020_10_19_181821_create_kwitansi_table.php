@@ -20,7 +20,7 @@ class CreateKwitansiTable extends Migration
             $table->string('kode_pembayaran');
             $table->decimal('jumlah_bayar');
             $table->string('no_referensi');
-            $table->date('tanggal_tagihan'); //apakah ini harusnya tanggal_kwitansi
+            $table->date('tanggal_kwitansi');
             $table->uuid('user_id');
             $table->timestamps();
 

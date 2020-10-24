@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
 use App\Http\Requests\RegistrasiRequest;
+use App\Models\Client;
 use App\Models\Pekerjaan;
 use App\Models\ProsesPekerjaan;
 use App\Models\RegistrasiDetail;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RegistrasiController extends Controller
@@ -44,59 +47,26 @@ class RegistrasiController extends Controller
      */
     public function store(RegistrasiRequest $request)
     {
+
+        $data = $this->handleRequest($request);
+
+        DB::beginTransaction();
         try {
-            // $data = $request->all();
-            DB::beginTransaction();
-            $dataClient =
-                [
-                    'nama_client' => $request->nama_client,
-                    'alamat_client' => $request->alamat_client,
-                    'no_telepon' => $request->no_telepon,
-                    'npwp_client' => $request->npwp_client,
-                ];
-
-            $newClient = $request->user()->clients()->create($dataClient);
-
-            $dataRegistrasi =
-                [
-                    'kode_pekerjaan' => $request->kode_pekerjaan,
-                    'no_akta' => $request->no_akta,
-                    'lokasi_akta' => $request->lokasi_akta,
-                ];
-
-
             $dataRegistrasiDetails = $this->handleRequestDetail($request->details);
-            $newRegistrasi         = $newClient->registrasis()->create($dataRegistrasi);
+            $newClient             = Client::create($data['client']);
+            $kodeClient            = ['kode_client' => $newClient->kode_client];
+            $newRegistrasi         = $request->user()->registrasis()->create($data['registrasi']+$kodeClient);
             $newRegistrasiDetails  = $newRegistrasi->details()->saveMany($dataRegistrasiDetails);
-
-            $dataTagihan =
-                [
-                    'total_biaya_proses' => $request->total_biaya_proses,
-                    'total_biaya_pajak' => $request->total_biaya_pajak,
-                    'keterangan' => $request->keterangan,
-                ];
-
-            $newTagihan        = $newRegistrasi->tagihans()->create($dataTagihan);
-
-
-            if ($request->has('total_bayar')) {
-
-                if ($request->total_bayar > 0) {
-                    $dataKwitansi =
-                        [
-                            'kode_pembayaran' => $this->getKodePembayaran(),
-                            'no_referensi' => $request->no_referensi,
-                            'jumlah_bayar' => $request->total_bayar,
-                        ];
-
-                        $newKwitansi = $newTagihan->kwitansis()->create($dataKwitansi);
-                }
+            $newTagihan            = $newRegistrasi->tagihans()->create($data['tagihan']);
+            if ($data['kwitansi'] !== null) {
+                $newKwitansi = $newTagihan->kwitansis()->create($data['kwitansi']);
             }
+            DB::commit();
+            return response()->json(['ok' => true, 'message' => 'Data Registrasi Berhasil Disimpan'], 200);
         } catch (Exception $e) {
-            //throw $th;
+            DB::rollBack();
 
-
-
+            return response()->json(['ok' => false, 'errors' => $e->getMessage()], 500);
         }
         //
     }
@@ -107,6 +77,54 @@ class RegistrasiController extends Controller
         // todo mendapatkan kode pembayaran yang valuenya proses
 
         return 1234;
+    }
+
+    //return array data
+    public function handleRequest($request)
+    {
+        $data['client'] =
+            [
+                'nama_client' => $request->nama_client,
+                'alamat_client' => $request->alamat_client,
+                'no_telepon' => $request->no_telepon,
+                'npwp_client' => $request->npwp_client,
+            ];
+
+        $data['registrasi'] =
+            [
+                'kode_pekerjaan' => $request->kode_pekerjaan,
+                'no_akta' => $request->no_akta,
+                'lokasi_akta' => $request->lokasi_akta,
+                'tanggal_registrasi' => Carbon::now(),
+                'user_id' => $request->user()->id,
+            ];
+
+        $data['tagihan'] =
+            [
+                'total_biaya_proses' => $request->total_biaya_proses,
+                'total_biaya_pajak' => $request->total_biaya_pajak || 0,
+                'keterangan' => $request->keterangan,
+                'tanggal_tagihan' => Carbon::now(),
+                'user_id' => $request->user()->id,
+            ];
+
+        if ($request->has('jumlah_bayar')) {
+
+            if ($request->jumlah_bayar > 0) {
+                $data['kwitansi'] =
+                    [
+                        'kode_pembayaran' => $this->getKodePembayaran(),
+                        'no_referensi' => $request->no_referensi,
+                        'jumlah_bayar' => $request->jumlah_bayar,
+                        'tanggal_kwitansi' => Carbon::now(),
+                        'user_id' => $request->user()->id,
+                    ];
+            } else {
+                $data['kwitansi'] = null;
+            }
+        }
+        // dd($data);
+        return $data;
     }
 
     public function handleRequestDetail($details)
