@@ -14,7 +14,8 @@ class AlterTanggalSelesaiRegistrasiDetailTable extends Migration
     public function up()
     {
         Schema::table('registrasi_detail', function (Blueprint $table) {
-            //
+            // // tidak berhasil jadi lansung edit di migration sebelumnya
+            $table->date('tanggal_selesai')->nullable(TRUE)->change();
         });
     }
 
@@ -26,8 +27,7 @@ class AlterTanggalSelesaiRegistrasiDetailTable extends Migration
     public function down()
     {
         Schema::table('registrasi_detail', function (Blueprint $table) {
-            // tidak berhasil jadi lansung edit di migration sebelumnya
-            // $table->date('tanggal_selesai')->nullable(TRUE)->change();
+           
         });
     }
 }

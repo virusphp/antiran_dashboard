@@ -13,13 +13,13 @@ regisstrasi
                     <div class="card-header d-flex-align-items-center pb-0">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item float-left">
-                                <h4><i class="c-icon cil-menu"></i> Daftar regisstrasi</h4>
+                                <h4><i class="c-icon cil-menu"></i> Daftar Registrasi</h4>
                             </li>
                             <li class="list-inline-item float-right">
                                 <div class="d-none d-md-block">
                                     <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
                                         <i class="c-icon cil-plus"></i>
-                                        regisstrasi
+                                        Registrasi
                                     </a>
                                 </div>
                                 <div class="d-md-none float-right">
@@ -54,5 +54,5 @@ regisstrasi
 </div>
 @endsection
 @push('scripts')
-    @include('backend.registrasi.scripts')
+    @include('backend.registrasi.scripts-datatable')
 @endpush

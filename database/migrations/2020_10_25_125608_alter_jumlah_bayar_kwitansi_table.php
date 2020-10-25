@@ -15,6 +15,7 @@ class AlterJumlahBayarKwitansiTable extends Migration
     {
         Schema::table('kwitansi', function (Blueprint $table) {
             //
+            $table->decimal('jumlah_bayar',12,0)->change();
         });
     }
 
@@ -27,7 +28,6 @@ class AlterJumlahBayarKwitansiTable extends Migration
     {
         Schema::table('kwitansi', function (Blueprint $table) {
             //
-            $table->decimal('jumlah_bayar',12,0)->change();
         });
     }
 }

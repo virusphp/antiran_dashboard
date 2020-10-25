@@ -34,6 +34,11 @@ class Registrasi extends Model
         return $this->hasMany(Tagihan::class, 'no_registrasi');
     }
 
+    public function pekerjaan()
+    {
+        return $this->belongsTo(Pekerjaan::class,'kode_pekerjaan');
+    }
+
     public function getAutoNumberOptions()
     {
         return [

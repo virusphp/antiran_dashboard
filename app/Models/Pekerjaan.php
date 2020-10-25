@@ -10,6 +10,13 @@ class Pekerjaan extends Model
     use AutoNumberTrait;
 
     protected $table = "pekerjaan";
+    
+
+    protected $primaryKey = 'kode_pekerjaan';
+
+    public $incrementing = false;
+
+    protected $keyType = 'string';
 
     protected $fillable = ["kode_pekerjaan", "nama_pekerjaan","keterangan_pekerjaan","insentif_pekerjaan"];
 

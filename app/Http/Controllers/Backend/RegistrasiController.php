@@ -14,9 +14,17 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Repository\Registrasi\Registrasi as RegistrasiRepo;
+use Yajra\DataTables\Facades\DataTables;
 
 class RegistrasiController extends Controller
 {
+    protected $registrasi;
+
+    public function __construct()
+    {
+        $this->registrasi = new RegistrasiRepo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -26,6 +34,44 @@ class RegistrasiController extends Controller
     {
         $bcrum = $this->bcrum('Registrasi');
         return view('backend.registrasi.index', compact('bcrum'));
+    }
+
+    public function indexAjax(Request $request)
+    {
+        if ($request->ajax()) {
+
+            $registrasi = $this->registrasi->getRegistrasi();
+            // dd($registrasi);
+            return DataTables::of($registrasi)
+                ->setRowId('idx')
+                ->addIndexColumn()
+                ->addColumn('no_registrasi',function($registrasi){
+                    return $registrasi->no_registrasi;
+                })
+                ->addColumn('nama_client',function($registrasi){
+                    return $registrasi->client->nama_client;
+                })
+                ->addColumn('nama_pekerjaan',function($registrasi){
+                    return $registrasi->pekerjaan->nama_pekerjaan;
+                })
+                ->addColumn('no_akta',function($registrasi){
+                    return $registrasi->no_akta;
+                })
+                ->addColumn('lokasi_akta',function($registrasi){
+                    return $registrasi->lokasi_akta;
+                })
+                ->addColumn('tanggal_registrasi',function($registrasi){
+                    return $registrasi->tanggal_registrasi;
+                })
+                ->addColumn('action', function ($registrasi) {
+                    return view('datatables._action-registrasi', [
+                        'idx' => $registrasi->id,
+                        'no_registrasi' => $registrasi->no_registrasi,
+                        'edit_url' => route('registrasi.edit', $registrasi->id)
+                    ]);
+                })
+                ->make(true);
+        }
     }
 
     /**
