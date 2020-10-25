@@ -1,3 +1,4 @@
+<script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
 <script>
     $(document).ready(function() {
 
@@ -70,26 +71,41 @@
         $('#error-proses').hide();
     }
 
+    window.showErrorInput = function showErrorInput(string) {
+        $('#errorInputDiv').show();
+        $('#errorInput').html(string);
+        Swal.fire('Terdapat inputan yang salah!')
+    }
+
+    window.hideErrorInput = function hideErrorInput() {
+
+        $('#errorInputDiv').hide();
+        $('#errorInput').html("");
+    }
 
     function saveData(data) {
-
+        hideErrorInput();
+        showLoading();
         $.ajax({
             url: "/admin/registrasi",
             method: "POST",
             data: data,
             dataType: 'json',
             error: function(json) {
-                var errors = $.parseJSON(json.responseText);
-                $.each(errors.errors, function(key, value) {
-                    $('.' + key + '-error').html(value);
+                var response = $.parseJSON(json.responseText);
+                var errorString = '<ul>';
+                $.each(response.errors, function(key, value) {
+                    errorString += '<li>' + value + '</li>';
                 });
+                errorString += '</ul>';
+                showErrorInput(errorString);
             },
             success: function(d) {
                 console.log(d);
-                if (d.status == 'success') {
+                if (d.ok == 'true') {
 
                     // return ketika sukses
-                } else if ((d.status == 'error')) {
+                } else if ((d.ok == 'false')) {
 
                     // return ketika eror
                 }

@@ -25,29 +25,6 @@ class RegistrasiRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-
-        //hasil input 
-        // array:7 [
-        //     "_token" => "9GhBhJLRfUzBSaziAiR0zi4Lv0NIkcbmnaBd6Vqe"
-        //     "nama_client" => "A"
-        //     "alamat_client" => "A"
-        //     "no_telepon" => "A"
-        //     "npwp_client" => "2"
-        //     "kode_pekerjaan" => "PK20201023001"
-        //     "details" => array:1 [
-        //       0 => array:4 [
-        //         "kode_proses" => "PP20201023001"
-        //         "prioritas" => "SESUAI"
-        //         "tanggal_mulai" => "24-10-2020"
-        //         "tanggal_selesai" => "25-10-2020"
-        //       ]
-        //       ],   
-        //     "total_biaya_proses" => "200.000"
-        //     "total_biaya_pajak" => "0"
-        //     "total_bayar" => "100.000"
-        //     "no_referensi" => "2000202020"
-        //     "keterangan" => "ADAWDA"
-        //   ]
         return [
 
             //client
@@ -67,12 +44,12 @@ class RegistrasiRequest extends FormRequest
             'details.*.tanggal_selesai' => 'nullable|date|date_format:d-m-Y|after:details.*.tanggal_mulai',
 
             //tagihan
-            'total_biaya_proses' => 'required|numeric',
-            'total_biaya_pajak' => 'required|numeric', // wajib diisi walaupun 0
+            'total_biaya_proses' => 'required',
+            'total_biaya_pajak' => 'required', // wajib diisi walaupun 0
             'keterangan' => 'required',
 
              //kwitansi
-             'jumlah_bayar' => 'required|numeric', // wajib diisi walaupun 0
+             'jumlah_bayar' => 'required', // wajib diisi walaupun 0
              'no_referensi' => Rule::requiredIf($request->jumlah_bayar > 0),
         ];
     }
