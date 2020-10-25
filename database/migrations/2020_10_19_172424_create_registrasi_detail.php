@@ -19,7 +19,7 @@ class CreateRegistrasiDetail extends Migration
             $table->string('kode_proses');
             $table->string('prioritas');
             $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
+            $table->date('tanggal_selesai')->nullable(TRUE);
             $table->foreign('no_registrasi')
                 ->references('no_registrasi')
                 ->on('registrasi')->onDelete('restrict');

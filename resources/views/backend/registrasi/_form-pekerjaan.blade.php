@@ -91,7 +91,7 @@
 
                         <div class="col-sm-6">
                             <label for="tanggal_selesai-key">Tanggal Selesai</label>
-                            <input class="date-input form-control" type="text" name="tanggal_selesai" id="tanggal_selesai-key" required aria-required="true">
+                            <input class="date-input form-control" type="text" name="tanggal_selesai" id="tanggal_selesai-key">
                         </div>
                     </div>
                 </div>

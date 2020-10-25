@@ -63,7 +63,7 @@
 
                 <div class="col-sm-6">
                     <label for="no_referensi">Nomor Referensi Kwitansi</label>
-                    <input type="text" class="form-control" name="no_referensi" id="no_referensi-key" required aria-required="true">
+                    <input type="text" class="form-control" name="no_referensi" id="no_referensi-key">
                 </div>
             </div>
             <div class="form-group row">
@@ -85,6 +85,18 @@
 <script>
     $(document).ready(function() {
 
+        $("#form-pekerjaan").validate({
+            rules: {
+                jumlah_bayar: {
+                    required: true,
+                },
+                no_referensi: {
+                    required: function(element) {
+                        return $("#jumlah_bayar-key").val() > 0;
+                    }
+                }
+            }
+        });
 
         $('#btnSimpanPembayaran').click(function(e) {
             e.preventDefault();

@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Symfony\Component\HttpFoundation\Request;
 
 class RegistrasiRequest extends FormRequest
 {
@@ -21,7 +23,7 @@ class RegistrasiRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(Request $request)
     {
 
         //hasil input 
@@ -62,16 +64,16 @@ class RegistrasiRequest extends FormRequest
             'details.*.kode_proses' => 'required',
             'details.*.prioritas' => 'required|in:SESUAI,SEGERA',
             'details.*.tanggal_mulai' => 'required|date|date_format:d-m-Y',
-            'details.*.tanggal_selesai' => 'required|date|date_format:d-m-Y|after:details.*.tanggal_mulai',
+            'details.*.tanggal_selesai' => 'nullable|date|date_format:d-m-Y|after:details.*.tanggal_mulai',
 
             //tagihan
-            'total_biaya_proses' => 'required',
-            'total_biaya_pajak' => 'nullable',
+            'total_biaya_proses' => 'required|numeric',
+            'total_biaya_pajak' => 'required|numeric', // wajib diisi walaupun 0
             'keterangan' => 'required',
 
              //kwitansi
-             'jumlah_bayar' => 'nullable',
-             'no_referensi' => 'required_with:jumlah_bayar',
+             'jumlah_bayar' => 'required|numeric', // wajib diisi walaupun 0
+             'no_referensi' => Rule::requiredIf($request->jumlah_bayar > 0),
         ];
     }
 }

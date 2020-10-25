@@ -23,6 +23,6 @@ class RegistrasiDetail extends Model
 
     public function setTanggalSelesaiAttribute($value)
     {
-        return $this->attributes['tanggal_selesai'] = Carbon::createFromFormat('d-m-Y', $value);
+        if(!empty($value)) return $this->attributes['tanggal_selesai'] = Carbon::createFromFormat('d-m-Y', $value);
     }
 }
