@@ -7,6 +7,7 @@
                 if ($(this).data('target') == '#card-pembayaran') {
                     if (!($('.del').length)) {
                         showErrorProses();
+                        warningRequired();
                     } else {
                         $('.card-move').removeClass('bg-info');
                         $($(this).data('target') + '-step').addClass('bg-info');
@@ -18,6 +19,7 @@
                     move($(this).data('target'));
                 }
             } else {
+                warningRequired();
                 return false;
             }
 
@@ -31,6 +33,7 @@
                 $('.card-move').removeClass('bg-info');
                 $($(this).data('target') + '-step').addClass('bg-info');
             } else {
+                warningRequired();
                 return false;
             }
         });
@@ -49,12 +52,17 @@
                 $($(this).data('target') + '-step').addClass('bg-info');
                 move($(this).data('target'));
             } else {
+                warningRequired();
                 return false;
             }
         });
 
     });
 
+    function warningRequired()
+    {
+        Swal.fire('Mohon Lengkapi Inputan');
+    }
     function move(id) {
 
         $('.card-content').hide(100);
@@ -82,7 +90,15 @@
         $('#errorInputDiv').hide();
         $('#errorInput').html("");
     }
-
+    function showLoading(){
+        $('#btnSimpanPembayaran').prop("disabled", true);
+        $('#btnSimpanPembayaran').html('<span class="spinner-border text-primary spinner-border-sm mx-2" role="status" aria-hidden="true"></span>'
+  +'Loading...');
+    }
+    function hideLoading(){
+        $('#btnSimpanPembayaran').prop("disabled", false);
+        $('#btnSimpanPembayaran').html('Simpan');
+    }
     function saveData(data) {
         hideErrorInput();
         showLoading();
@@ -98,16 +114,16 @@
                     errorString += '<li>' + value + '</li>';
                 });
                 errorString += '</ul>';
+                hideLoading();
                 showErrorInput(errorString);
             },
             success: function(d) {
                 console.log(d);
                 if (d.ok == 'true') {
-
-                    // return ketika sukses
+                    window.location.replace("<?= route('registrasi.index') ?>");
                 } else if ((d.ok == 'false')) {
 
-                    // return ketika eror
+                    hideLoading();
                 }
             }
         });
