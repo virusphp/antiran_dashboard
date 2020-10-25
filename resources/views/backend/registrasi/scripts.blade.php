@@ -99,6 +99,11 @@
         $('#btnSimpanPembayaran').prop("disabled", false);
         $('#btnSimpanPembayaran').html('Simpan');
     }
+
+    function kembali()
+    {
+        return window.location.assign("<?= route('registrasi.index') ?>");
+    }
     function saveData(data) {
         hideErrorInput();
         showLoading();
@@ -119,10 +124,10 @@
             },
             success: function(d) {
                 console.log(d);
-                if (d.ok == 'true') {
-                    window.location.replace("<?= route('registrasi.index') ?>");
-                } else if ((d.ok == 'false')) {
-
+                console.log(d.ok);
+                if (d.ok === true) {
+                    kembali();
+                } else if ((d.ok === 'false')) {
                     hideLoading();
                 }
             }
