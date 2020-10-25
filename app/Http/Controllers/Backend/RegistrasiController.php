@@ -68,13 +68,12 @@ class RegistrasiController extends Controller
 
             return response()->json(['ok' => false, 'errors' => $e->getMessage()], 500);
         }
-        //
     }
 
 
     public function getKodePembayaran()
     {
-        return Pembayaran::where('nama_pembayaran','BIAYA_PROSES')->first()->kode_pembayaran;
+        return Pembayaran::where('nama_pembayaran', 'BIAYA_PROSES')->first()->kode_pembayaran;
     }
 
     //return array data

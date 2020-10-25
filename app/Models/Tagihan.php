@@ -62,12 +62,7 @@ class Tagihan extends Model
     {
          return $this->attributes['total_biaya_proses'] = str_replace('.', '', $value);
     }
-    public function setTotalBiayaPajakAttribute($value)
-    {
-         return $this->attributes['total_biaya_pajak'] = str_replace('.', '', $value);
-    }
-
-
+ 
     public function getAutoNumberOptions()
     {
         return [

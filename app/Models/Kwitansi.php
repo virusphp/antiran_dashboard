@@ -37,6 +37,12 @@ class Kwitansi extends Model
     {
         return $this->attributes['tanggal_kwitansi'] = Carbon::now();
     }
+
+    public function setJumlahBayarAttribute($value)
+    {
+         if(!empty($value)) return $this->attributes['jumlah_bayar'] = str_replace('.', '', $value);
+    }
+
     public function getAutoNumberOptions()
     {
         return [
