@@ -1,14 +1,14 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <div class="c-sidebar-brand d-lg-down-none">
         <div class="c-sidebar-brand-full" alt="Master Data">
-            <img src="{{ asset('img/profile/login-new.png') }}" width="120" height="120">
+            <img src="{{ asset('img/profile/logo.png') }}" width="120" height="120">
         </div>
         <svg class="c-sidebar-brand-minimized" width="118" height="46" alt="CoreUI Logo">
             <use xlink:href="{{ asset('coreui/assets/brand/coreui.svg#signet') }}"></use>
         </svg>
     </div>
     <div class="c-sidebar-brand d-lg-none">
-        <img src="{{ asset('img/profile/login-new.png') }}" width="120" height="120">
+        <img src="{{ asset('img/profile/logo.png') }}" width="120" height="120">
     </div>
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
@@ -20,42 +20,13 @@
             Management Master
         </li>
          <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('divisi.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Divisi
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('pegawai.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Pegawai
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('client.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Client
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('pekerjaan.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Pekerjaan
-            </a>
-        </li>
-
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('proses.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Proses Pekerjaan
+            <a class="c-sidebar-nav-link" href="{{ route('pasien.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Pasien
             </a>
         </li>
 
         <li class="c-sidebar-nav-title">
-            Registrasi Client
-        </li>
-        <li class="c-sidebar-nav-item">
-            <a class="c-sidebar-nav-link" href="{{ route('registrasi.index') }}">
-                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Registrasi Client
-            </a>
+            Transaksi
         </li>
 
         <li class="c-sidebar-nav-divider"></li>

@@ -19,7 +19,7 @@ class UsersSeeder extends Seeder
         User::create([
             'name' => 'superadmin',
             'username' => 'superadmin',
-            'email' => 'master@gmail.com',
+            'email' => 'simrs@gmail.com',
             'password' => 'password.',
         ]);
     }

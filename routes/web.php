@@ -27,32 +27,12 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/home', 'HomeController@index')->name('home');
 
     // Master
-    //pegawai
-    Route::resource('/pegawai', 'PegawaiController');
-    Route::get('/ajax/pegawai', 'PegawaiController@indexAjax');
-    Route::delete('/ajax/pegawai/destroy', 'PegawaiController@ajaxDestroy');
+    Route::group(['namespace' => 'Master'], function() {
+        Route::resource('/pasien', 'PasienController');
+        Route::get('/ajax/pasien', 'PasienController@indexAjax');
+    });
 
-    // pekerjaan
-    Route::resource('/pekerjaan', 'PekerjaanController');
-    Route::get('/ajax/pekerjaan', 'PekerjaanController@indexAjax');
-    Route::delete('/ajax/pekerjaan/destroy', 'PekerjaanController@ajaxDestroy');
-
-    // Proses Pekerjaan
-    Route::resource('/proses', 'ProsesPekerjaanController');
-    Route::get('/ajax/proses', 'ProsesPekerjaanController@indexAjax');
-    Route::delete('/ajax/proses/destroy', 'ProsesPekerjaanController@ajaxDestroy');
-
-    // CLient
-    Route::resource('/client', 'ClientController');
-    Route::get('/ajax/client', 'ClientController@indexAjax');
-    Route::delete('/ajax/client/destroy', 'ClientController@ajaxDestroy');
-
-    //divisi
-    Route::resource('/divisi', 'DivisiController');
-    Route::get('/ajax/divisi', 'DivisiController@indexAjax');
-    Route::delete('/ajax/divisi/destroy', 'DivisiController@ajaxDestroy');
-
-    //user
+     //user
     Route::resource('/users', 'UserController');
     Route::get('/ajax/users', 'UserController@indexAjax');
     Route::delete('/ajax/users/destroy', 'UserController@ajaxDestroy');
@@ -62,12 +42,5 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/roles', 'RoleController@indexAjax');
     Route::get('roles/check/{id}', 'RoleController@check')->name('roles.check');
     Route::delete('/ajax/roles/destroy', 'RoleController@ajaxDestroy');
-
-    //transaksi
-    //registrasi
-    Route::resource('/registrasi','RegistrasiController');
-    
-    Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
-    Route::get('/ajax/registrasi/pekerjaan/cari','RegistrasiController@cariPekerjaan')->name('registrasi.cari.pekerjaan');
-    Route::get('/ajax/registrasi/proses/cari','RegistrasiController@cariProses')->name('registrasi.cari.proses');
+  
 });
