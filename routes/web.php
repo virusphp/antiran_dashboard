@@ -32,6 +32,13 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
         Route::get('/ajax/pasien', 'PasienController@indexAjax');
     });
 
+    Route::group(['namespace' => 'Transaksi'], function() {
+        Route::resource('/antrian', 'AntrianController');
+        Route::get('/antrian/poli/{poli}', 'AntrianController@showPoli')->name('antrian.showpoli');
+        Route::get('/ajax/antrian', 'AntrianController@indexAjax');
+
+    });
+
      //user
     Route::resource('/users', 'UserController');
     Route::get('/ajax/users', 'UserController@indexAjax');

@@ -61,7 +61,7 @@ Admin Login
                 <div class="card text-white bg-dark-green py-5 d-md-down-none  flex-row align-items-center" style="width:44%">
                     <div class="card-body text-center">
                         <div>
-                            <img src="{{ asset('img/profile/login-new.png') }}" class="img-fluid" alt="logo-big"/>
+                            <img src="{{ asset('img/profile/logo.png') }}" class="img-fluid" alt="logo-big"/>
                         </div>
                     </div>
                 </div>

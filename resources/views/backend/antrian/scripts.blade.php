@@ -1,3 +1,4 @@
+{{-- <script src="{{ asset('lib/datedropper/datedropper.pro.min.js') }}"></script> --}}
 <script type="text/javascript">
 $(function() {
     // Config Constanta Toast
@@ -15,13 +16,14 @@ $(function() {
     // Config Constanta Swal
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
-        confirmButton: 'btn btn-success mx-4',
-        cancelButton: 'btn btn-danger mx-4'
+        confirmButton: 'btn btn-success mx-3',
+        cancelButton: 'btn btn-danger mx-3'
       },
       buttonsStyling: false
     });
 
     $(document).ready(function() {
+        $('.date-input').val(new Date().toISOString().slice(0, 10));
         ajaxLoad();
     })
 
@@ -31,17 +33,39 @@ $(function() {
         }
     })
 
+    // $('.date-input').dateDropper({
+    //     theme: 'leaf',
+    //     format: 'd-m-Y',
+    //     modal: true,
+    //     largeDefault: true,
+    //     largeOnly: true,
+    //     minYear: 2020,
+    //     autofill: true
+    // });
+
+    // $('#tgl-reg').css('cursor','pointer');
+
+    // $('#tgl-reg').click(function() {
+    //     $('.date-input').focus();
+    //     return false;
+    // })
+
+    $('#cari-button').click(function() {
+        ajaxLoad();
+    })
+
     $(document).on('change','#term', function() {
         ajaxLoad();
     })
 
-    $(document).on('click', '#delete-pekerjaan', function() {
+    $(document).on('click', '#delete-antrian', function() {
         var id = $(this).data('idx'),
-            nama_pekerjaan = $(this).data('nama');
+            nama_antrian = $(this).data('nama');
+            console.log(id,nama_antrian)
 
         swalWithBootstrapButtons.fire({
           title:  'Anda yakin akan menghapus data??',
-          text:   "Data: "+nama_pekerjaan,
+          text:   "Data: "+nama_antrian,
           icon:   'warning',
           showCancelButton: true,
           confirmButtonText: 'Ya',
@@ -51,13 +75,13 @@ $(function() {
           if (result.value) {
             ajaxDestroy(id);
           } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data pekerjaan terpilih batal di hapus:)', 'error')
+            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data antrian terpilih batal di hapus:)', 'error')
           }
         })
     })
 
     function ajaxDestroy(idx) {
-        var url = '/admin/ajax/pekerjaan/destroy',
+        var url = '/admin/ajax/antrian/destroy',
             method = 'DELETE';
 
         $.ajax({
@@ -65,18 +89,19 @@ $(function() {
             method: method,
             data: {idx:idx},
             success: function(res) {
-                console.log(res.result);
-                swalWithBootstrapButtons.fire('Lapor!', res.message,'success');
-                $('#tabel-pekerjaan').DataTable().ajax.reload();
+                // Pertnayaantkang 
+                swalWithBootstrapButtons.fire('Lapor!', res.message+' nama : '+res.result.nama_antrian,'success');
+                $('#tabel-antrian').DataTable().ajax.reload();
             },
             error: function(xhr){}
         });
     }
 
     function ajaxLoad() {
-        var term = $('#term').val();
+        var term = $('#term').val(),
+            tanggal = $('#tanggal_reg').val();
 
-       $('#tabel-pekerjaan').dataTable({
+       $('#tabel-antrian').dataTable({
             "autoWidth": false,
             "Processing": true,
             "ServerSide": true,
@@ -92,21 +117,21 @@ $(function() {
                 "sLoadingRecords": '<img src="{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
-                "url" : "/admin/ajax/pekerjaan",
+                "url" : "/admin/ajax/antrian",
                 "type": "GET",
                 "data": {
-                    "term" : term
+                    "term" : term,
+                    "tanggal" : tanggal
                 }
             },
             "columns": [
                 {"mData": "DT_RowIndex"},
-                {"mData": "nama_pekerjaan"},
-                {"mData": "keterangan_pekerjaan"},
-                {"mData": "insentif_pekerjaan"},
+                {"mData": "nama_poliklinik"},
+                {"mData": "jumlah_antrian"},
                 {"mData": "action"},
             ],
         })
-        oTable = $('#tabel-pekerjaan').DataTable();
+        oTable = $('#tabel-antrian').DataTable();
 
         $('#term').keyup(function(){
         oTable.search($(this).val()).draw() ;

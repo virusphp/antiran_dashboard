@@ -1,7 +1,7 @@
 @extends('layouts.backend.master-backend')
 
 @section('title')
-Edit Divisi
+Edit Antrian
 @endsection
 
 @section('content')
@@ -12,12 +12,12 @@ Edit Divisi
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
-                        <h4>Edit Divisi</h4>
-                        <a class="d-flex align-items-center btn btn-primary" href="{{ route('divisi.index') }}">Kembali</a>
+                        <h4>Edit Antrian</h4>
+                        <a class="d-flex align-items-center btn btn-primary" href="{{ route('antrian.index') }}">Kembali</a>
                     </div>
-                    {!! Form::model($dataDivisi, ['method' => 'PATCH','route' => ['divisi.update', $dataDivisi->id]]) !!}
+                    {!! Form::model($dataAntrian, ['method' => 'PATCH','route' => ['antrian.update', $dataAntrian->id]]) !!}
                     <div class="card-body">
-                        @include('backend.divisi._form', [ 'url' => route('divisi.update',$dataDivisi->id), 'method' => 'PATCH'])
+                        @include('backend.antrian._form', [ 'url' => route('antrian.update',$dataAntrian->id), 'method' => 'PATCH'])
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="reset" class="btn btn-outline-danger btn-sm mx-2">Reset</button>

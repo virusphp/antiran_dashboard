@@ -9,7 +9,7 @@ Dashboard
             <div class="col-12">
                 <div class="card">
                     <div class="card-body">
-                        <h1 class="display-1 text-center">MASTERDATAIDN.ID</h1>
+                        <h1 class="display-1 text-center">SIMRS</h1>
                     </div>
                 </div>
             </div>
