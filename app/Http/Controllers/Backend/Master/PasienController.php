@@ -4,11 +4,19 @@ namespace App\Http\Controllers\Backend\Master;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
 use Illuminate\Http\Request;
-use App\Models\Pasien;
+// use App\Models\Pasien;
+use App\Repository\Pasien\Pasien;
 use DataTables;
 
 class PasienController extends Controller
 {
+    protected $pasien;
+
+    public function __construct()
+    {
+        $this->pasien = new Pasien;
+    }
+
     public function index(Request $request)
     {
         $bcrum = $this->bcrum("Pasien");
@@ -19,25 +27,23 @@ class PasienController extends Controller
     {
         if ($request->ajax()) {
             // next masuk repository change to QUERY BUILDER
-            $pasien = Pasien::select('id','no_rekamedis','nama_pasien','tempat_lahir','jenis_kelamin')
-            ->where(function ($query) use ($request) {
-                if ($term = $request->get('term')) {
-                    $keywords = '%' . $term . '%';
-                    $query->where('nama_pasien', 'like', $keywords);
-                }
-            })->latest();
+            $pasien = $this->pasien->getPasien($request); 
+            // dd($pasien);
 
             return DataTables::of($pasien)
                     ->setRowId('idx')
                     ->addIndexColumn()
-                    ->editColumn('kode_pasien', function($pasien){
-                        return $pasien->kode_pasien;
+                    ->editColumn('jns_kel', function($pasien){
+                        return jenisKelamin($pasien->jns_kel);
+                    })
+                    ->editColumn('tgl_lahir', function($pasien){
+                        return tanggalLahir($pasien->tgl_lahir);
                     })
                     ->addColumn('action', function($pasien) {
                         return view('datatables._action-pasien', [
-                            'idx' => $pasien->id,
+                            'idx' => $pasien->no_rm,
                             'nama_pasien' => $pasien->nama_pasien,
-                            'edit_url' => route('pasien.edit', $pasien->id)
+                            'edit_url' => route('pasien.edit', $pasien->no_rm)
                         ]);
                     })
                     ->make(true);
@@ -100,7 +106,7 @@ class PasienController extends Controller
     {
         $bcrum = $this->bcrum('Edit', route('pasien.index'), 'Pasien');
 
-        $dataPasien = Pasien::find($id);
+        $dataPasien = $this->pasien->getPasienEdit($id);
 
         return view('backend.pasien.edit', compact('bcrum', 'dataPasien'));
     }

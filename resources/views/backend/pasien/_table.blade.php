@@ -8,7 +8,8 @@
             <th>#</th>
             <th>NO RM</th>
             <th>NAMA PASIEN</th>
-            <th>ALAMAT PASIEN</th>
+            <th>NO KTP</th>
+            <th>JENIS KELAMIN</th>
             <th>NO KARTU</th>
             <th class="text-right">AKSI</th>
         </tr>

@@ -1,136 +1,139 @@
-<script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
-<script>
-    $(document).ready(function() {
+<script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('lib/datetimepicker/js/tempusdominus-bootstrap-4.min.js') }}"></script>
+<script type="text/javascript">
+$(function() {
+    // Config Constanta Toast
 
-        $('.move').click(function() {
-            if ($($(this).data('validate')).valid()) {
-                if ($(this).data('target') == '#card-pembayaran') {
-                    if (!($('.del').length)) {
-                        showErrorProses();
-                        warningRequired();
-                    } else {
-                        $('.card-move').removeClass('bg-info');
-                        $($(this).data('target') + '-step').addClass('bg-info');
-                        move($(this).data('target'));
-                    }
-                } else {
-                    $('.card-move').removeClass('bg-info');
-                    $($(this).data('target') + '-step').addClass('bg-info');
-                    move($(this).data('target'));
-                }
-            } else {
-                warningRequired();
-                return false;
-            }
+    const Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+    }); 
 
-
-        });
-
-        $('#card-pekerjaan-step').click(function() {
-            if ($('#form-client').valid()) {
-                //memindahkan jika valid
-                move($(this).data('target'));
-                $('.card-move').removeClass('bg-info');
-                $($(this).data('target') + '-step').addClass('bg-info');
-            } else {
-                warningRequired();
-                return false;
-            }
-        });
-
-        $('#card-client-step').click(function() {
-            move($(this).data('target'));
-            $('.card-move').removeClass('bg-info');
-            $($(this).data('target') + '-step').addClass('bg-info');
-
-        });
-
-        $('#card-pembayaran-step').click(function() {
-            if ($('#form-pekerjaan').valid() && $('#form-client').valid() && $('.del').length) {
-                //memindahkan jika valid
-                $('.card-move').removeClass('bg-info');
-                $($(this).data('target') + '-step').addClass('bg-info');
-                move($(this).data('target'));
-            } else {
-                warningRequired();
-                return false;
-            }
-        });
-
+    // Config Constanta Swal
+    const swalWithBootstrapButtons = Swal.mixin({
+    customClass: {
+        confirmButton: 'btn btn-success mx-3',
+        cancelButton: 'btn btn-danger mx-3'
+    },
+    buttonsStyling: false
     });
 
-    function warningRequired()
-    {
-        Swal.fire('Mohon Lengkapi Inputan');
-    }
-    function move(id) {
+    $('#tanggal_reg').datetimepicker({
+        //  format: 'L',
+        defaultDate: new Date(), 
+        format: "DD-MM-YYYY"
+    });
 
-        $('.card-content').hide(100);
-        $('div .move').removeClass('bg-info');
-        $(id).show(100);
-    }
+    $(document).ready(function() {
+        ajaxLoad();
+    })
 
-    function showErrorProses() {
-        $('#error-proses').show();
-        $('#error-proses-text').text('Proses pekerjaan diperlukan');
-    }
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    })
 
-    function hideErrorProses() {
-        $('#error-proses').hide();
-    }
+    $(document).on('change','#term', function() {
+        ajaxLoad();
+    })
 
-    window.showErrorInput = function showErrorInput(string) {
-        $('#errorInputDiv').show();
-        $('#errorInput').html(string);
-        Swal.fire('Terdapat inputan yang salah!')
-    }
+    $('#cari-button').click(function() {
+        ajaxLoad();
+    })
 
-    window.hideErrorInput = function hideErrorInput() {
+    $(document).on('click', '#delete-registrasi', function() {
+        var id = $(this).data('idx'),
+            nama_registrasi = $(this).data('nama');
+            console.log(id,nama_registrasi)
 
-        $('#errorInputDiv').hide();
-        $('#errorInput').html("");
-    }
-    function showLoading(){
-        $('#btnSimpanPembayaran').prop("disabled", true);
-        $('#btnSimpanPembayaran').html('<span class="spinner-border text-primary spinner-border-sm mx-2" role="status" aria-hidden="true"></span>'
-  +'Loading...');
-    }
-    function hideLoading(){
-        $('#btnSimpanPembayaran').prop("disabled", false);
-        $('#btnSimpanPembayaran').html('Simpan');
-    }
+        swalWithBootstrapButtons.fire({
+          title:  'Anda yakin akan menghapus data??',
+          text:   "Data: "+nama_registrasi,
+          icon:   'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Ya',
+          cancelButtonText: 'No',
+          reverseButtons: true
+        }).then((result) => {
+          if (result.value) {
+            ajaxDestroy(id);
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data registrasi terpilih batal di hapus:)', 'error')
+          }
+        })
+    })
 
-    function kembali()
-    {
-        return window.location.assign("<?= route('registrasi.index') ?>");
-    }
-    function saveData(data) {
-        hideErrorInput();
-        showLoading();
+    function ajaxDestroy(idx) {
+        var url = '/admin/ajax/registrasi/destroy',
+            method = 'DELETE';
+
         $.ajax({
-            url: "/admin/registrasi",
-            method: "POST",
-            data: data,
-            dataType: 'json',
-            error: function(json) {
-                var response = $.parseJSON(json.responseText);
-                var errorString = '<ul>';
-                $.each(response.errors, function(key, value) {
-                    errorString += '<li>' + value + '</li>';
-                });
-                errorString += '</ul>';
-                hideLoading();
-                showErrorInput(errorString);
+            url: url,
+            method: method,
+            data: {idx:idx},
+            success: function(res) {
+                // Pertnayaantkang 
+                console.log(res, res.result.nama_registrasi)
+                swalWithBootstrapButtons.fire('Lapor!', res.message + '\nnama : '+res.result.nama_registrasi, 'success');
+                $('#tabel-registrasi').DataTable().ajax.reload();
             },
-            success: function(d) {
-                console.log(d);
-                console.log(d.ok);
-                if (d.ok === true) {
-                    kembali();
-                } else if ((d.ok === 'false')) {
-                    hideLoading();
-                }
-            }
+            error: function(xhr){}
         });
     }
+
+    function ajaxLoad() {
+        var term = $('#term').val(),
+            tanggal = $('#tgl_reg').val();
+        console.log(term, tanggal);
+
+       $('#tabel-registrasi').dataTable({
+            "autoWidth": false,
+            "Processing": true,
+            "ServerSide": true,
+            "sDom" : "<t <'float-right' i><p >>",
+            "iDisplayLength": 25,
+            "bDestroy": true,
+            "oLanguage": {
+                "sLengthMenu": "_MENU_ ",
+                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries",
+                "sSearch": "Search Data :  ",
+                "sZeroRecords": "Tidak ada data",
+                "sEmptyTable": "Data tidak tersedia",
+                "sLoadingRecords": '<img src="{{ asset('ajax-loader.gif') }}"> Loading...'
+            },           
+            "ajax": {
+                "url" : "/admin/ajax/registrasi",
+                "type": "GET",
+                "data": {
+                    "term" : term,
+                    "tanggal_reg" : tanggal
+                }
+            },
+            "columns": [
+                {"mData": "DT_RowIndex"},
+                {"mData": "no_reg"},
+                {"mData": "no_rm"},
+                {"mData": "nama_pasien"},
+                {"mData": "tanggal_reg", "width": "70"},
+                {"mData": "cara_bayar", "width": "50"},
+                {"mData": "no_sep"},
+                {"mData": "action", "className": "text-center"},
+            ],
+        })
+        oTable = $('#tabel-registrasi').DataTable();
+
+        $('#term').keyup(function(){
+        oTable.search($(this).val()).draw() ;
+            $('.table').removeAttr('style');
+        });
+    }
+
+});
 </script>

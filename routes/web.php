@@ -25,6 +25,8 @@ Route::group(['namespace' => 'Auth'], function () {
 
 Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('/registrasi', 'RegistrasiController');
+        Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
 
     // Master
     Route::group(['namespace' => 'Master'], function() {
@@ -34,7 +36,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
 
     Route::group(['namespace' => 'Transaksi'], function() {
         Route::resource('/antrian', 'AntrianController');
-        Route::get('/antrian/poli/{poli}', 'AntrianController@showPoli')->name('antrian.showpoli');
+        Route::get('/antrian/poli/{poli}/tanggal/{tanggal}', 'AntrianController@showPoli')->name('antrian.showpoli');
         Route::get('/ajax/antrian', 'AntrianController@indexAjax');
 
     });

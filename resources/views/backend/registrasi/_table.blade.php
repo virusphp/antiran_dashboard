@@ -1,17 +1,17 @@
 @push('css')
-@include('datatables.datatables-css')
+	@include('datatables.datatables-css')
 @endpush
-<table id="tabel-registrasi" class="table table-hover table-responsive-sm table-condensed table-striped table-sm">
+
+<table id="tabel-registrasi" class="table table-sm table-hover table-responsive-sm table-striped">
     <thead>
         <tr>
             <th>#</th>
-            <th>NO REGISTRASI</th>
-            <th>NAMA CLIENT</th>
-            <th>NAMA PEKERJAAN</th>
-            <th>NO AKTA</th>
-            <th>LOKASI AKTA</th>
-            <th>TANGGAL REGISTRASI</th>
-
+            <th>NO REG</th>
+            <th>NO RM</th>
+            <th>NAMA PASIEN</th>
+            <th>TGL REG</th>
+            <th>BAYAR</th>
+            <th>NO SEP</th>
             <th class="text-right">AKSI</th>
         </tr>
     </thead>
@@ -20,5 +20,5 @@
 </table>
 
 @push('scripts')
-@include('datatables.datatables-js')
+    @include('datatables.datatables-js')
 @endpush

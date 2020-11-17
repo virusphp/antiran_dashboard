@@ -29,6 +29,11 @@
             Transaksi
         </li>
         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('registrasi.index') }}">
+                <i class="c-sidebar-nav-icon c-icon cil-user"></i> Pembuatan Sep
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('antrian.index') }}">
                 <i class="c-sidebar-nav-icon c-icon cil-user"></i> Antrian
             </a>

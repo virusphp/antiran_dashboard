@@ -35,6 +35,10 @@ $(function() {
         ajaxLoad();
     })
 
+    $('#cari-button').click(function() {
+        ajaxLoad();
+    })
+
     $(document).on('click', '#delete-pasien', function() {
         var id = $(this).data('idx'),
             nama_pasien = $(this).data('nama');
@@ -76,7 +80,8 @@ $(function() {
     }
 
     function ajaxLoad() {
-        var term = $('#term').val();
+        var term = $('#term').val(),
+            asuransi = $('#asuransi').val();
 
        $('#tabel-pasien').dataTable({
             "autoWidth": false,
@@ -97,15 +102,17 @@ $(function() {
                 "url" : "/admin/ajax/pasien",
                 "type": "GET",
                 "data": {
-                    "term" : term
+                    "term" : term,
+                    "asuransi" : asuransi
                 }
             },
             "columns": [
                 {"mData": "DT_RowIndex"},
-                {"mData": "no_rekamedis"},
+                {"mData": "no_rm"},
                 {"mData": "nama_pasien"},
-                {"mData": "tempat_lahir"},
-                {"mData": "jenis_kelamin"},
+                {"mData": "nik"},
+                {"mData": "jns_kel"},
+                {"mData": "no_kartu"},
                 {"mData": "action"},
             ],
         })

@@ -2,13 +2,29 @@
 
 namespace App\Repository\Registrasi;
 
-// use Illuminate\Support\Facades\Request;
-use App\Models\Registrasi as RegistrasiModel;
+use DB;
+
 class Registrasi
 {
-    public function getRegistrasi()
+    protected $dbsimrs = "sqlsrv_simrs";
+      
+    public function getRegistrasi($params)
     {
-        return RegistrasiModel::select('id','no_registrasi','kode_pekerjaan','kode_client','no_akta','lokasi_akta','tanggal_registrasi')->get();
+        // dd($params->tanggal_reg, tanggalFormat($params->tanggal_reg));
+        return DB::connection($this->dbsimrs)->table('registrasi as r')
+                ->select('r.no_reg','r.no_rm','cb.keterangan','r.status_keluar','r.kd_cara_bayar','p.nama_pasien','r.tgl_reg','r.no_sjp')
+                ->join('pasien as p', 'r.no_rm','=','p.no_rm')
+                ->join('cara_bayar as cb', 'r.kd_cara_bayar','=','cb.kd_cara_bayar')
+                ->where('r.tgl_reg','=', tanggalFormat($params->tanggal_reg))
+                ->where(function($query) use ($params) {
+                    if ($term = $params->term) {
+                        $keywords = "%". $term . "%";
+                        $query->orWhere('p.nama_pasien','like', $keywords)
+                              ->orWhere('r.no_rm', 'like', $keywords)
+                              ->orWhere('r.no_reg', 'like', $keywords);
+                    }
+                })
+                ->get();
     }
     
 }

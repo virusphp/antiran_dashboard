@@ -44,7 +44,7 @@ Antrian
                                                         <i class="cil-calendar"></i>
                                                     </span>
                                                 </div> --}}
-                                                <input class="form-control date-input" placeholder="dd-mm-yyyy" value="" min="1995-01-01" max="2030-12-31" id="tanggal_reg" name="tgl_reg" type="date">
+                                                <input class="form-control date-input" value="" value="" min="1995-01-01" max="2030-12-31" id="tanggal_reg" name="tgl_reg" pattern="\d{2}-\d{4}-\d{2}" type="date">
                                                 {{-- <span class="input-group-append">
                                                     <button id="cari-tanggal" class="btn btn-primary" type="button">
                                                         <i class="cil-search"></i>

@@ -37,7 +37,7 @@ class AntrianController extends Controller
                         return view('datatables._action-antrian', [
                             'idx' => $antrian->kd_poliklinik,
                             'nama_antrian' => $antrian->kd_poliklinik,
-                            'edit_url' => route('antrian.showPoli', $antrian->kd_poliklinik)
+                            'edit_url' => route('antrian.showpoli', [$antrian->kd_poliklinik, tanggal($antrian->tgl_reg)])
                         ]);
                     })
                     ->make(true);
@@ -92,7 +92,8 @@ class AntrianController extends Controller
 
     public function showPoli($poli, $tanggal)
     {
-        dd($poli, $tanggal);
+        $bcrum = $this->bcrum('Antrian', route('antrian.index'), 'Tampil Antrian');
+        return view('backend.antrian.show', compact('bcrum'));
     }
 
     /**

@@ -6,6 +6,14 @@
     padding: 0.25rem;
 }
 
+label {
+    margin-bottom: 0.2rem;
+}
+
+#profil-card .card .card-body .form-group {
+    margin-bottom: 0.3rem;
+}
+
 .invalid-feedback {
     display:block;
 }
@@ -20,3 +28,30 @@
     background-color: #25b5e0;
     border-color: #25b5e0;
 }
+
+.c-app.c-legacy-theme {
+    --primary: #20a8d8;
+    --secondary: #c8ced3;
+    --success: #4dbd74;
+    --info: #63c2de;
+    --warning: #ffc107;
+    --danger: #f86c6b;
+    --light: #f0f3f5;
+    --dark: #2f353a;
+    color: #23282c;
+    background-color: #e4e5e6;
+    --color: #23282c;
+}
+
+.c-legacy-theme .c-sidebar {
+    color: #fff;
+    background: #2f353a;
+}
+
+.c-sidebar-dark {
+    color: #101011
+}
+
+/* MODAL SEP */
+
+/* PENUTUP MODAL SEP */

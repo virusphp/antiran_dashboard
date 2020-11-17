@@ -192,7 +192,7 @@
             minYear: 2020,
             autofill: false
         });
-        
+
         $('#kode_proses-key').select2({
 
             placeholder: "Pilih Pekerjaan",

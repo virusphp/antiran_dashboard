@@ -32,17 +32,27 @@ Pasien
                         </ul>
                     </div>
                     <div class="card-body">
-                        <form class="form-horizontal">
-                            <div class="row mb-3">
-                                <div class="col-lg-12 d-inline-flex justify-content-end align-items-center">
-                                    <input id="term" type="text" class="form-control col-lg-3" name="term" placeholder="Pencarian Slider">
-                                    <button type="submit" class="btn btn-sm btn-outline-primary mx-1"><i class="c-icon cil-search"></i>
-                                </div>
-                            </div>
-                        </form>
-
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-md-12">
+                                  <div class="d-flex float-right">
+                                    <div class="form-group my-2 mx-2">
+                                        <select class="form-control" name="asuransi" id="asuransi">
+                                            <option value="0">NON BPJS</option>
+                                            <option value="1">BPJS</option>
+                                        </select>
+                                       {{-- <input class="form-control date-input" placeholder="dd-mm-yyyy" value="" min="1995-01-01" max="2030-12-31" id="tanggal_reg" name="tgl_reg" type="date"> --}}
+                                    </div>
+                                    <div class="form-group my-2 mx-2">
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <input class="form-control" name="term" id="term" size="16" type="text">
+                                                <span class="input-group-append">
+                                                    <button id="cari-button" class="btn btn-secondary" type="button">Go!</button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 @include('backend.pasien._table')
                             </div>
                         </div>

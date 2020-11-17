@@ -4,18 +4,9 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Backend\BackendController as Controller;
 use App\Http\Requests\RegistrasiRequest;
-use App\Models\Client;
-use App\Models\Pekerjaan;
-use App\Models\ProsesPekerjaan;
-use App\Models\RegistrasiDetail;
-use App\Models\Pembayaran;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use App\Repository\Registrasi\Registrasi as RegistrasiRepo;
 use Yajra\DataTables\Facades\DataTables;
+use Illuminate\Http\Request;
 
 class RegistrasiController extends Controller
 {
@@ -40,34 +31,30 @@ class RegistrasiController extends Controller
     {
         if ($request->ajax()) {
 
-            $registrasi = $this->registrasi->getRegistrasi();
+            $registrasi = $this->registrasi->getRegistrasi($request);
             // dd($registrasi);
             return DataTables::of($registrasi)
                 ->setRowId('idx')
                 ->addIndexColumn()
-                ->addColumn('no_registrasi',function($registrasi){
-                    return $registrasi->no_registrasi;
+                ->addColumn('cara_bayar',function($registrasi){
+                    return $registrasi->keterangan;
                 })
-                ->addColumn('nama_client',function($registrasi){
-                    return $registrasi->client->nama_client;
+                ->addColumn('status_rawat',function($registrasi){
+                    return statusRawat($registrasi->status_keluar);
                 })
-                ->addColumn('nama_pekerjaan',function($registrasi){
-                    return $registrasi->pekerjaan->nama_pekerjaan;
+                ->addColumn('no_sep',function($registrasi){
+                    return $registrasi->no_sjp;
                 })
-                ->addColumn('no_akta',function($registrasi){
-                    return $registrasi->no_akta;
-                })
-                ->addColumn('lokasi_akta',function($registrasi){
-                    return $registrasi->lokasi_akta;
-                })
-                ->addColumn('tanggal_registrasi',function($registrasi){
-                    return $registrasi->tanggal_registrasi;
+                ->addColumn('tanggal_reg',function($registrasi){
+                    return tanggalFormat($registrasi->tgl_reg);
                 })
                 ->addColumn('action', function ($registrasi) {
                     return view('datatables._action-registrasi', [
-                        'idx' => $registrasi->id,
-                        'no_registrasi' => $registrasi->no_registrasi,
-                        'edit_url' => route('registrasi.edit', $registrasi->id)
+                        'status_keluar' => $registrasi->status_keluar,
+                        'cara_bayar' => $registrasi->kd_cara_bayar,
+                        'no_reg' => $registrasi->no_reg,
+                        'no_sep' => $registrasi->no_sjp,
+                        'edit_url' => route('registrasi.edit', $registrasi->no_reg)
                     ]);
                 })
                 ->make(true);

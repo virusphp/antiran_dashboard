@@ -34,17 +34,15 @@
 
 </head>
 
-<body class="c-app">
-    <div id="app">
-        @include('layouts.backend.partials.sidebar')
-        <div class="c-wrapper c-fixed-components">
-            @include('layouts.backend.partials.header')
-            <div class="c-body">
-                <main class="c-main">
-                    @yield('content')
-                </main>
-                @include('layouts.backend.partials.footer')
-            </div>
+<body class="c-app c-legacy-theme">
+    @include('layouts.backend.partials.sidebar')
+    <div class="c-wrapper c-fixed-components">
+        @include('layouts.backend.partials.header')
+        <div class="c-body">
+            <main class="c-main">
+                @yield('content')
+            </main>
+            @include('layouts.backend.partials.footer')
         </div>
     </div>
     <!-- CoreUI and necessary plugins-->
@@ -59,6 +57,6 @@
     <script src="{{ asset('coreui/js/tooltips.js') }}"></script>
     @stack('scripts')
     @include('layouts.backend.partials._flash')
-</body>
 
+</body>
 </html>
