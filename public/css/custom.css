@@ -17,9 +17,11 @@ label {
 .invalid-feedback {
     display:block;
 }
+
 .sembunyi {
     display: none;
 }
+
 .bg-dark-green {
     background-color: #02731a;
 }
@@ -53,5 +55,24 @@ label {
 }
 
 /* MODAL SEP */
+#modal-sep .form-group {
+    margin-bottom: 00.5rem;
+}
 
+.btn-cus {
+    padding: 0.0212rem 0.0812rem !important;
+}
+
+.btn-cus:hover {
+    color: aqua;
+    background-color: aqua;
+}
+
+.modal-header {
+        padding: 0.5rem 0.5rem !important;
+}
+
+#modal-sep .modal-xl {
+    max-width: 1366px;
+}
 /* PENUTUP MODAL SEP */
