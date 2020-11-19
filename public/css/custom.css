@@ -55,8 +55,16 @@ label {
 }
 
 /* MODAL SEP */
+#profil-card .card-body, #biodata-card .card-body {
+    padding: 0.50rem;
+}
+
 #modal-sep .form-group {
     margin-bottom: 00.5rem;
+}
+
+#modal-sep .card-body .form-group, .form-group label {
+    margin-bottom: 0.2rem;
 }
 
 .btn-cus {
@@ -69,7 +77,11 @@ label {
 }
 
 .modal-header {
-        padding: 0.5rem 0.5rem !important;
+        padding: 0.3rem 0.3rem !important;
+}
+
+.modal-title {
+    margin-left: 20px;
 }
 
 #modal-sep .modal-xl {

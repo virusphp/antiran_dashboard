@@ -1,4 +1,14 @@
 <script type="text/javascript">
+    function loadModal() {
+    //     $('#form-skdp').hide();
+    //     $('#form-katarak').hide();
+    //     $("#form-penjamin-kll").hide();        
+    }
+
+    $(document).ready(function() {
+        loadModal();
+    });
+
     $(document).on('click',"#buat-sep", function() {
         console.log($(this).data('reg'));
         var no_reg = $(this).data('reg'),
