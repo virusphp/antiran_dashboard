@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Backend\BackendController as Controller;
 use App\Http\Requests\RegistrasiRequest;
 use App\Repository\Registrasi\Registrasi as RegistrasiRepo;
+use DateTime;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
 
@@ -58,6 +59,43 @@ class RegistrasiController extends Controller
                     ]);
                 })
                 ->make(true);
+        }
+    }
+
+    public function ajaxModalSep(Request $request)
+    {
+        if ($request->ajax()) {
+            $registrasi = $this->registrasi->getRegistrasiDetail($request);
+            $registrasi->tgl_reg = (new DateTime($registrasi->tgl_reg))->format('Y-m-d');
+            // CEK JIKA RANAP
+            if ($registrasi->jns_rawat == 2) {
+                $response = $this->registrasi->getRawatInap($registrasi->no_reg);
+                $response->jns_pelayanan = '1';
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            } else if ($registrasi->jns_rawat == 1) {
+
+                $response = $this->registrasi->getRawatJalan($registrasi->no_reg);
+                $response->jns_pelayanan = '2';
+                $response->asal_pasien = trim($registrasi->kd_asal_pasien) == "" ? "" : trim($registrasi->kd_asal_pasien);
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            } else {
+
+                $response = $this->registrasi->getRawatDarurat($registrasi->no_reg);
+                $response->jns_pelayanan = '2';
+                $response->asal_pasien = trim($registrasi->kd_asal_pasien) == "" ? "" : trim($registrasi->kd_asal_pasien);
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            }
+
+            return response()->json($response);
         }
     }
 

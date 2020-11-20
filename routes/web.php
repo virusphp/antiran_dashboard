@@ -27,6 +27,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/registrasi', 'RegistrasiController');
         Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
+        Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
 
     // Master
     Route::group(['namespace' => 'Master'], function() {

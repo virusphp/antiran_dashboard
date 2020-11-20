@@ -1,8 +1,8 @@
 <script type="text/javascript">
     function loadModal() {
-    //     $('#form-skdp').hide();
-    //     $('#form-katarak').hide();
-    //     $("#form-penjamin-kll").hide();        
+        $('#form-skdp').hide();
+        $('#form-katarak').hide();
+        $("#form-penjamin-kll").hide();        
     }
 
     $(document).ready(function() {
@@ -18,7 +18,21 @@
             },
             method = 'POST',
             url = '/admin/ajax/registrasi/modalsep';
-        
+
+        loadModal()
+        $.ajax({
+            method:method,
+            url:url,
+            data: {
+                _token: CSRF_TOKEN,
+                no_reg: no_reg
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                getBiodataProfil(data);
+            }
+        });
         $('#modal-sep').modal(options);
         $('#modal-sep').removeAttr('style');
     })
