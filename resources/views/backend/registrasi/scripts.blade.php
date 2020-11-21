@@ -30,6 +30,12 @@ $(function() {
         format: "DD-MM-YYYY"
     });
 
+    $('#tgl-reg-klik').datetimepicker({
+        //  format: 'L',
+        defaultDate: new Date(), 
+        format: "YYYY-MM-DD"
+    });
+
     $(document).ready(function() {
         ajaxLoad();
     })
@@ -91,22 +97,21 @@ $(function() {
     function ajaxLoad() {
         var term = $('#term').val(),
             tanggal = $('#tgl_reg').val();
-        console.log(term, tanggal);
 
        $('#tabel-registrasi').dataTable({
-            "autoWidth": false,
-            "Processing": true,
-            "ServerSide": true,
-            "sDom" : "<t <'float-right' i><p >>",
+            "autoWidth"     : false,
+            "Processing"    : true,
+            "ServerSide"    : true,
+            "sDom"          : "<t <'float-right' i><p >>",
             "iDisplayLength": 25,
-            "bDestroy": true,
-            "oLanguage": {
-                "sLengthMenu": "_MENU_ ",
-                "sInfo": "Showing <b>_START_ to _END_</b> of _TOTAL_ entries",
-                "sSearch": "Search Data :  ",
-                "sZeroRecords": "Tidak ada data",
-                "sEmptyTable": "Data tidak tersedia",
-                "sLoadingRecords": '<img src="{{ asset('ajax-loader.gif') }}"> Loading...'
+            "bDestroy"      : true,
+            "oLanguage"     : {
+                "sLengthMenu"    : "_MENU_ ",
+                "sInfo"          : "Showing <b>_START_ to _END_</b> of _TOTAL_ entries",
+                "sSearch"        : "Search Data: ",
+                "sZeroRecords"   : "Tidak ada data",
+                "sEmptyTable"    : "Data tidak tersedia",
+                "sLoadingRecords": '<img src   = "{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
                 "url" : "/admin/ajax/registrasi",
@@ -122,9 +127,9 @@ $(function() {
                 {"mData": "no_rm"},
                 {"mData": "nama_pasien"},
                 {"mData": "tanggal_reg", "width": "70"},
-                {"mData": "cara_bayar", "width": "50"},
+                {"mData": "cara_bayar", "width" : "50"},
                 {"mData": "no_sep"},
-                {"mData": "action", "className": "text-center"},
+                {"mData": "action", "className" : "text-center"},
             ],
         })
         oTable = $('#tabel-registrasi').DataTable();

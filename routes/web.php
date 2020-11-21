@@ -26,8 +26,16 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/registrasi', 'RegistrasiController');
-        Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
-        Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
+    Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
+    Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
+
+    //  LIST DROPDOWN
+    Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
+    Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
+    Route::get('/ajax/list/asalpasien', 'AsalpasienController@ajaxListAsalpasien');
+    Route::get('/ajax/list/instansi', 'InstansiController@ajaxListInstansi');
+
+
 
     // Master
     Route::group(['namespace' => 'Master'], function() {

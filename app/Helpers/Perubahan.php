@@ -29,3 +29,14 @@ function statusRawat($nilai)
 {
     return ($nilai == 2) ? "Batal" : "Proses";
 }
+
+function namaKelas()
+{
+    $namaKelas = [
+		1 => 'Kelas I',
+		2 => 'Kelas II',
+		3 => 'Kelas III'
+    ];
+    
+    return $namaKelas;
+}

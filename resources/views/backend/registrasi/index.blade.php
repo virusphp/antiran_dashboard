@@ -70,9 +70,11 @@ Sep
 @push('css')
 <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ asset('lib/font-awesome/css/all.min.css') }}" rel="stylesheet">
-<link rel="stylesheet" href="{{ asset('lib/datetimepicker/css/tempusdominus-bootstrap-4.min.css') }}">
+<link href="{{ asset('lib/select2/css/select2.min.css') }}" rel="stylesheet">
+<link href="{{ asset('lib/datetimepicker/css/tempusdominus-bootstrap-4.min.css') }}" rel="stylesheet">
 @endpush
 @push('scripts')
+    <script src="{{ asset('lib/select2/js/select2.min.js') }}"></script> 
     @include('backend.registrasi.scripts')
     @include('backend.registrasi.buatsep-scripts')
 @endpush

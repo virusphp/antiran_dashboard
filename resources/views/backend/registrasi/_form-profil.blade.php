@@ -27,7 +27,7 @@
              <div class="form-group row">
                  <div class="col-md-6">
                     <label for="hak_kelas">Hak Kelas</label>
-                    <select id="klsRawat" name="klsRawat" class="form-control form-control-sm"></select>
+                    <select id="kelas-rawat" name="kelas_rawat" class="form-control form-control-sm"></select>
                 </div>
                 <div class="col-md-6">
                     <label for="peserta">Peserta</label>

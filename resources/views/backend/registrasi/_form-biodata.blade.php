@@ -11,8 +11,9 @@
                 <div class="col-md-4">
                    <label for="no_kartu">Nomor Kartu</label>
                    <input type="text" class="form-control form-control-sm" id="no-kartu" name="no_kartu" placeholder="No Kartu" readonly>
-                   <input type="hidden" class="form-control form-control-sm" id="no-sep" name="no_sep" readonly>
-                   <input type="hidden" class="form-control form-control-sm" id="tgl-sep" name="tgl_sep" readonly>
+                   <input type="hidden" id="no-sep" name="no_sep" readonly>
+                   <input type="hidden" id="tgl-sep" name="tgl_sep" readonly>
+                   <input type="hidden" id="jns-pelayanan" name="jns_pelayanan" readonly>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -25,12 +26,12 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                   <label for="tgl_rujukan">Tanggal Rujukan</label>
+                   <label for="tgl_reg">Tanggal Registrasi</label>
                     <div class="form-group mx-2">
                         <div class="controls"> 
-                            <div class="input-group date" id="tgl-rujukan-klik" data-target-input="nearest">
-                            <input type="text" id="tgl-rujukan" name="tgl_rujukan" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-rujukan-klik"/>
-                                <div class="input-group-append" data-target="#tgl-rujukan-klik" data-toggle="datetimepicker">
+                            <div class="input-group date" id="tgl-reg-klik" data-target-input="nearest">
+                            <input type="text" id="tgl-reg" name="tgl_reg" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-reg-klik"/>
+                                <div class="input-group-append" data-target="#tgl-reg-klik" data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="ci-icon cil-calendar"></i></div>
                             </div>
                         </div>
@@ -132,9 +133,9 @@
                         <label for="tgl_kejadian">Tanggal Kejadian</label>
                         <div class="form-group">
                             <div class="controls"> 
-                                <div class="input-group date" id="tgl-rujukan-klik" data-target-input="nearest">
-                                    <input type="text" id="tgl-rujukan" name="tgl_rujukan" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-rujukan-klik"/>
-                                    <div class="input-group-append" data-target="#tgl-rujukan-klik" data-toggle="datetimepicker">
+                                <div class="input-group date" id="tgl-kejadian-klik" data-target-input="nearest">
+                                    <input type="text" id="tgl-kejadian" name="tgl_kejadian" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-kejadian-klik"/>
+                                    <div class="input-group-append" data-target="#tgl-kejadian-klik" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="ci-icon cil-calendar"></i></div>
                                     </div>
                                 </div>
