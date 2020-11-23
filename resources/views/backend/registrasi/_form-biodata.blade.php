@@ -42,8 +42,8 @@
             <div class="form-group row">
                 <div class="col-md-4">
                     <label for="no_rujukan">No Rujukan</label>
-                    <input class="btn btn-ghost-primary btn-cus" id="cari_rujukan" type="button" value="Pcare">
-                    <input class="btn btn-ghost-primary btn-cus" id="cari_rujukan_rs" type="button" value="RS">
+                    <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan" type="button" value="Pcare">
+                    <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan-rs" type="button" value="RS">
                     <input class="btn btn-ghost-primary btn-cus float-right" id="cari_sko" type="button" value="SKO">
                     <input class="form-control form-control-sm" id="no-rujukan" name="no_rujukan" type="text" placeholder="No Rujukan" tabindex="1">
                 </div>

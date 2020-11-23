@@ -72,6 +72,7 @@
 
         // SELECT 2 DROP DOWN
         getKelas()
+        getPeserta()
         getCaraBayar(data.cara_bayar)
         getAsalPasien(data.asal_pasien)
         getInstansi()
@@ -83,8 +84,17 @@
         $('#nama-pelayanan b span').remove()
     })
 
+    $('#cari-rujukan').on('click', function() {
+        console.log("OKE MASUK");
+        var options {
+            'backdrop' : 'static'
+        };
+
+        $('#modal-rujukan').modal(options)
+    });
+
     // GET KELAS BPJS
-    function getKelas() {
+    function getKelas(hakkelas) {
         var url = '/admin/ajax/list/kelas',
             method = 'get';
         $.ajax({
@@ -97,6 +107,9 @@
                 $.each(data, function(key, value) {
                     $('#kelas-rawat').append('<option value="'+key+'">'+value+'</option>');
                 });
+                if (hakkelas) {
+                    $('#kelas-rawat option[value='+hakkelas+']').attr('selected','selected').closest('#kelas-rawat');
+                }
                 $('#kelas-rawat').select2({
                     'placeholder': 'Pilih kelas'
                 })
@@ -142,7 +155,6 @@
                 $.each(data, function(key, value) {
                     $('#asal-pasien').append('<option value="'+value.kd_asal_pasien.trim()+'">'+value.keterangan+'</option>');
                 });
-                console.log(asalpasien)
                 if (asalpasien) {
                     $('#asal-pasien option[value='+asalpasien+']').attr('selected','selected').closest('#asal-pasien');
                 }
@@ -170,6 +182,31 @@
                 $('#nama-instansi').select2({
                     'placeholder': 'Pilih Asal pasien'
                 })
+            }
+        })
+    }
+
+    // GET PESERTA BPJS
+    function getPeserta()
+    {
+        var url = '/admin/ajax/peserta/bpjs',
+            method = 'post',
+            no_kartu = $('#no-kartu').val(),
+            tgl_reg = $('#tgl-reg').val();
+        $.ajax({
+            url:url,
+            method:method,
+            data: {
+                no_kartu:no_kartu,
+                tgl_reg:tgl_reg
+            },
+            success: function(data) {
+                d = JSON.parse(data);
+                if (d.response !== null) {
+                    res = d.response.peserta
+                    $('#peserta').val(res.statusPeserta.keterangan+' '+res.jenisPeserta.keterangan)
+                    getKelas(res.hakKelas.kode)
+                }
             }
         })
     }

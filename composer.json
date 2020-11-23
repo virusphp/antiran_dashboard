@@ -12,6 +12,7 @@
         "alfa6661/laravel-autonumber": "^1.2",
         "doctrine/dbal": "^2.11",
         "fideloper/proxy": "^4.0",
+        "guzzlehttp/guzzle": "7.0",
         "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",

@@ -35,8 +35,11 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/list/asalpasien', 'AsalpasienController@ajaxListAsalpasien');
     Route::get('/ajax/list/instansi', 'InstansiController@ajaxListInstansi');
 
-
-
+    Route::group(['namespace' => 'BridgingBPJS'], function() {
+        // GET PESERTA BPJS
+        Route::post('/ajax/peserta/bpjs', 'PesertaController@ajaxPesertaBpjs');
+    });
+    
     // Master
     Route::group(['namespace' => 'Master'], function() {
         Route::resource('/pasien', 'PasienController');
