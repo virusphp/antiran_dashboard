@@ -6,9 +6,9 @@
     <thead>
         <tr>
             <th>#</th>
-            <th>NO Rujukan</th>
+            <th>NO RUJUKAN</th>
             <th>TGL RUJUKAN</th>
-            <th>NAMA PAsiEN</th>
+            <th>NAMA PASIEN</th>
             <th>SUB SPESIALIS</th>
             <th>PELAYANAN</th>
             <th>PPK PERUJUK</th>

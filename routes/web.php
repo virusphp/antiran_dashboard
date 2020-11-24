@@ -37,7 +37,10 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
 
     Route::group(['namespace' => 'BridgingBPJS'], function() {
         // GET PESERTA BPJS
-        Route::post('/ajax/peserta/bpjs', 'PesertaController@ajaxPesertaBpjs');
+        Route::post('/ajax/bpjs/peserta', 'PesertaController@ajaxPesertaBpjs');
+        Route::post('/ajax/bpjs/listrujukan', 'RujukanController@ajaxListRujukanBpjs');
+        Route::post('/ajax/bpjs/rujukan', 'RujukanController@ajaxRujukanBpjs');
+        Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
     });
     
     // Master

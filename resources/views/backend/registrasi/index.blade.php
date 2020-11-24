@@ -66,6 +66,7 @@ Sep
     </div>
 </div>
 @include('backend.registrasi.modal-sep')
+@include('backend.registrasi.modal-rujukan')
 @endsection
 @push('css')
 <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">

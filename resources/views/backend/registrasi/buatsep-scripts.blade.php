@@ -3,6 +3,7 @@
         $('#form-skdp').hide();
         $('#form-katarak').hide();
         $("#form-penjamin-kll").hide();
+
         $('#no-reg').val("")
         $('#no-rm').val("")
         $('#no-kartu').val("")
@@ -13,9 +14,27 @@
         $('#alamat').val("")
         $('#jns-pelayanan').val("")
 
+        $('#no-surat').val("000000")
+        $('#no-surat-lama').val("000000")
+        $('#kode-dpjp').val("000000")
+        $('#propinsi').val('0')
+        $('#provinsi').prop('selectedIndex',0);
+        $('#kabupaten option').prop('selected', function() {
+            return this.defaultSelected;
+        });
+        $('#kecamatan option').prop('selected', function() {
+            return this.defaultSelected;
+        });
+        var form = $('#form-sep');
+        // Reset validationo error
+        form.find('.invalid-feedback').remove();
+        form.find('input').removeClass('is-invalid');
+        form.find('textarea').removeClass('is-invalid');
+
         // SELECT 2 DROP DOWN
-        $('#cara-bayar').val("")
-        $('#asal-pasien').val("")
+        $('#kelas-rawat').attr('readonly', false);
+        $('#kelas-rawat').attr('disabled', false);
+    
     }
 
     $(document).ready(function() {
@@ -85,13 +104,115 @@
     })
 
     $('#cari-rujukan').on('click', function() {
-        console.log("OKE MASUK");
-        var options {
-            'backdrop' : 'static'
-        };
+        var no_kartu = $('#no-kartu').val(),
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
+            options = {
+                'backdrop' : 'static'
+            };
+
+        getListRujukan(no_kartu);
 
         $('#modal-rujukan').modal(options)
     });
+
+    function getListRujukan(no_kartu) {
+        console.log(no_kartu);
+        $('#tabel-rujukan').dataTable({
+            "autoWidth"     : false,
+            "Processing"    : true,
+            "ServerSide"    : true,
+            "sDom"          : "<t <'float-right' i><p >>",
+            "iDisplayLength": 25,
+            "bDestroy"      : true,
+            "oLanguage"     : {
+                "sLengthMenu"    : "_MENU_ ",
+                "sInfo"          : "Showing <b>_START_ to _END_</b> of _TOTAL_ entries",
+                "sSearch"        : "Search Data: ",
+                "sZeroRecords"   : "Tidak ada data",
+                "sEmptyTable"    : "Data tidak tersedia",
+                "sLoadingRecords": '<img src   = "{{ asset('ajax-loader.gif') }}"> Loading...'
+            },           
+            "ajax": {
+                "url" : "/admin/ajax/bpjs/listrujukan",
+                "type": "POST",
+                "data": {
+                    "no_kartu": no_kartu
+                }
+            },
+            "columns": [
+                {"mData": "no"},
+                {"mData": "noKunjungan"},
+                {"mData": "tglKunjungan"},
+                {"mData": "nama"},
+                {"width": "2%","mData": "poli"},
+                {"mData": "pelayanan"},
+                {"mData": "ppkPerujuk"}
+            ]
+        })
+        oTable = $('#tabel-rujukan').DataTable();  
+        $('#no_kartu').keyup(function(){
+            oTable.search($(this).val()).draw() ;
+            $('.table').removeAttr('style');
+        }); 
+    }
+
+    $(document).on('click','#h-rujukan', function() {
+        var no_rujukan = $(this).data('rujukan'),
+            url = '/admin/ajax/bpjs/rujukan',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#no-rujukan').val(no_rujukan).attr('readonly', true);
+
+        $.ajax({
+            url:url,
+            method:method,
+            data: {
+                no_rujukan: no_rujukan,
+                _token: CSRF_TOKEN
+            },
+            success: function(data) {
+                console.log(data);
+                d = JSON.parse(data);
+                res = d.response;
+                if (res !== null) {
+                    $('#tgl-rujukan').val(res.rujukan.tglKunjungan)
+                    $('#ppk-rujukan').val(res.rujukan.provPerujuk.kode)
+                    $('#nama-faskes').val(res.rujukan.provPerujuk.nama).attr('readonly', true)
+                    $('#nama-diagnosa').val(res.rujukan.diagnosa.nama)
+                    $('#kode-diagnosa').val(res.rujukan.diagnosa.kode)
+                    $('#nama-poli').val(res.rujukan.poliRujukan.nama)
+                    $('#kode-poli').val(res.rujukan.poliRujukan.kode)
+                    $('#internal-rujukan').val(res.rujukan.noKunjungan)
+                    $('#asal-rujukan option[value='+res.asalFaskes+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled','true');
+                    if ($('#no-telp').val() == "") {
+                        $('#no-telp').val(res.rujukan.peserta.mr.noTelepon)
+                    }
+
+                }
+            }
+        })
+
+        $('#modal-rujukan').modal('hide');
+    });
+
+    $('#create-sep').on('click', function() {
+        var form_sep = $('#form-sep'),
+            url = '/admin/ajax/bpjs/insertsep',
+            method = 'POSt';
+
+        form_sep.find('#asal-rujukan').prop('disabled', false)
+        form_sep.find('#kelas-rawat').prop('disabled', false);
+
+        $.ajax({
+            url:url,
+            method:method,
+            data: form_sep.serialize(),
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+            }
+        })
+    })
 
     // GET KELAS BPJS
     function getKelas(hakkelas) {
@@ -108,7 +229,7 @@
                     $('#kelas-rawat').append('<option value="'+key+'">'+value+'</option>');
                 });
                 if (hakkelas) {
-                    $('#kelas-rawat option[value='+hakkelas+']').attr('selected','selected').closest('#kelas-rawat');
+                    $('#kelas-rawat option[value='+hakkelas+']').attr('selected','selected').closest('#kelas-rawat').attr('disabled', true);
                 }
                 $('#kelas-rawat').select2({
                     'placeholder': 'Pilih kelas'
@@ -189,7 +310,7 @@
     // GET PESERTA BPJS
     function getPeserta()
     {
-        var url = '/admin/ajax/peserta/bpjs',
+        var url = '/admin/ajax/bpjs/peserta',
             method = 'post',
             no_kartu = $('#no-kartu').val(),
             tgl_reg = $('#tgl-reg').val();
