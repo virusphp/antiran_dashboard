@@ -35,6 +35,13 @@ $(function() {
         defaultDate: new Date(), 
         format: "YYYY-MM-DD"
     });
+    
+    $('#tgl-kejadian-klik').datetimepicker({
+        //  format: 'L',
+        defaultDate: new Date(), 
+        format: "YYYY-MM-DD"
+    });
+
 
     $(document).ready(function() {
         ajaxLoad();

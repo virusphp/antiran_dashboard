@@ -76,7 +76,7 @@
                         </div>
                         <input class="form-control form-control-sm" id="nama-poli" name="nama_poli" type="text" placeholder="Nama Poli">
                         <input id="kode-poli" name="kode_poli" type="hidden" readonly>
-                        <input id="eksekutif" name="eksekutif" type="hidden" readonly>
+                        <input id="eksekutif" name="eksekutif" type="hidden" value="0" readonly>
                     </div>
                 </div>
                 <div class="col-md-4">
@@ -92,7 +92,7 @@
                     <input class="btn btn-ghost-primary btn-cus" id="cari_skdp" type="button" value="cari">
                     <input class="form-control form-control-sm" id="no-surat" name="no_surat" type="text" tabindex="5" placeholder="Ketik no surat kontrol" maxlength="7">
                     <input id="kode-poli-dpjp" type="hidden">
-                    <input id="no-surst-lama" name="no_surat_lama" type="hidden">
+                    <input id="no-surat-lama" name="no_surat_lama" type="hidden">
                 </div>
                 <div class="col-md-8">
                     <label for="nama_dpjp">DPJP Pemberi Surat / SKDP</label>
@@ -169,18 +169,15 @@
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label for="propinsi">Lokasi Propinsi</label>
-                        {!! Form::text('propinsi', null, array('placeholder' => 'Propinsi', 'tabindex' => '1', 'class' => 'form-control form-control-sm'.($errors->has('propinsi') ? 'is-invalid' : '') ))!!}
-                        {!! $errors->first('propinsi', '<span class="invalid-feedback">:message</span>') !!}
+                        <select id="propinsi" name="propinsi" class="form-control form-control-sm"></select>
                     </div>
                     <div class="col-md-4">
-                        <label for="kota">Lokasi Kota/Kabputen</label>
-                        {!! Form::text('kota', null, array('placeholder' => 'Kota', 'tabindex' => '1', 'class' => 'form-control form-control-sm'.($errors->has('kota') ? 'is-invalid' : '') ))!!}
-                        {!! $errors->first('kotak', '<span class="invalid-feedback">:message</span>') !!}
+                        <label for="kabupaten">Lokasi Kota/Kabputen</label>
+                        <select id="kabupaten" name="kabupaten" class="form-control form-control-sm"></select>
                     </div>
                     <div class="col-md-4">
                         <label for="kecamatan">Lokasi Kecamatan</label>
-                        {!! Form::text('kecamatan', null, array('placeholder' => 'No Telpon', 'tabindex' => '1', 'class' => 'form-control form-control-sm'.($errors->has('no_telpon') ? 'is-invalid' : '') ))!!}
-                        {!! $errors->first('no_telp', '<span class="invalid-feedback">:message</span>') !!}
+                        <select id="kecamatan" name="kecamatan" class="form-control form-control-sm"></select>
                     </div>
                 </div>
                 <div class="form-group row">

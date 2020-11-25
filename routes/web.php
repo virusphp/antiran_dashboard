@@ -34,6 +34,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
     Route::get('/ajax/list/asalpasien', 'AsalpasienController@ajaxListAsalpasien');
     Route::get('/ajax/list/instansi', 'InstansiController@ajaxListInstansi');
+    Route::get('/ajax/list/propinsi', 'PropinsiController@ajaxListPropinsi');
+    Route::get('/ajax/list/kabupaten', 'KabupatenController@ajaxListKabupaten');
 
     Route::group(['namespace' => 'BridgingBPJS'], function() {
         // GET PESERTA BPJS

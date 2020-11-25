@@ -18,6 +18,7 @@
         $('#no-surat-lama').val("000000")
         $('#kode-dpjp').val("000000")
         $('#propinsi').val('0')
+        $('#keterangan').val('0')
         $('#provinsi').prop('selectedIndex',0);
         $('#kabupaten option').prop('selected', function() {
             return this.defaultSelected;
@@ -61,6 +62,7 @@
             dataType: "json",
             success: function(data) {
                 getDataPasien(data);
+                getProvinsi();
             }
         });
         $('#modal-sep').modal(options);
@@ -187,6 +189,7 @@
                     if ($('#no-telp').val() == "") {
                         $('#no-telp').val(res.rujukan.peserta.mr.noTelepon)
                     }
+                    getKatarak()
 
                 }
             }
@@ -224,7 +227,7 @@
             data: {},
             success: function(data) {
                 $('#kelas-rawat').empty();
-                $('#kelas-rawat').append('<option>Pilih kelas</option>')
+                $('#kelas-rawat').append('<option value="0">Pilih kelas</option>')
                 $.each(data, function(key, value) {
                     $('#kelas-rawat').append('<option value="'+key+'">'+value+'</option>');
                 });
@@ -248,7 +251,7 @@
             data: {},
             success: function(data) {
                 $('#cara-bayar').empty();
-                $('#cara-bayar').append('<option>Pilih Carabayar</option>')
+                $('#cara-bayar').append('<option value="0">Pilih Carabayar</option>')
                 $.each(data, function(key, value) {
                     $('#cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
                 });
@@ -272,7 +275,7 @@
             data: {},
             success: function(data) {
                 $('#asal-pasien').empty();
-                $('#asal-pasien').append('<option>Pilih Asal Pasien</option>')
+                $('#asal-pasien').append('<option value="0">Pilih Asal Pasien</option>')
                 $.each(data, function(key, value) {
                     $('#asal-pasien').append('<option value="'+value.kd_asal_pasien.trim()+'">'+value.keterangan+'</option>');
                 });
@@ -296,7 +299,7 @@
             data: {},
             success: function(data) {
                 $('#nama-instansi').empty();
-                $('#nama-instansi').append('<option>Pilih Instansi</option>')
+                $('#nama-instansi').append('<option value="0">Pilih Instansi</option>')
                 $.each(data, function(key, value) {
                     $('#nama-instansi').append('<option value="'+value.kd_instansi+'">'+value.nama_instansi+'</option>');
                 });
@@ -331,4 +334,55 @@
             }
         })
     }
+
+    function getKatarak()
+    {
+        if($('#kode-poli').val() === 'MAT') {
+            $('#form-katarak').show();
+        } else {
+            $('#form-katarak').hide();
+        }
+    }
+
+    function getProvinsi()
+    {
+        var url = '/admin/ajax/list/propinsi',
+            method = 'get';
+        $.ajax({
+            url:url,
+            method:method,
+            data: {},
+            success: function(data) {
+                $('#propinsi').empty();
+                $('#propinsi').append('<option value="0">Pilih Propinsi</option>')
+                $.each(data, function(key, value) {
+                    $('#propinsi').append('<option value="'+value.kode+'">'+value.nama+'</option>');
+                });
+                $('#propinsi').select2({
+                    'placeholder': 'Pilih propinsi'
+                })
+            }
+        })
+    }
+
+    $('#propinsi').on('change',function() {
+        var kd_prov = $(this).val(),
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type : 'post',
+            url : '/admin/ajax/list/kabupaten',
+            data : {kd_prov:kd_prov},
+            success: function(data) {
+                $('#kabupaten').empty();
+                $('#kabupaten').append('<option value="0">Pilih Kabupaten</option>')
+                $.each(data, function(key, value) {
+                    $('#kabupaten').append('<option value="'+value.kode+'">'+value.nama+'</option>');
+                });
+                $('#kabupaten').select2({
+                    'placeholder': 'Pilih kabupaten'
+                })
+            } 
+        });
+    });
+
 </script>

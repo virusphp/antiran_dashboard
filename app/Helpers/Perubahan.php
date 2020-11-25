@@ -40,3 +40,14 @@ function namaKelas()
     
     return $namaKelas;
 }
+
+function getNamaKelas($nilai)
+{
+    $namaKelas = [
+		1 => 'Kelas I',
+		2 => 'Kelas II',
+		3 => 'Kelas III'
+	];
+
+	return $namaKelas[$nilai];
+}
