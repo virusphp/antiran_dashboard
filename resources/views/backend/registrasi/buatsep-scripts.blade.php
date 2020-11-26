@@ -17,8 +17,8 @@
         $('#no-surat').val("000000")
         $('#no-surat-lama').val("000000")
         $('#kode-dpjp').val("000000")
-        $('#propinsi').val('0')
-        $('#keterangan').val('0')
+        $('#propinsi').val("0")
+        $('#keterangan').val("0")
         $('#provinsi').prop('selectedIndex',0);
         $('#kabupaten option').prop('selected', function() {
             return this.defaultSelected;
@@ -82,6 +82,7 @@
         $('#alamat').val(data.alamat)
         $('#jns-pelayanan').val(data.jns_pelayanan)
         $('#tgl-reg').val(data.tgl_sep)
+        $('#tgl-sep').val(data.tgl_sep)
 
         if (data.jns_pelayanan == 2) {
             $('#nama-pelayanan b').append('<span>Rawat Jalan</span>')

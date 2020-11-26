@@ -2,24 +2,18 @@
 
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
-use App\Service\Bpjs\Bridging;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Repository\Sep\Sep;
 
-class SepController extends BpjsController
+class SepController extends Controller
 {
-    protected $bpjs;
+    protected $sep;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->bpjs = new Bridging($this->consid, $this->timestamp, $this->signature);
-    }
-
-    public function CariSep($noSep)
-    {
-        $endpoint = "SEP/" . $noSep;
-        $sep = $this->bpjs->getRequest($endpoint);
-        return $sep;
+        $this->sep = new sep();
     }
 
     public function  ajaxInsertSepBpjs(Request $request)
@@ -30,7 +24,7 @@ class SepController extends BpjsController
                 $data['penjamin'] = implode(',', $data['penjamin']);
             }
             $data['ppk_pelayanan'] = '1105R001';
-            $data['tgl_kejadian'] = date('Y-m-d', strtotime($data['tglKejadian']));
+            $data['tgl_kejadian'] = date('Y-m-d', strtotime($data['tgl_kejadian']));
             $data['user'] = Auth::user()->name;
 
             if ($data['jns_pelayanan'] == "2") {
@@ -47,13 +41,10 @@ class SepController extends BpjsController
                     'nama_instansi' => 'required'
                 ], $message);
             }
+            $data['nama_kelas'] = getNamaKelas($data['kelas_rawat']);
+            $result = $this->sep->insertSep($data);
+            return $result;
         }
     }
 
-    public function InsertSep($dataJson)
-    {
-        $endpoint = "SEP/1.1/insert";
-        $sep = $this->bpjs->postRequest($endpoint, $dataJson);
-        return $sep;
-    }
 }

@@ -126,7 +126,7 @@
                 <input type="hidden" id="lakalantas" name="lakalantas"  value="0">
                 <input type="hidden" id="penjamin" name="penjamin" value="0">
                 <input type="hidden" id="suplesi" name="suplesi" value="0">
-                <input type="hidden" id="no_suplesi" name="no_sepsuplesi" value="0">
+                <input type="hidden" id="no-suplesi" name="no_sep_suplesi" value="0">
             </div>
             {{-- FORM PENJAMIN KLL HIDE--}}
             <div id="form-penjamin-kll">
@@ -173,18 +173,21 @@
                     </div>
                     <div class="col-md-4">
                         <label for="kabupaten">Lokasi Kota/Kabputen</label>
-                        <select id="kabupaten" name="kabupaten" class="form-control form-control-sm"></select>
+                        <select id="kabupaten" name="kabupaten" class="form-control form-control-sm">
+                            <option value="0">Pilih</option>
+                        </select>
                     </div>
                     <div class="col-md-4">
                         <label for="kecamatan">Lokasi Kecamatan</label>
-                        <select id="kecamatan" name="kecamatan" class="form-control form-control-sm"></select>
+                        <select id="kecamatan" name="kecamatan" class="form-control form-control-sm">
+                            <option value="0">Pilih</option>
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-md-12">
                         <label for="keterangan">Keterangan</label>
-                        {!! Form::textarea('keterangan', null, array('placeholder' => 'Keterangan', 'tabindex' => '1', 'rows' => 2, 'class' => 'form-control form-control-sm'.($errors->has('keterangan') ? 'is-invalid' : '') ))!!}
-                        {!! $errors->first('keterangan', '<span class="invalid-feedback">:message</span>') !!}
+                        <textarea class="form-control form-control-sm" id="keterangan" name="keterangan" type="text" placeholder="Keterangan"></textarea>
                     </div>
                 </div>
                 

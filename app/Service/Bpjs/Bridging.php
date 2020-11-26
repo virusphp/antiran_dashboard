@@ -7,9 +7,13 @@ use GuzzleHttp\Exception\RequestException;
 
 class Bridging extends Bpjs
 {
+    protected $headers;
+
     public function __construct($consid, $timestamp, $signature)
     {
         parent::__construct($consid, $timestamp, $signature);
+        $urlencode = array('Content-Type' => 'Application/x-www-form-urlencoded');
+        $this->headers = array_merge($this->header, $urlencode);
     }
 
     public function getRequest($endpoint)
@@ -29,11 +33,12 @@ class Bridging extends Bpjs
 
     public function postRequest($endpoint, $data)
     {
-        $data = file_get_contents("php://input");
+        // $data = file_get_contents("php://input");
         try {
-            $url = $this->api_url . $endpoint;
+            $url = $this->bpjs_url . $endpoint;
             $result = $this->client->post($url, ['headers' => $this->headers, 'body' => $data]);
-            return $result;
+            $response = $result->getBody();
+            return $response;
         } catch (RequestException $e) {
             $result = Psr7\str($e->getRequest());
             if ($e->hasResponse()) {
@@ -46,7 +51,7 @@ class Bridging extends Bpjs
     {
         $data = file_get_contents("php://input");
         try {
-            $url = $this->api_url . $endpoint;
+            $url = $this->bpjs_url . $endpoint;
             $result = $this->client->put($url, ['headers' => $this->headers, 'body' => $data]);
             return $result;
         } catch (RequestException $e) {
