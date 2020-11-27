@@ -1,27 +1,28 @@
 <script src="{{ asset('lib/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('lib/datetimepicker/js/tempusdominus-bootstrap-4.min.js') }}"></script>
 <script type="text/javascript">
-$(function() {
-    // Config Constanta Toast
+    $(function() {
+        // Config Constanta Toast
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            onOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        }); 
 
-    const Toast = Swal.mixin({
-    toast: true,
-    position: 'top-end',
-    showConfirmButton: false,
-    timer: 3000,
-    onOpen: (toast) => {
-        toast.addEventListener('mouseenter', Swal.stopTimer)
-        toast.addEventListener('mouseleave', Swal.resumeTimer)
-    }
-    }); 
+        // Config Constanta Swal
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success mx-3',
+                cancelButton: 'btn btn-danger mx-3'
+            },
+            buttonsStyling: false
+        });
 
-    // Config Constanta Swal
-    const swalWithBootstrapButtons = Swal.mixin({
-    customClass: {
-        confirmButton: 'btn btn-success mx-3',
-        cancelButton: 'btn btn-danger mx-3'
-    },
-    buttonsStyling: false
     });
 
     $('#tanggal_reg').datetimepicker({
@@ -42,8 +43,15 @@ $(function() {
         format: "YYYY-MM-DD"
     });
 
+    function clearMessage() {
+        $('#tabel-message-success').hide();
+        $('#tabel-message-error').hide();
+        $('#success-sep').remove();
+        $('#error-sep').remove();
+    }
 
     $(document).ready(function() {
+        clearMessage();
         ajaxLoad();
     })
 
@@ -147,5 +155,4 @@ $(function() {
         });
     }
 
-});
 </script>

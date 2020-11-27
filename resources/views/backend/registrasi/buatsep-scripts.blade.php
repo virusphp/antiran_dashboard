@@ -199,6 +199,7 @@
         $('#modal-rujukan').modal('hide');
     });
 
+
     $('#create-sep').on('click', function() {
         var form_sep = $('#form-sep'),
             url = '/admin/ajax/bpjs/insertsep',
@@ -214,6 +215,20 @@
             dataType: "json",
             success: function(data) {
                 console.log(data)
+                if (data.response !== null) {
+                    $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
+                    $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()
+                        .fadeIn(1500, function() { $('#success-sep') });
+                    setTimeout(clearMessage, 5000);
+                    // sementara load 
+                    ajaxLoad();
+                } else {
+                    $('#tabel-message-error').show().html("<span class='text-success' id='error-sep'></span>");
+                    $('#error-sep').html(data.metaData.message+ "Silahkan Cek kembali!").hide()
+                        .fadeIn(1500, function() { $('#error-sep'); });
+                    setTimeout(clearMessage, 5000);
+                }
+                $('#modal-sep').modal('hide');
             }
         })
     })

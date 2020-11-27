@@ -9,6 +9,7 @@ use Exception;
 class Sep
 {
     protected $service;
+    protected $dbsimrs = "sqlsrv_simrs";
 
     public function __construct()
     {
@@ -16,43 +17,39 @@ class Sep
     }
 
     public function insertSep($data)
-    {
-        DB::beginTransaction();
-        try {
-            $req = json_encode($this->mapSep($data));
-            $result = json_decode($this->service->InsertSep($req));
-            dd($result);
-            if ($result->metaData->code == 200) {
+    { 
+        $req = json_encode($this->mapSep($data));
+        $result = $this->service->InsertSep($req);
+        $res = json_decode($result);
+        if ($res->metaData->code == 200) {
+            DB::beginTransaction();
+            try {
                 $this->simpanSep($data, $result);
                 $this->simpanRujukan($data);
                 DB::commit();
                 return $result;
-            }
-            return false;
-        } catch (Exception $e) {
-            DB::rollback();
-            return $e->getMessage();
-        } catch (\Illuminate\Database\QueryException $e) {
-            DB::rollback();
-            return $e->getMessage();
-        } catch (\Throwable $e) {
-            DB::rollback();
-            return $e->getMessage();
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback();
+                if ($e->getCode() == "23000") {
+                    return $result;
+                }
+            } 
         }
-
+        return $result;
     }
 
     protected function simpanRujukan($dataRequest)
     {
         if ($dataRequest['jns_pelayanan'] == 2 ) {
-            $uRujukan = DB::table('Rujukan')
+            $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                 ->where('no_reg', '=', $dataRequest['no_reg'])
                 ->update([
+                    'no_rujukan' => $dataRequest['no_rujukan'],
                     'kd_instansi' => $dataRequest['nama_instansi']
                 ]);
 
             if (!$uRujukan){
-                $uRujukan = DB::table('Rujukan')
+                $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                     ->insert([
                         'no_rujukan' => $dataRequest['no_rujukan'],
                         'no_reg' => $dataRequest['no_reg'],
@@ -67,7 +64,7 @@ class Sep
             }
             
             if ($dataRequest['asal_pasien'] != null) {
-                $updateReg = DB::table('Registrasi')
+                $updateReg = DB::connection($this->dbsimrs)->table('Registrasi')
                     ->where('no_reg', '=', $dataRequest['no_reg'])
                     ->update([
                         'kd_asal_pasien' => $dataRequest['asal_pasien'],
@@ -75,12 +72,12 @@ class Sep
                     ]);
             }
         } else {
-            $uRujukan = DB::table('Rujukan')
+            $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                 ->where('no_reg', '=', $dataRequest['no_reg'])
                 ->get();
 
             if (!$uRujukan) {
-                $uRujukan = DB::table('Rujukan')
+                $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                 ->insert([
                     'no_rujukan' => $dataRequest['no_rujukan'],
                     'no_reg' => $dataRequest['no_reg'],
@@ -100,9 +97,9 @@ class Sep
 
     protected function simpanSep($dataRequest, $dataResponse)
     {
-          $simpanSep = DB::table('sep_bpjs')->insert([
+          $simpanSep = DB::connection($this->dbsimrs)->table('sep_bpjs')->insert([
             'no_reg' => $dataRequest['no_reg'],
-            'no_SJP' => $dataResponse->response->sep->noSep,
+            'no_SJP' => 'xxx',
             'COB' => $dataRequest['cob'],
             'Kd_Faskes' => $dataRequest['ppk_rujukan'],
             'Nama_Faskes' => $dataRequest['nama_faskes'],
