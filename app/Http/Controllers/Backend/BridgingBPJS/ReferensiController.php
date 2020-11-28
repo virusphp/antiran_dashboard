@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
 use App\Service\Bpjs\Bridging;
+use App\Service\Bpjs\Referensi;
+use Illuminate\Http\Request;
 
 class ReferensiController extends BpjsController
 {
-    protected $bpjs;
+    protected $referensi;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->bpjs = new Bridging($this->consid, $this->timestamp, $this->signature);
+        $this->referensi = new Referensi();
     }
 
     public function diagnosa($kode)
@@ -21,11 +22,12 @@ class ReferensiController extends BpjsController
         return $diagnosa;
     }
 
-    public function poli($kode)
+    public function ajaxListPoli(Request $request)
     {
-        $endpoint = "referensi/poli/" . $kode;
-        $poli = $this->bpjs->getRequest($endpoint);
-        return $poli;
+        if ($request->ajax()) {
+            $poli = $this->referensi->getPoli($request);
+            return $poli;
+        }
     }
 
     public function faskes($kodeNama, $jenisFaskes)

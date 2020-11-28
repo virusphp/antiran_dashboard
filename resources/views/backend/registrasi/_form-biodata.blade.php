@@ -47,7 +47,7 @@
                     <input class="btn btn-ghost-primary btn-cus float-right" id="cari_sko" type="button" value="SKO">
                     <input class="form-control form-control-sm" id="no-rujukan" name="no_rujukan" type="text" placeholder="No Rujukan" tabindex="1">
                     <input type="hidden" id="tgl-rujukan" name="tgl_rujukan">
-                    <input type="hidden" id="internal-rujukan" name="internal_rujukan">
+                    <input type="hidden" id="internal-rujukan" name="internal_rujukan" value="0">
                 </div>
                 <div class="col-md-4">
                     <label for="asal_rujukan">Asal Rujukan</label>

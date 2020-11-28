@@ -29,6 +29,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
     Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
 
+    // GET RUJUKAN INTERNAL
+    Route::get('/ajax/rujukaninternal', 'RujukanController@ajaxRujukanInternal');
     //  LIST DROPDOWN
     Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
     Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
@@ -39,9 +41,12 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
 
     Route::group(['namespace' => 'BridgingBPJS'], function() {
         // GET PESERTA BPJS
+        Route::post('/ajax/bpjs/list/poli', 'ReferensiController@ajaxListPoli');
         Route::post('/ajax/bpjs/peserta', 'PesertaController@ajaxPesertaBpjs');
         Route::post('/ajax/bpjs/listrujukan', 'RujukanController@ajaxListRujukanBpjs');
+        Route::post('/ajax/bpjs/listrujukanrs', 'RujukanController@ajaxListRujukanRsBpjs');
         Route::post('/ajax/bpjs/rujukan', 'RujukanController@ajaxRujukanBpjs');
+        Route::post('/ajax/bpjs/rujukanrs', 'RujukanController@ajaxRujukanRsBpjs');
         Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
     });
     

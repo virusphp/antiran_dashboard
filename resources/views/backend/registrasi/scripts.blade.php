@@ -69,46 +69,6 @@
         ajaxLoad();
     })
 
-    $(document).on('click', '#delete-registrasi', function() {
-        var id = $(this).data('idx'),
-            nama_registrasi = $(this).data('nama');
-            console.log(id,nama_registrasi)
-
-        swalWithBootstrapButtons.fire({
-          title:  'Anda yakin akan menghapus data??',
-          text:   "Data: "+nama_registrasi,
-          icon:   'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Ya',
-          cancelButtonText: 'No',
-          reverseButtons: true
-        }).then((result) => {
-          if (result.value) {
-            ajaxDestroy(id);
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire( 'Dibatalkan', 'Data registrasi terpilih batal di hapus:)', 'error')
-          }
-        })
-    })
-
-    function ajaxDestroy(idx) {
-        var url = '/admin/ajax/registrasi/destroy',
-            method = 'DELETE';
-
-        $.ajax({
-            url: url,
-            method: method,
-            data: {idx:idx},
-            success: function(res) {
-                // Pertnayaantkang 
-                console.log(res, res.result.nama_registrasi)
-                swalWithBootstrapButtons.fire('Lapor!', res.message + '\nnama : '+res.result.nama_registrasi, 'success');
-                $('#tabel-registrasi').DataTable().ajax.reload();
-            },
-            error: function(xhr){}
-        });
-    }
-
     function ajaxLoad() {
         var term = $('#term').val(),
             tanggal = $('#tgl_reg').val();

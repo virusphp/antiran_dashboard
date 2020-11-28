@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
-use App\Service\Bpjs\Bridging;
+use App\Service\Bpjs\Rujukan;
 use Illuminate\Http\Request;
 
 class RujukanController extends BpjsController
 {
-    protected $bpjs;
+    protected $rujukan;
 
     public function __construct()
     {
         parent::__construct();
-        $this->bpjs = new Bridging($this->consid, $this->timestamp, $this->signature);
+        $this->rujukan = new Rujukan();
     }
 
     public function ajaxListRujukanBpjs(Request $request)
     {
         if ($request->ajax()) {
             $no = 1;
-            $data = json_decode($this->getListRujukan($request));
+            $data = json_decode($this->rujukan->getListRujukanPcare($request));
             if ($data->response == null) {
                 $query = [];
             } else {
@@ -44,56 +44,49 @@ class RujukanController extends BpjsController
         }
     }
 
-    public function getListRujukan($params)
+    public function ajaxListRujukanRsBpjs(Request $request)
     {
-        $endpoint = "Rujukan/List/Peserta/" . $params->no_kartu;
-        $rujukanList = $this->bpjs->getRequest($endpoint);
-        return $rujukanList;
+        if ($request->ajax()) {
+            $no = 1;
+            $data = json_decode($this->rujukan->getListRujukanRs($request));
+            if ($data->response == null) {
+                $query = [];
+            } else {
+                foreach($data->response->rujukan as $val) {
+                    $query[] = [
+                        'no' => $no++,
+                        'noKunjungan' => '
+                            <div class="btn-group">
+                                <button data-rujukan="'.$val->noKunjungan.'" id="h-rujukan-rs" class="btn btn-sencodary btn-xs btn-cus">'.$val->noKunjungan.'</button>
+                            </div> ',
+                        'tglKunjungan' => $val->tglKunjungan,
+                        'noKartu' => $val->peserta->noKartu,
+                        'nama' => $val->peserta->nama,
+                        'ppkPerujuk' => $val->provPerujuk->nama,
+                        'pelayanan' => $val->pelayanan->nama,
+                        'poli' => $val->poliRujukan->kode
+                    ];
+                }
+            }
+            $result = isset($query) ? ['data' => $query] : ['data' => 0];
+            return json_encode($result);
+        }
     }
 
     public function ajaxRujukanBpjs(Request $request)
     {
         if ($request->ajax()) {
-            $endpoint = "Rujukan/" . $request->no_rujukan;
-            $rujukan = $this->bpjs->getRequest($endpoint);
+            $rujukan = $this->rujukan->getRujukanPcare($request);
             return $rujukan;
         }
     }
 
-    public function RujukanPcare($noRujukan)
+    public function ajaxRujukanRsBpjs(Request $request)
     {
-        $endpoint = "Rujukan/" . $noRujukan;
-        $rujukan = $this->bpjs->getRequest($endpoint);
-        return $rujukan;
+        if ($request->ajax()) {
+            $rujukan = $this->rujukan->getRujukanRs($request);
+            return $rujukan; 
+        }
     }
-
-    public function RujukanRs($noRujukan)
-    {
-        $endpoint = "Rujukan/RS/" . $noRujukan;
-        $rujukanRs = $this->bpjs->getRequest($endpoint);
-        return $rujukanRs;
-    }
-
-    public function PesertaPcare($noKartu)
-    {
-        $endpoint = "Rujukan/Peserta/" . $noKartu;
-        $rujukanPeserta = $this->bpjs->getRequest($endpoint);
-        return $rujukanPeserta;
-    }
-
-    public function PesertaRs($noKartu)
-    {
-        $endpoint = "Rujukan/RS/Peserta/" . $noKartu;
-        $rujukanPesertaRs = $this->bpjs->getRequest($endpoint);
-        return $rujukanPesertaRs;
-    }
-
-
-
-    public function PesertaListRs($noKartu)
-    {
-        $endpoint = "Rujukan/RS/List/Peserta/" . $noKartu;
-        $rujukanListRs = $this->bpjs->getRequest($endpoint);
-        return $rujukanListRs;
-    }
+  
 }
