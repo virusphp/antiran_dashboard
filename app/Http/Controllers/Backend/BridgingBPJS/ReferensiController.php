@@ -15,11 +15,12 @@ class ReferensiController extends BpjsController
         $this->referensi = new Referensi();
     }
 
-    public function diagnosa($kode)
+    public function ajaxListDiagnosa(Request $request)
     {
-        $endpoint = "referensi/diagnosa/". $kode;
-        $diagnosa = $this->bpjs->getRequest($endpoint);
-        return $diagnosa;
+        if ($request->ajax()) {
+            $diagnosa = $this->referensi->getDiagnosa($request);
+            return $diagnosa;
+        }
     }
 
     public function ajaxListPoli(Request $request)
@@ -27,6 +28,14 @@ class ReferensiController extends BpjsController
         if ($request->ajax()) {
             $poli = $this->referensi->getPoli($request);
             return $poli;
+        }
+    }
+
+    public function ajaxListDpjp(Request $request)
+    {
+        if ($request->ajax()) {
+            $dpjp = $this->referensi->getDpjp($request);
+            return $dpjp;
         }
     }
 

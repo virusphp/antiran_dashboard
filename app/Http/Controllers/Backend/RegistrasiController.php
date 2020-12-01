@@ -99,6 +99,46 @@ class RegistrasiController extends Controller
         }
     }
 
+    public function ajaxEditModalSep(Request $request) 
+    {
+        if ($request->ajax()) {
+            $registrasi = $this->registrasi->getRegistrasiDetail($request);
+            $registrasi->tgl_reg = (new DateTime($registrasi->tgl_reg))->format('Y-m-d');
+            // CEK JIKA RANAP
+            if ($registrasi->jns_rawat == 2) {
+                $response = $this->registrasi->getRawatInap($registrasi->no_reg);
+                $response->no_sep = $registrasi->no_sjp;
+                $response->jns_pelayanan = '1';
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            } else if ($registrasi->jns_rawat == 1) {
+
+                $response = $this->registrasi->getRawatJalan($registrasi->no_reg);
+                $response->no_sep = $registrasi->no_sjp;
+                $response->jns_pelayanan = '2';
+                $response->asal_pasien = trim($registrasi->kd_asal_pasien) == "" ? "" : trim($registrasi->kd_asal_pasien);
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            } else {
+
+                $response = $this->registrasi->getRawatDarurat($registrasi->no_reg);
+                $response->no_sep = $registrasi->no_sjp;
+                $response->jns_pelayanan = '2';
+                $response->asal_pasien = trim($registrasi->kd_asal_pasien) == "" ? "" : trim($registrasi->kd_asal_pasien);
+                $response->cara_bayar = $registrasi->kd_cara_bayar;
+                $response->user_id = $registrasi->user_id;
+                $response->no_kartu = $registrasi->no_kartu;
+                $response->tgl_sep = $registrasi->tgl_reg;
+            }
+
+            return response()->json($response);
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

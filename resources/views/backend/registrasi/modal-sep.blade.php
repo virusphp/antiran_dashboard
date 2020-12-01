@@ -2,7 +2,9 @@
     <div class="modal-dialog modal-xl modal-dark" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Pembuatan SEP</h5>
+          <div class="col-md-4">
+            <h5 class="modal-title" id="header-sep">Pembuatan SEP </h5>
+          </div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

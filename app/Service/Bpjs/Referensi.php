@@ -18,4 +18,19 @@ class Referensi extends ServiceBPJS
         $poli = $this->bpjs->getRequest($endpoint);
         return $poli;
     }
+
+    public function getDiagnosa($params)
+    {
+        $endpoint = "referensi/diagnosa/". $params->term;
+        $diagnosa = $this->bpjs->getRequest($endpoint);
+        return $diagnosa;
+    }
+
+    public function getDpjp($params)
+    {
+        $tglSep = date('Y-m-d');
+        $endpoint = "referensi/dokter/pelayanan/". $params->jns_pelayanan . "/tglPelayanan/". $tglSep . "/Spesialis/". $params->poli;
+        $dpjp = $this->bpjs->getRequest($endpoint);
+        return $dpjp;
+    }
 }

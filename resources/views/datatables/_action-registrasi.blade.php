@@ -47,12 +47,12 @@
         'type'  => 'button',
         'class' => 'btn btn-warning btn-sm btn-xs',
         'id'    => 'edit-sep',
-        'data-sep' => $no_sep
+        'data-reg' => $no_reg
     ]) !!}
     {!! Form::button('<i class="c-icon c-icon-2x1 cil-print"></i>', [
         'type'  => 'button',
         'class' => 'btn btn-success btn-sm btn-xs',
         'id'    => 'print-sep',
-        'data-sep' => $no_sep
+        'data-reg' => $no_reg
     ]) !!}
 @endif

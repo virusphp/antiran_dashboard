@@ -28,6 +28,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::resource('/registrasi', 'RegistrasiController');
     Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
     Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
+    Route::post('/ajax/registrasi/edit/modalsep', 'RegistrasiController@ajaxEditModalSep');
+    Route::post('/ajax/sep/editsep', 'SepController@ajaxEditSep');
 
     // GET RUJUKAN INTERNAL
     Route::get('/ajax/rujukaninternal', 'RujukanController@ajaxRujukanInternal');
@@ -41,11 +43,15 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
 
     Route::group(['namespace' => 'BridgingBPJS'], function() {
         // GET PESERTA BPJS
+        Route::post('/ajax/bpjs/list/dpjp', 'ReferensiController@ajaxListDpjp');
+        Route::post('/ajax/bpjs/list/diagnosa', 'ReferensiController@ajaxListDiagnosa');
         Route::post('/ajax/bpjs/list/poli', 'ReferensiController@ajaxListPoli');
         Route::post('/ajax/bpjs/peserta', 'PesertaController@ajaxPesertaBpjs');
         Route::post('/ajax/bpjs/listrujukan', 'RujukanController@ajaxListRujukanBpjs');
         Route::post('/ajax/bpjs/listrujukanrs', 'RujukanController@ajaxListRujukanRsBpjs');
+        Route::post('/ajax/bpjs/listsep', 'SepController@ajaxListSep');
         Route::post('/ajax/bpjs/rujukan', 'RujukanController@ajaxRujukanBpjs');
+        Route::post('/ajax/bpjs/carisep', 'RujukanController@ajaxCariSep');
         Route::post('/ajax/bpjs/rujukanrs', 'RujukanController@ajaxRujukanRsBpjs');
         Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
     });

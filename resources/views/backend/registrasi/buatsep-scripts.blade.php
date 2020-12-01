@@ -1,43 +1,4 @@
 <script type="text/javascript">
-    function loadModal() {
-        $('#form-skdp').hide();
-        $('#form-katarak').hide();
-        $("#form-penjamin-kll").hide();
-
-        $('#no-reg').val("")
-        $('#no-rm').val("")
-        $('#no-kartu').val("")
-        $('#no-telp').val("")
-        $('#nama-pasien').val("")
-        $('#no-ktp').val("")
-        $('#tgl-lahir').val("")
-        $('#alamat').val("")
-        $('#jns-pelayanan').val("")
-
-        $('#no-surat').val("000000")
-        $('#no-surat-lama').val("000000")
-        $('#kode-dpjp').val("000000")
-        $('#propinsi').val("0")
-        $('#keterangan').val("0")
-        $('#provinsi').prop('selectedIndex',0);
-        $('#kabupaten option').prop('selected', function() {
-            return this.defaultSelected;
-        });
-        $('#kecamatan option').prop('selected', function() {
-            return this.defaultSelected;
-        });
-        var form = $('#form-sep');
-        // Reset validationo error
-        form.find('.invalid-feedback').remove();
-        form.find('input').removeClass('is-invalid');
-        form.find('textarea').removeClass('is-invalid');
-
-        // SELECT 2 DROP DOWN
-        $('#kelas-rawat').attr('readonly', false);
-        $('#kelas-rawat').attr('disabled', false);
-    
-    }
-
     $(document).ready(function() {
         loadModal();
     });
@@ -82,6 +43,7 @@
         $('#jns-pelayanan').val(data.jns_pelayanan)
         $('#tgl-reg').val(data.tgl_sep)
         $('#tgl-sep').val(data.tgl_sep)
+        $('#no-sep').val(data.no_sjp)
 
         if (data.jns_pelayanan == 2) {
             $('#nama-pelayanan b').append('<span>Rawat Jalan</span>')
@@ -107,29 +69,48 @@
 
     $('#cari-rujukan').on('click', function() {
         var no_kartu = $('#no-kartu').val(),
+            url = '/admin/ajax/bpjs/listrujukan',
+            method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
                 'backdrop' : 'static'
             };
 
-        getListRujukan(no_kartu);
+        getListRujukan(no_kartu, url, method, CSRF_TOKEN);
 
         $('#modal-rujukan').modal(options)
     });
 
     $('#cari-rujukan-rs').on('click', function() {
         var no_kartu = $('#no-kartu').val(),
+            url = '/admin/ajax/bpjs/listrujukanrs',
+            method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
                 'backdrop' : 'static'
             };
 
-        getListRujukanRs(no_kartu);
+        getListRujukan(no_kartu, url, method, CSRF_TOKEN);
 
         $('#modal-rujukan').modal(options)
     })
 
-    function getListRujukanRs(no_kartu) {
+    $(document).on('click', '#cari-sko', function() {
+        var no_kartu = $('#no-kartu').val(),
+            url = '/admin/ajax/bpjs/listsep',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
+            tgl_akhir = moment().format("YYYY-MM-DD"),
+            options = {
+                'backdrop' : 'static'
+            };
+
+        getListSko(no_kartu, url, method, CSRF_TOKEN, tgl_akhir);
+
+        $('#modal-rujukan').modal(options);
+    })
+
+    function getListSko(no_kartu, url, method, CSRF_TOKEN, tgl_akhir) {
         $('#tabel-rujukan').dataTable({
             "autoWidth"     : false,
             "Processing"    : true,
@@ -146,19 +127,20 @@
                 "sLoadingRecords": '<img src   = "{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
-                "url" : "/admin/ajax/bpjs/listrujukanrs",
-                "type": "POST",
+                "url" : url,
+                "type": method,
                 "data": {
-                    "no_kartu": no_kartu
+                    "no_kartu": no_kartu,
+                    "tgl_akhir": tgl_akhir
                 }
             },
             "columns": [
                 {"mData": "no"},
                 {"mData": "noKunjungan"},
-                {"mData": "tglKunjungan"},
+                {"width": "10%", "mData": "tglKunjungan"},
                 {"mData": "nama"},
-                {"width": "2%","mData": "poli"},
-                {"mData": "pelayanan"},
+                {"mData": "poli"},
+                {"width": "3%", "mData": "pelayanan"},
                 {"mData": "ppkPerujuk"}
             ]
         })
@@ -169,7 +151,7 @@
         }); 
     }
 
-    function getListRujukan(no_kartu) {
+    function getListRujukan(no_kartu, url, method, CSRF_TOKEN) {
         $('#tabel-rujukan').dataTable({
             "autoWidth"     : false,
             "Processing"    : true,
@@ -186,8 +168,8 @@
                 "sLoadingRecords": '<img src   = "{{ asset('ajax-loader.gif') }}"> Loading...'
             },           
             "ajax": {
-                "url" : "/admin/ajax/bpjs/listrujukan",
-                "type": "POST",
+                "url" : url,
+                "type": method,
                 "data": {
                     "no_kartu": no_kartu
                 }
@@ -233,6 +215,34 @@
         $('#modal-rujukan').modal('hide');
     })
 
+    $(document).on('click', '#h-sko', function() {
+        var no_rujukan = $(this).data('rujukan'),
+            url = '/admin/ajax/bpjs/carisep',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#no-rujukan').val(no_rujukan).attr('readonly', true);
+
+        ajaxCariSep(no_rujukan, url, method, CSRF_TOKEN);
+
+        $('#modal-rujukan').modal('hide')
+    })
+
+    function ajaxCariSep(no_rujukan, urk, method, CSRF_TOKEN) {
+        $.ajax({
+            url:url,
+            method:method,
+            data: {
+                no_rujukan: no_rujukan,
+                _token: CSRF_TOKEN
+            },
+            success: function(data) {
+                console.log(data)
+                d = JSON.parse(data);
+                res = d.response;
+            }
+        })
+    }
+
     function ajaxRujukan(no_rujukan, url, method, CSRF_TOKEN) {
         $.ajax({
             url:url,
@@ -268,11 +278,37 @@
         }
         if (res.rujukan.poliRujukan.kode != "IGD") {
             showSuratKontrol(res.rujukan.noKunjungan)
+            showDokterDPJP(res.rujukan.poliRujukan.kode, res.rujukan.pelayanan.kode)
         }
         if ($('#no-telp').val() == "") {
             $('#no-telp').val(res.rujukan.peserta.mr.noTelepon)
         }
         getKatarak()
+    }
+
+    function showDokterDPJP(poli = "INT", jns_pelayanan = "1") {
+        $.ajax({
+            url: '/admin/ajax/bpjs/list/dpjp',
+            method: 'POST',
+            dataType: 'JSON',
+            data: {
+                poli : poli,
+                jns_pelayanan : jns_pelayanan
+            },
+            success: function(data) {
+                if (data.metaData.code == 200) {
+                    $('#nama-dpjp').empty();
+                    $('#nama-dpjp').append('<option value="0">Pilih Dpjp</option>')
+                    $.each(data.response.list, function(key, value) {
+                        $('#nama-dpjp').append('<option value="'+value.kode+'">'+value.nama+'</option>');
+                    });
+                    $('#nama-dpjp').select2({
+                        'placeholder': 'Pilih Carabayar'
+                    })
+                }
+              
+            }
+        })
     }
 
     function showSuratKontrol(no_rujukan) {
@@ -340,7 +376,6 @@
                     dataType: "JSON",
                     data: {term: request.term},
                     success: function(data) {
-                        console.log(data.response.poli)
                         if (data.metaData.code == 200) {
                             var array = data.error ? [] : $.map(data.response.poli, function(m){
                                 return {
@@ -348,8 +383,6 @@
                                     value: m.nama
                                 }
                             })
-                            console.log(array);
-
                             response(array);
                         }
                     }
@@ -359,6 +392,41 @@
             select : function(event, ui) {
                 $('#nama-poli').val(ui.item.value);
                 $('#kode-poli').val(ui.item.id);
+                getKatarak();
+                return false;
+            }
+        })
+    })
+
+     // GET DIAGNOSA BPJS
+     $(document).ready(function() {
+        var url = '/admin/ajax/bpjs/list/diagnosa',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#nama-diagnosa').autocomplete({
+            source : function(request, response){
+                $.ajax({
+                    url:url,
+                    method: "POST",
+                    dataType: "JSON",
+                    data: {term: request.term},
+                    success: function(data) {
+                        console.log(data.response.diagnosa)
+                        if (data.metaData.code == 200) {
+                            var array = data.error ? [] : $.map(data.response.diagnosa, function(m){
+                                return {
+                                    id : m.kode,
+                                    value: m.nama
+                                }
+                            })
+                            response(array);
+                        }
+                    }
+                })
+            },
+            minLength: 3,
+            select : function(event, ui) {
+                $('#nama-diagnosa').val(ui.item.value);
+                $('#kode-diagnosa').val(ui.item.id);
                 return false;
             }
         })

@@ -16,6 +16,13 @@ class Sep
         $this->service = new AppSep;
     }
 
+    public function getSep($params)
+    {
+        return  DB::connection($this->dbsimrs)->table('sep_bpjs')
+            ->where([['no_reg', '=', $params->no_reg], ['no_sjp', '=', $params->no_sep]])
+            ->first();
+    }
+
     public function insertSep($data)
     { 
         $req = json_encode($this->mapSep($data));

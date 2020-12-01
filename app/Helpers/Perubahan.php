@@ -51,3 +51,8 @@ function getNamaKelas($nilai)
 
 	return $namaKelas[$nilai];
 }
+
+function jenisPelayanan($nilai)
+{
+    return $nilai == "1" ? "Rawat Inap" : "Rawat Jalan"; 
+}

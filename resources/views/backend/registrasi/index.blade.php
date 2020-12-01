@@ -84,6 +84,8 @@ Sep
 @push('scripts')
     <script src="{{ asset('lib/select2/js/select2.min.js') }}"></script> 
     <script src="{{ asset('lib/jquery-ui/jquery-ui.min.js') }}"></script> 
+    @include('backend.registrasi.scripts-function')
     @include('backend.registrasi.scripts')
     @include('backend.registrasi.buatsep-scripts')
+    @include('backend.registrasi.editsep-scripts')
 @endpush
