@@ -55,6 +55,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
         Route::post('/ajax/bpjs/carisep', 'SepController@ajaxCariSep');
         Route::post('/ajax/bpjs/rujukanrs', 'RujukanController@ajaxRujukanRsBpjs');
         Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
+        Route::post('/ajax/bpjs/updatesep', 'SepController@ajaxUpdateSepBpjs');
     });
     
     // Master

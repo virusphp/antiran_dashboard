@@ -45,6 +45,28 @@ class Sep
         return $result;
     }
 
+    public function updateSep($data)
+    { 
+        $req = json_encode($this->mapUpdateSep($data));
+        $result = $this->service->UpdateSep($req);
+        $res = json_decode($result);
+        if ($res->metaData->code == 200) {
+            DB::beginTransaction();
+            try {
+                $this->simpanSep($data, $result);
+                $this->simpanRujukan($data);
+                DB::commit();
+                return $result;
+            } catch (\Illuminate\Database\QueryException $e) {
+                DB::rollback();
+                if ($e->getCode() == "23000") {
+                    return $result;
+                }
+            } 
+        }
+        return $result;
+    }
+
     protected function simpanRujukan($dataRequest)
     {
         if ($dataRequest['jns_pelayanan'] == 2 ) {
@@ -197,5 +219,77 @@ class Sep
         ];
 
         return $request;
+    }
+
+    protected function mapUpdateSep($data)
+    {
+        $res['noSep'] = $data['no_sep'];
+        $res['tglSep'] = $data['tgl_sep'];
+        $res['ppkPelayanan'] = $data['ppk_pelayanan'];
+        $res['jnsPelayanan'] = $data['jns_pelayanan'];
+        $res['klsRawat'] = $data['kelas_rawat'];
+        $res['noMR'] = $data['no_rm'];
+        $res['rujukan'] = [
+            'asalRujukan' => $data['asal_rujukan'],
+            'tglRujukan' => $data['tgl_rujukan'],
+            'noRujukan' => $data['no_rujukan'],
+            'ppkRujukan' => $data['ppk_rujukan']
+        ];
+        $res['catatan'] = $data['catatan'];
+        $res['diagAwal'] = $data['kode_diagnosa'];
+        $res['poli'] = [
+            'tujuan' => $data['kode_poli'],
+            'eksekutif' => $data['eksekutif']
+        ];
+
+        $res['cob'] = [
+            'cob' => $data['cob']
+        ];
+
+        $res['katarak'] = [
+           'katarak' => $data['katarak'] 
+        ];
+
+        $lokasiLaka = [
+            'kdPropinsi' => $data['propinsi'],
+            'kdKabupaten' => $data['kabupaten'],
+            'kdKecamatan' => $data['kecamatan']
+        ];
+
+         $suplesi = [
+            'suplesi' => $data['suplesi'],
+            'noSepSuplesi' => $data['no_sep_suplesi'],
+            'lokasiLaka' => $lokasiLaka
+        ];
+
+        $penjamin = [
+            'penjamin' => $data['penjamin'],
+            'tglKejadian' => $data['tgl_kejadian'],
+            'keterangan' => $data['keterangan'],
+            'suplesi' => $suplesi
+        ];
+
+        $res['jaminan'] = [
+            'lakaLantas' => $data['lakalantas'],
+            'penjamin' => $penjamin
+        ]; 
+        
+        $res['skdp'] = [
+            'noSurat' => $data['no_surat_lama'],
+            'kodeDPJP' => $data['kode_dpjp']
+        ];
+
+        $res['noTelp'] = $data['no_telp'];
+        $res['user'] = $data['user'];
+
+        $result = [
+           't_sep' => $res 
+        ];
+
+        $request = [
+            'request' => $result
+        ];
+
+         return $request;
     }
 }
