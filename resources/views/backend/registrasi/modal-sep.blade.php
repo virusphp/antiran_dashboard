@@ -24,7 +24,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button id="create-sep" type="button" class="btn btn-primary">Send message</button>
+          <input id="create-sep" type="button" class="btn btn-primary">
         </div>
       </div>
     </div>

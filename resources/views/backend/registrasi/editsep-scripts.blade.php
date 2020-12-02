@@ -9,6 +9,7 @@
             url = '/admin/ajax/registrasi/edit/modalsep';
 
         loadModal()
+        $('#create-sep').attr('id','update-sep').val('Update Sep').removeClass('btn-primary').addClass('btn-warning');
         $.ajax({
             method:method,
             url:url,
@@ -56,6 +57,25 @@
         getAsalPasien(data.asal_pasien)
         getInstansi()
         getDataSep(data.no_sep, data.no_reg)
+        showCatatan(data.no_sep)
+    }
+
+    function showCatatan(no_sep) {
+        var url = '/admin/ajax/bpjs/carisep',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            url:url,
+            method:method,
+            dataType: "JSON",
+            data: {
+                no_sep: no_sep
+            },
+            success: function(res) {
+                console.log(res);
+                $('#catatan').val(res.response.catatan);
+            }
+        })
     }
 
     function getDataSep(no_sep, no_reg) {

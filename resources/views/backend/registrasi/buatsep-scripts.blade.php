@@ -13,6 +13,7 @@
             url = '/admin/ajax/registrasi/modalsep';
 
         loadModal()
+        $('#update-sep').attr('id','create-sep').val('Update Sep').removeClass('btn-primary').addClass('btn-warning');
         $.ajax({
             method:method,
             url:url,
@@ -65,6 +66,7 @@
         $(this).find('form')[0].reset();
         $('#poli-tujuan b span').remove()
         $('#nama-pelayanan b span').remove()
+        $("#header-sep span").remove(); 
     })
 
     $('#cari-rujukan').on('click', function() {
