@@ -219,7 +219,7 @@
 
     $(document).on('click', '#h-sko', function() {
         var no_rujukan = $(this).data('rujukan'),
-            url = '/admin/ajax/bpjs/carisep',
+            url = '/admin/ajax/carisep',
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $('#no-rujukan').val(no_rujukan).attr('readonly', true);
@@ -229,17 +229,17 @@
         $('#modal-rujukan').modal('hide')
     })
 
-    function ajaxCariSep(no_rujukan, urk, method, CSRF_TOKEN) {
+    function ajaxCariSep(no_rujukan, url, method, CSRF_TOKEN) {
         $.ajax({
             url:url,
             method:method,
+            dataType: "JSON",
             data: {
                 no_rujukan: no_rujukan,
                 _token: CSRF_TOKEN
             },
             success: function(data) {
                 console.log(data)
-                d = JSON.parse(data);
                 res = d.response;
             }
         })

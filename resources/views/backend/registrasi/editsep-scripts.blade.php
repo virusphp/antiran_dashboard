@@ -112,4 +112,6 @@
         $('#kode-dpjp').val(res.kd_dpjp)     
         $('#header-sep').append('<span>'+res.no_SJP+'</span>');
     }
+
+    
 </script>
