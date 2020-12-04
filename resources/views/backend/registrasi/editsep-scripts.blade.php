@@ -1,5 +1,6 @@
 <script type="text/javascript">
     $(document).on('click',"#edit-sep", function() {
+        $(this).addClass('edit-item-trigger-clicked');
         var no_reg = $(this).data('reg'),
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
@@ -8,8 +9,8 @@
             method = 'POST',
             url = '/admin/ajax/registrasi/edit/modalsep';
 
-        loadModal()
         $('#create-sep').attr('id','update-sep').val('Update Sep').removeClass('btn-primary').addClass('btn-warning');
+        loadModal()
         $.ajax({
             method:method,
             url:url,
@@ -24,7 +25,6 @@
             }
         });
         $('#modal-sep').modal(options);
-        $('#modal-sep').removeAttr('style');
     })
 
     function setDataPasienEdit(data) {
@@ -101,7 +101,7 @@
     function setDataSep(res) {
         $('#no-rujukan').val(res.No_Rujukan)
         $('#tgl-rujukan').val(res.Tgl_Rujukan)
-        $('#ppk-rujukan').val(res.Kode_Faskes)
+        $('#ppk-rujukan').val(res.Kd_Faskes)
         $('#nama-faskes').val(res.Nama_Faskes)
         $('#kode-diagnosa').val(res.Kd_Diagnosa)
         $('#nama-diagnosa').val(res.Nama_Diagnosa) 
@@ -113,5 +113,38 @@
         $('#header-sep').append('<span>'+res.no_SJP+'</span>');
     }
 
-    
+    $(document).on('click', '#update-sep', function() {
+        var form_sep = $('#form-sep'),
+            url = '/admin/ajax/bpjs/updatesep',
+            method = 'PUT';
+
+            console.log(url, method)
+
+        form_sep.find('#asal-rujukan').prop('disabled', false)
+        form_sep.find('#kelas-rawat').prop('disabled', false);
+
+        $.ajax({
+            url:url,
+            method:method,
+            data: form_sep.serialize(),
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                if (data.response !== null) {
+                    $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
+                    $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()
+                        .fadeIn(1500, function() { $('#success-sep') });
+                    setTimeout(clearMessage, 5000);
+                    // sementara load 
+                    ajaxLoad();
+                } else {
+                    $('#tabel-message-error').show().html("<span class='text-success' id='error-sep'></span>");
+                    $('#error-sep').html(data.metaData.message+ " Silahkan Cek kembali!").hide()
+                        .fadeIn(1500, function() { $('#error-sep'); });
+                    setTimeout(clearMessage, 5000);
+                }
+                $('#modal-sep').modal('hide');
+            }
+        })
+    })
 </script>

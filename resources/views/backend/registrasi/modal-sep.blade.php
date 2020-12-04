@@ -23,8 +23,9 @@
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <input id="create-sep" type="button" class="btn btn-primary">
+          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+          {{-- <input id="create-sep" type="button" class="btn btn-primary"> --}}
+          <input id="create-sep" type="button" class="btn btn-sm btn-primary" tabindex="8" value="Create SEP">
         </div>
       </div>
     </div>

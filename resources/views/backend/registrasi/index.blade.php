@@ -40,28 +40,7 @@ Sep
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <div class="d-flex float-right">
-                                    <div class="form-group my-2 mx-2">
-                                       <div class="controls"> 
-                                            <div class="input-group date" id="tanggal_reg" data-target-input="nearest">
-                                            <input type="text" id="tgl_reg" name="tgl_reg" class="form-control datetimepicker-input" data-target="#tanggal_reg"/>
-                                                <div class="input-group-append" data-target="#tanggal_reg" data-toggle="datetimepicker">
-                                                    <div class="input-group-text"><i class="ci-icon cil-calendar"></i></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group my-2 mx-2">
-                                        <div class="controls">
-                                            <div class="input-group">
-                                                <input class="form-control" name="term" id="term" size="16" type="text">
-                                                <span class="input-group-append">
-                                                    <button id="cari-button" class="btn btn-secondary" type="button">Go!</button>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                @include('widget.pencarian-sep')
                                 @include('backend.registrasi._table')
                             </div>
                         </div>

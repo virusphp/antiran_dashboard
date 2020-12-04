@@ -52,6 +52,7 @@
 
     $(document).ready(function() {
         clearMessage();
+        getCarabayar();
         ajaxLoad();
     })
 
@@ -69,8 +70,31 @@
         ajaxLoad();
     })
 
+    // GET KELAS 
+    function getCarabayar() {
+        var url = '/admin/ajax/list/carabayar',
+            method = 'get';
+        $.ajax({
+            url:url,
+            method:method,
+            data: {},
+            success: function(data) {
+                $('#cara-bayar').empty();
+                $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')
+                $.each(data, function(key, value) {
+                    $('#cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
+                });
+                $('#cara-bayar').select2({
+                    'placeholder': 'Pilih Cara bayar'
+                })
+            }
+        })
+    }
+
     function ajaxLoad() {
         var term = $('#term').val(),
+            cara_bayar = $('#cara-bayar').val(),
+            jns_rawat = $("input[name=jns_rawat]:checked").val(),
             tanggal = $('#tgl_reg').val();
 
        $('#tabel-registrasi').dataTable({
@@ -93,6 +117,8 @@
                 "type": "GET",
                 "data": {
                     "term" : term,
+                    "cara_bayar" : cara_bayar,
+                    "jns_rawat" : jns_rawat,
                     "tanggal_reg" : tanggal
                 }
             },

@@ -33,4 +33,11 @@ class Sep extends ServiceBPJS
         $sep = $this->bpjs->postRequest($endpoint, $dataJson);
         return $sep;
     }
+
+    public function UpdateSep($dataJson)
+    {
+        $endpoint = "SEP/1.1/Update";
+        $sep = $this->bpjs->putRequest($endpoint, $dataJson);
+        return $sep;
+    }
 }

@@ -49,11 +49,12 @@ class Bridging extends Bpjs
 
     public function putRequest($endpoint, $data)
     {
-        $data = file_get_contents("php://input");
+        // $data = file_get_contents("php://input");
         try {
             $url = $this->bpjs_url . $endpoint;
             $result = $this->client->put($url, ['headers' => $this->headers, 'body' => $data]);
-            return $result;
+            $response = $result->getBody();
+            return $response;
         } catch (RequestException $e) {
             $result = Psr7\str($e->getRequest());
             if ($e->hasResponse()) {

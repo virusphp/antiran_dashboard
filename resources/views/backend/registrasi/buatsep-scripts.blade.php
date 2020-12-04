@@ -4,6 +4,7 @@
     });
 
     $(document).on('click',"#buat-sep", function() {
+        $(this).addClass('edit-item-trigger-clicked');
         var no_reg = $(this).data('reg'),
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
@@ -12,8 +13,8 @@
             method = 'POST',
             url = '/admin/ajax/registrasi/modalsep';
 
+        $('#update-sep').attr('id','create-sep').val('Create Sep').removeClass('btn-primary').addClass('btn-warning');
         loadModal()
-        $('#update-sep').attr('id','create-sep').val('Update Sep').removeClass('btn-primary').addClass('btn-warning');
         $.ajax({
             method:method,
             url:url,
@@ -52,6 +53,7 @@
         } else {
             $('#nama-pelayanan b').append('<span>Rawat Inap</span>')
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
+            
         }
 
         // SELECT 2 DROP DOWN
@@ -239,7 +241,7 @@
                 _token: CSRF_TOKEN
             },
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 res = d.response;
             }
         })
@@ -313,6 +315,11 @@
         })
     }
 
+    $('#nama-dpjp').on('change',function() {
+        var kode_dpjp = $(this).val();
+        $('#kode-dpjp').val(kode_dpjp);         
+    })
+
     function showSuratKontrol(no_rujukan) {
         var url = '/admin/ajax/rujukaninternal',
             method = 'GET';
@@ -324,7 +331,7 @@
                     no_rujukan:no_rujukan
                 },
                 success: function(data) {
-                    console.log(data.length);
+                    // console.log(data.length);
                     if (data.length > 0) {
                         $('#form-skdp').show();
                     }
@@ -333,7 +340,7 @@
         }
     }
 
-    $('#create-sep').on('click', function() {
+    $(document).on('click', '#create-sep', function(e) {
         var form_sep = $('#form-sep'),
             url = '/admin/ajax/bpjs/insertsep',
             method = 'POST';
@@ -347,7 +354,7 @@
             data: form_sep.serialize(),
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.response !== null) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
                     $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()
@@ -412,7 +419,7 @@
                     dataType: "JSON",
                     data: {term: request.term},
                     success: function(data) {
-                        console.log(data.response.diagnosa)
+                        // console.log(data.response.diagnosa)
                         if (data.metaData.code == 200) {
                             var array = data.error ? [] : $.map(data.response.diagnosa, function(m){
                                 return {
