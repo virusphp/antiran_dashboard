@@ -52,7 +52,7 @@
 
     $(document).ready(function() {
         clearMessage();
-        getCarabayar();
+        listCaraBayar();
         ajaxLoad();
     })
 
@@ -71,7 +71,7 @@
     })
 
     // GET KELAS 
-    function getCarabayar() {
+    function listCaraBayar() {
         var url = '/admin/ajax/list/carabayar',
             method = 'get';
         $.ajax({
@@ -79,12 +79,12 @@
             method:method,
             data: {},
             success: function(data) {
-                $('#cara-bayar').empty();
-                $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')
+                $('#carabayar').empty();
+                $('#carabayar').append('<option value="">Pilih Cara bayar</option>')
                 $.each(data, function(key, value) {
-                    $('#cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
+                    $('#carabayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
                 });
-                $('#cara-bayar').select2({
+                $('#carabayar').select2({
                     'placeholder': 'Pilih Cara bayar'
                 })
             }

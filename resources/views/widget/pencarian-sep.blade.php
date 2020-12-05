@@ -22,7 +22,7 @@
     <div class="form-group my-2 mx-2">
         <div class="controls">
             <div class="input-group">
-                <select id="cara-bayar" name="cara_bayar" class="form-control form-control-sm"></select>
+                <select id="carabayar" class="form-control form-control-sm"></select>
             </div>
         </div>
     </div>

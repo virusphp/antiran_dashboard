@@ -28,7 +28,7 @@
     })
 
     function setDataPasienEdit(data) {
-        console.log(data);
+        // console.log(data);
         $('#no-reg').val(data.no_reg)
         $('#no-rm').val(data.no_rm)
         $('#no-kartu').val(data.no_kartu)
@@ -72,7 +72,7 @@
                 no_sep: no_sep
             },
             success: function(res) {
-                console.log(res);
+                // console.log(res);
                 $('#catatan').val(res.response.catatan);
             }
         })
@@ -91,7 +91,7 @@
                 no_sep: no_sep
             },
             success: function(res) {
-                console.log(res);
+                // console.log(res);
                 setDataSep(res);
             }
         })
@@ -118,7 +118,7 @@
             url = '/admin/ajax/bpjs/updatesep',
             method = 'PUT';
 
-            console.log(url, method)
+            // console.log(url, method)
 
         form_sep.find('#asal-rujukan').prop('disabled', false)
         form_sep.find('#kelas-rawat').prop('disabled', false);
@@ -129,7 +129,7 @@
             data: form_sep.serialize(),
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.response !== null) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
                     $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()

@@ -89,7 +89,7 @@
             <div id="form-skdp" class="form-group row">
                 <div class="col-md-4">
                     <label for="no_surat">No Surat / SKDP</label>
-                    <input class="btn btn-ghost-primary btn-cus" id="cari_skdp" type="button" value="cari">
+                    <input class="btn btn-ghost-primary btn-cus" id="cari-skdp" type="button" value="cari">
                     <input class="form-control form-control-sm" id="no-surat" name="no_surat" type="text" tabindex="5" placeholder="Ketik no surat kontrol" maxlength="7">
                     <input id="kode-poli-dpjp" type="hidden">
                     <input id="no-surat-lama" name="no_surat_lama" type="hidden">

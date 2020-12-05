@@ -32,7 +32,7 @@ class SepController extends Controller
                         'no' => $no++,
                         'noKunjungan' => '
                             <div class="btn-group">
-                                <button data-rujukan="'.$val->noRujukan.'" id="h-sko" class="btn btn-sencodary btn-xs btn-cus">'.$val->noRujukan.'</button>
+                                <button data-rujukan="'.$val->noSep.'" data-faskes="'.$val->ppkPelayanan.'" data-jnspelayanan="'.$val->jnsPelayanan.'" id="h-sko" class="btn btn-sencodary btn-xs btn-cus">'.$val->noSep.'</button>
                             </div> ',
                         'tglKunjungan' => $val->tglSep,
                         'noKartu' => $val->noKartu,

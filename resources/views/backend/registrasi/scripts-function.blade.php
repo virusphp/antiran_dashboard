@@ -3,6 +3,7 @@
         $('#form-skdp').hide();
         $('#form-katarak').hide();
         $("#form-penjamin-kll").hide();
+        $('#form-asal-pasien').hide();
 
         $('#no-reg').val("")
         $('#no-rm').val("")
@@ -31,10 +32,6 @@
         form.find('.invalid-feedback').remove();
         form.find('input').removeClass('is-invalid');
         form.find('textarea').removeClass('is-invalid');
-
-        // SELECT 2 DROP DOWN
-        $('#kelas-rawat').attr('readonly', false);
-        $('#kelas-rawat').attr('disabled', false);
-    
+      
     }
 </script>

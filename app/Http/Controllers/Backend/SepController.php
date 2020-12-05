@@ -22,4 +22,5 @@ class SepController extends Controller
             return response()->json($dataSep);
         }
     }
+
 }

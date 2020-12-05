@@ -50,6 +50,7 @@
         if (data.jns_pelayanan == 2) {
             $('#nama-pelayanan b').append('<span>Rawat Jalan</span>')
             $('#poli-tujuan b').append('<span>Poli Tujuan : '+data.nama_sub_unit+'</span>')
+            $('#form-asal-pasien').show()
         } else {
             $('#nama-pelayanan b').append('<span>Rawat Inap</span>')
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
@@ -113,6 +114,22 @@
 
         $('#modal-rujukan').modal(options);
     })
+
+    $(document).on('click', '#cari-skdp', function() {
+        var no_kartu = $('#no-rujukan').val(),
+            url = '/admin/ajax/nosurat/listnosurat',
+            method = 'get',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
+            options = {
+                'backdrop' : 'static'
+            };
+
+        getListNoSurat(no_rujukan, url, method, CSRF_TOKEN);
+
+        $('#modal-nosurat').modal(options);
+    })
+
+    function getListNoSurat(no_rujukan, url, method, 22
 
     function getListSko(no_kartu, url, method, CSRF_TOKEN, tgl_akhir) {
         $('#tabel-rujukan').dataTable({
@@ -221,10 +238,14 @@
 
     $(document).on('click', '#h-sko', function() {
         var no_rujukan = $(this).data('rujukan'),
-            url = '/admin/ajax/carisep',
+            nama_faskes = $(this).data('faskes'),
+            jns_pelayanan = $(this).data('jnspelayanan'),
+            url = '/admin/ajax/bpjs/carisep',
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $('#no-rujukan').val(no_rujukan).attr('readonly', true);
+        $('#nama-faskes').val(nama_faskes).attr('readonly', true);
+        $('#asal-rujukan option[value='+jns_pelayanan+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled', 'true');
 
         ajaxCariSep(no_rujukan, url, method, CSRF_TOKEN);
 
@@ -237,12 +258,19 @@
             method:method,
             dataType: "JSON",
             data: {
-                no_rujukan: no_rujukan,
+                no_sep: no_rujukan,
                 _token: CSRF_TOKEN
             },
             success: function(data) {
-                // console.log(data)
-                res = d.response;
+                console.log(data)
+                if (data.metaData.code == 200) {
+                    $('#tgl-rujukan').val(data.response.tglSep)
+                    $('#ppk-rujukan').val(data.response.noSep.substr(0,8))
+                    $('#internal-rujukan').val(data.response.noSep) 
+                    showSuratKontrol(data.response.noSep, "SKO")
+                    showDokterDPJP()
+
+                }
             }
         })
     }
@@ -272,7 +300,7 @@
         $('#kode-diagnosa').val(res.rujukan.diagnosa.kode)
         $('#nama-diagnosa').val(res.rujukan.diagnosa.nama)
         $('#internal-rujukan').val(res.rujukan.noKunjungan)
-        $('#asal-rujukan option[value='+res.asalFaskes+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled','true');
+        $('#asal-rujukan option[value='+res.asalFaskes+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled',true);
         if ($('#jns-pelayanan').val() == 1) {
             $('#kode-poli').val("000")
             $('#nama-poli').val("000")
@@ -281,7 +309,7 @@
             $('#nama-poli').val(res.rujukan.poliRujukan.nama)
         }
         if (res.rujukan.poliRujukan.kode != "IGD") {
-            showSuratKontrol(res.rujukan.noKunjungan)
+            showSuratKontrol(res.rujukan.noKunjungan, "SKU")
             showDokterDPJP(res.rujukan.poliRujukan.kode, res.rujukan.pelayanan.kode)
         }
         if ($('#no-telp').val() == "") {
@@ -320,7 +348,7 @@
         $('#kode-dpjp').val(kode_dpjp);         
     })
 
-    function showSuratKontrol(no_rujukan) {
+    function showSuratKontrol(no_rujukan, jns_surat) {
         var url = '/admin/ajax/rujukaninternal',
             method = 'GET';
         if (no_rujukan !== 0) {
@@ -331,8 +359,11 @@
                     no_rujukan:no_rujukan
                 },
                 success: function(data) {
-                    // console.log(data.length);
-                    if (data.length > 0) {
+                    if (jns_surat == "SKU") {
+                        if (data.length > 0) {
+                            $('#form-skdp').show();
+                        }
+                    } else {
                         $('#form-skdp').show();
                     }
                 }
@@ -345,8 +376,8 @@
             url = '/admin/ajax/bpjs/insertsep',
             method = 'POST';
 
-        form_sep.find('#asal-rujukan').prop('disabled', false)
-        form_sep.find('#kelas-rawat').prop('disabled', false);
+        form_sep.find('#asal-rujukan').prop('disabled', false).attr('readonly', false);
+        form_sep.find('#kelas-rawat').prop('disabled', false).attr('disabled', false);
 
         $.ajax({
             url:url,
@@ -475,7 +506,7 @@
             data: {},
             success: function(data) {
                 $('#cara-bayar').empty();
-                $('#cara-bayar').append('<option value="0">Pilih Carabayar</option>')
+                $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')
                 $.each(data, function(key, value) {
                     $('#cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
                 });
@@ -483,7 +514,7 @@
                     $('#cara-bayar option[value='+carabayar+']').attr('selected','selected').closest('#cara-bayar');
                 }
                 $('#cara-bayar').select2({
-                    'placeholder': 'Pilih Carabayar'
+                    'placeholder': 'Pilih Cara bayar'
                 })
             }
         })

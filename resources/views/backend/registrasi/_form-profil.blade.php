@@ -46,17 +46,19 @@
                    <select id="cara-bayar" name="cara_bayar" class="form-control form-control-sm"></select>
                </div>
             </div>
-            <div class="form-group row">
-                <div class="col-md-12">
-                   <label for="asal_pasien">Asal Pasien</label>
-                   <select id="asal-pasien" name="asal_pasien" class="form-control form-control-sm"></select>
-               </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-12">
-                   <label for="nama_instansi">Nama Instansi</label>
-                   <select id="nama-instansi" name="nama_instansi" class="form-control form-control-sm"></select>
-               </div>
+            <div id="form-asal-pasien">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                    <label for="asal_pasien">Asal Pasien</label>
+                    <select id="asal-pasien" name="asal_pasien" class="form-control form-control-sm"></select>
+                </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                    <label for="nama_instansi">Nama Instansi</label>
+                    <select id="nama-instansi" name="nama_instansi" class="form-control form-control-sm"></select>
+                </div>
+                </div>
             </div>
         </div>
     </div>
