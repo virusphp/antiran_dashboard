@@ -129,7 +129,10 @@
         $('#modal-nosurat').modal(options);
     })
 
-    function getListNoSurat(no_rujukan, url, method, 22
+    function getListNoSurat(no_rujukan, url, method, CSRF_TOKEN)
+    {
+        
+    }
 
     function getListSko(no_kartu, url, method, CSRF_TOKEN, tgl_akhir) {
         $('#tabel-rujukan').dataTable({
