@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Repository\Propinsi;
+namespace App\Repository\Kabupaten;
 
 use DB;
 
-class Propinsi
+class Kabupaten
 {
     protected $dbsimrs = "sqlsrv_simrs";
 
-    public function getPropinsi()
+    public function getKabupaten($params)
     {
         return DB::connection($this->dbsimrs)->table('kabupaten_bpjs')
             ->select('kode', 'nama')
+            ->where('kd_prov', $params->kd_prov)
             ->get();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SepInsert;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Repository\Sep\Sep;
@@ -56,7 +57,7 @@ class SepController extends Controller
         }
     }
 
-    public function ajaxInsertSepBpjs(Request $request)
+    public function ajaxInsertSepBpjs(SepInsert $request)
     {
         if ($request->ajax()) {
             $data = $request->all();

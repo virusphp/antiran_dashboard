@@ -39,6 +39,14 @@ class ReferensiController extends BpjsController
         }
     }
 
+    public function ajaxListFaskes(Request $request)
+    {
+        if ($request->ajax()) {
+            $faskes = $this->referensi->getFaskes($request);
+            return $faskes;
+        }
+    }
+
     public function faskes($kodeNama, $jenisFaskes)
     {
         $endpoint = "referensi/faskes/" . $kodeNama . "/" . $jenisFaskes;

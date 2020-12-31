@@ -31,7 +31,7 @@
             <div class="input-group date" id="tanggal_reg" data-target-input="nearest">
             <input type="text" id="tgl_reg" name="tgl_reg" class="form-control form-control-sm datetimepicker-input" data-target="#tanggal_reg"/>
                 <div class="input-group-append" data-target="#tanggal_reg" data-toggle="datetimepicker">
-                    <div class="input-group-text"><i class="ci-icon cil-calendar"></i></div>
+                    <div class="input-group-text"><i class="ci-icon fa fa-calendar"></i></div>
                 </div>
             </div>
         </div>

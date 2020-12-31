@@ -18,7 +18,7 @@ class Sep
 
     public function getSep($params)
     {
-        return  DB::connection($this->dbsimrs)->table('sep_bpjs')
+        return DB::connection($this->dbsimrs)->table('sep_bpjs')
             ->where([['no_reg', '=', $params->no_reg], ['no_sjp', '=', $params->no_sep]])
             ->first();
     }
@@ -26,23 +26,40 @@ class Sep
     public function insertSep($data)
     { 
         $req = json_encode($this->mapSep($data));
+        // dd($req);
         $result = $this->service->InsertSep($req);
         $res = json_decode($result);
         if ($res->metaData->code == 200) {
-            DB::beginTransaction();
-            try {
-                $this->simpanSep($data, $result);
-                $this->simpanRujukan($data);
-                DB::commit();
-                return $result;
-            } catch (\Illuminate\Database\QueryException $e) {
-                DB::rollback();
-                if ($e->getCode() == "23000") {
+            if ($res->response->peserta->noKartu == $data['no_kartu'] && $res->response->peserta->noRm == $data['no_rm']) {
+                DB::beginTransaction();
+                try {
+                    $this->simpanSep($data, $result);
+                    $this->simpanRujukan($data);
+                    DB::commit();
                     return $result;
-                }
-            } 
+                } catch (\Illuminate\Database\QueryException $e) {
+                    DB::rollback();
+                    if ($e->getCode() == "23000") {
+                        return $result;
+                    }
+                } 
+            } else {
+                $message = $this->getMessage($result);
+                return $message;
+            }
         }
-        return $result;
+    }
+
+    protected function getMessage($result) 
+    {
+        $data['metaData'] = [
+            'code' => 201,
+            'message' => 'Sep Dengan No : ' .$result->response->sep->noSep .' Adalah jaminan A/N : ' . $result->response->sep->peserta->nama
+            // 'message' => 'Sep Dengan No : XXXX Adalah jaminan A/N : UUUU'
+        ];
+        $data['response'] = null;
+
+        return $data;
     }
 
     public function updateSep($data)

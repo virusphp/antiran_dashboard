@@ -1,6 +1,8 @@
 .c-body .c-main {
     background-color: #b0bdb9;
+    font-size: 12px;
 }
+
 
 /* AUTOCOMPLETED */
     .ui-autocomplete-input {
@@ -137,10 +139,6 @@ label {
     overflow-y: auto;
 }
 
-.modal-md {
-    max-width: 1024px;
-}
-
 .ui-front {
     z-index: 9999;
 }
@@ -174,7 +172,17 @@ label {
     margin-left: 20px;
 }
 
+#modal-skdp .modal-md {
+    max-width: 1024px;
+}
+
 #modal-sep .modal-xl {
-    max-width: 1366px;
+    max-width: 1248px;
 }
 /* PENUTUP MODAL SEP */
+
+/* SELECT2JS ADD 100% */
+/* .select2, .select2-container  {
+    width: 100%;
+    max-width: 100%;
+} */

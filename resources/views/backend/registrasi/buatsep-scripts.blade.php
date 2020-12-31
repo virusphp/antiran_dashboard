@@ -45,12 +45,15 @@
         $('#jns-pelayanan').val(data.jns_pelayanan)
         $('#tgl-reg').val(data.tgl_sep)
         $('#tgl-sep').val(data.tgl_sep)
+        $('#tgl-rujukan').val(data.tgl_sep)
         $('#no-sep').val(data.no_sjp)
 
         if (data.jns_pelayanan == 2) {
             $('#nama-pelayanan b').append('<span>Rawat Jalan</span>')
             $('#poli-tujuan b').append('<span>Poli Tujuan : '+data.nama_sub_unit+'</span>')
             $('#form-asal-pasien').show()
+            getAsalPasien(data.asal_pasien)
+            getInstansi(data.kd_instansi)
         } else {
             $('#nama-pelayanan b').append('<span>Rawat Inap</span>')
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
@@ -61,8 +64,6 @@
         getKelas()
         getPeserta()
         getCaraBayar(data.cara_bayar)
-        getAsalPasien(data.asal_pasien)
-        getInstansi()
     }
 
     $('#modal-sep').on('hidden.bs.modal', function() {
@@ -70,11 +71,13 @@
         $('#poli-tujuan b span').remove()
         $('#nama-pelayanan b span').remove()
         $("#header-sep span").remove(); 
+
+        $('#asal-rujukan').find("option[selected]").removeAttr('selected');
     })
 
     $('#cari-rujukan').on('click', function() {
         var no_kartu = $('#no-kartu').val(),
-            url = '/admin/ajax/bpjs/listrujukan',
+            url = '/admin/ajax/bpjs/list/rujukan',
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
@@ -88,7 +91,7 @@
 
     $('#cari-rujukan-rs').on('click', function() {
         var no_kartu = $('#no-kartu').val(),
-            url = '/admin/ajax/bpjs/listrujukanrs',
+            url = '/admin/ajax/bpjs/list/rujukanrs',
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
@@ -102,7 +105,7 @@
 
     $(document).on('click', '#cari-sko', function() {
         var no_kartu = $('#no-kartu').val(),
-            url = '/admin/ajax/bpjs/listsep',
+            url = '/admin/ajax/bpjs/list/sep',
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             tgl_akhir = moment().format("YYYY-MM-DD"),
@@ -116,9 +119,9 @@
     })
 
     $(document).on('click', '#cari-skdp', function() {
-        var no_kartu = $('#no-rujukan').val(),
-            url = '/admin/ajax/nosurat/listnosurat',
-            method = 'get',
+        var no_rujukan = $('#no-rujukan').val(),
+            url = '/admin/ajax/list/skdp',
+            method = 'post',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
             options = {
                 'backdrop' : 'static'
@@ -126,12 +129,48 @@
 
         getListNoSurat(no_rujukan, url, method, CSRF_TOKEN);
 
-        $('#modal-nosurat').modal(options);
+        $('#modal-skdp').modal(options);
     })
 
     function getListNoSurat(no_rujukan, url, method, CSRF_TOKEN)
     {
-        
+        $('#tabel-skdp').dataTable({
+            "autoWidth"     : false,
+            "Processing"    : true,
+            "ServerSide"    : true,
+            "sDom"          : "<t <'float-right' i><p >>",
+            "iDisplayLength": 25,
+            "bDestroy"      : true,
+            "oLanguage"     : {
+                "sLengthMenu"    : "_MENU_ ",
+                "sInfo"          : "Showing <b>_START_ to _END_</b> of _TOTAL_ entries",
+                "sSearch"        : "Search Data: ",
+                "sZeroRecords"   : "Tidak ada data",
+                "sEmptyTable"    : "Data tidak tersedia",
+                "sLoadingRecords": '<img src   = "{{ asset('ajax-loader.gif') }}"> Loading...'
+            },           
+            "ajax": {
+                "url" : url,
+                "type": method,
+                "data": {
+                    "no_rujukan": no_rujukan,
+                    "_token" : CSRF_TOKEN
+                }
+            },
+            "columns": [
+                {"mData": "no"},
+                {"mData": "no_surat"},
+                {"mData": "jns_surat"},
+                {"mData": "kd_poli_dpjp"},
+                {"mData": "no_rujukan"},
+                {"mData": "nama_dokter"}
+            ]
+        })
+        oTable = $('#tabel-skdp').DataTable();  
+        $('#no_rujukan').keyup(function(){
+            oTable.search($(this).val()).draw() ;
+            $('.table').removeAttr('style');
+        }); 
     }
 
     function getListSko(no_kartu, url, method, CSRF_TOKEN, tgl_akhir) {
@@ -391,21 +430,80 @@
                 // console.log(data)
                 if (data.response !== null) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
-                    $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()
+                    $('#success-sep').html(data.metaData.message+" No Sep : "+data.response.sep.noSep).hide()
                         .fadeIn(1500, function() { $('#success-sep') });
                     setTimeout(clearMessage, 5000);
                     // sementara load 
                     ajaxLoad();
                 } else {
                     $('#tabel-message-error').show().html("<span class='text-success' id='error-sep'></span>");
-                    $('#error-sep').html(data.metaData.message+ "Silahkan Cek kembali!").hide()
+                    $('#error-sep').html(data.metaData.message+ " Silahkan Cek kembali!").hide()
                         .fadeIn(1500, function() { $('#error-sep'); });
                     setTimeout(clearMessage, 5000);
                 }
                 $('#modal-sep').modal('hide');
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON
+                $.each(errors.errors, function(key, value) {
+                    $("[name='"+key+"']").addClass('is-invalid')
+                                .closest('.form-group')
+                                .append('<span class="invalid-feedback"><strong>' +value[0]+ '</strong></span>');
+                    $("[name='"+key.replace("kode","nama")+"']").addClass('is-invalid')
+                                .closest('.form-group');
+                     $("[id='"+key.replace("ppk_","nama-")+"']").addClass('is-invalid')
+                                .closest('.form-group');
+
+                })
             }
         })
     })
+
+    // COB
+    $('#c-cob').click(function() {
+        if ($(this).is(':checked')) {
+            $('#cob').val(1);
+        } else {
+            $('#cob').val(0);
+        }
+    })
+
+     // POLI EKSEKUTIF
+     $('#c-eksekutif').click(function() {
+        if ($(this).is(':checked')) {
+            $('#eksekutif').val(1);
+        } else {
+            $('#eksekutif').val(0);
+        }
+    })
+
+     // COB
+     $('#c-katarak').click(function() {
+        if ($(this).is(':checked')) {
+            $('#katarak').val(1);
+        } else {
+            $('#katarak').val(0);
+        }
+    })
+
+      // SHOW PENJAMIN KLL
+    $('#c-penjamin').click(function() {
+        if ($(this).is(':checked')) {
+            $('#penjamin').val(1);
+            $('#lakalantas').val(1);
+            $('#form-penjamin-kll').show(500);
+            $('#keterangan').val("");
+        } else {
+            $('#penjamin').val(0);
+            $('#lakalantas').val(0);
+            $('#keterangan').val(0);
+            $('#form-penjamin-kll').hide(500);
+            $('#propinsi').val(0).select2({ width: 'resolve'});
+            $('#kabupaten').val(0).select2({ width: 'resolve'});
+            $('#kecamatan').val(0).select2({ width: 'resolve'});
+        }
+      getProvinsi() 
+    })  
 
     // GET POLI BPJS
     $(document).ready(function() {
@@ -436,6 +534,41 @@
                 $('#nama-poli').val(ui.item.value);
                 $('#kode-poli').val(ui.item.id);
                 getKatarak();
+                return false;
+            }
+        })
+    })
+
+     // GET FASKES BPJS
+     $(document).ready(function() {
+        var url = '/admin/ajax/bpjs/list/faskes',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $('#nama-faskes').autocomplete({
+            source : function(request, response){
+                var asal_rujukan = $('#asal-rujukan').val();
+                $.ajax({
+                    url:url,
+                    method: "POST",
+                    dataType: "JSON",
+                    data: {term: request.term, asal_rujukan: asal_rujukan},
+                    success: function(data) {
+                        console.log(data.response)
+                        if (data.metaData.code == 200) {
+                            var array = data.error ? [] : $.map(data.response.faskes, function(m){
+                                return {
+                                    id : m.kode,
+                                    value: m.nama
+                                }
+                            })
+                            response(array);
+                        }
+                    }
+                })
+            },
+            minLength: 3,
+            select : function(event, ui) {
+                $('#nama-faskes').val(ui.item.value);
+                $('#ppk-rujukan').val(ui.item.id);
                 return false;
             }
         })
@@ -548,7 +681,7 @@
     }
 
     // GET NAMA INSTANSI
-    function getInstansi() {
+    function getInstansi(kode_instansi) {
         var url = '/admin/ajax/list/instansi',
             method = 'get';
         $.ajax({
@@ -557,10 +690,13 @@
             data: {},
             success: function(data) {
                 $('#nama-instansi').empty();
-                $('#nama-instansi').append('<option value="0">Pilih Instansi</option>')
+                $('#nama-instansi').append('<option value="">Pilih Instansi</option>')
                 $.each(data, function(key, value) {
-                    $('#nama-instansi').append('<option value="'+value.kd_instansi+'">'+value.nama_instansi+'</option>');
+                    $('#nama-instansi').append('<option value="'+$.trim(value.kd_instansi)+'">'+value.nama_instansi+'</option>');
                 });
+                if (kode_instansi) {
+                    $('#nama-instansi option[value='+kode_instansi+']').attr('selected','selected').closest('#nama-instansi');
+                }
                 $('#nama-instansi').select2({
                     'placeholder': 'Pilih Asal pasien'
                 })
@@ -637,6 +773,27 @@
                     $('#kabupaten').append('<option value="'+value.kode+'">'+value.nama+'</option>');
                 });
                 $('#kabupaten').select2({
+                    'placeholder': 'Pilih kabupaten'
+                })
+            } 
+        });
+    });
+
+    $('#kabupaten').on('change',function() {
+        var kd_kab = $(this).val(),
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+        $.ajax({
+            type : 'post',
+            url : '/admin/ajax/list/kecamatan',
+            data : {kd_kab:kd_kab},
+            success: function(data) {
+                $('#kecamatan').empty();
+                $('#kecamatan').append('<option value="0">Pilih Kecamatan</option>')
+                $.each(data, function(key, value) {
+                    $('#kecamatan').append('<option value="'+value.kode+'">'+value.nama+'</option>');
+                });
+
+                $('#kecamatan').select2({
                     'placeholder': 'Pilih kabupaten'
                 })
             } 

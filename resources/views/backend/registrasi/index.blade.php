@@ -24,13 +24,13 @@ Sep
                             <li class="list-inline-item float-right">
                                 <div class="d-none d-md-block">
                                     <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
-                                        <i class="c-icon cil-plus"></i>
-                                        Sep
+                                        <i class="c-icon fa fa-plus"></i>
+                                        Registrasi
                                     </a>
                                 </div>
                                 <div class="d-md-none float-right">
                                     <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3">
-                                        <i class="c-icon cil-plus"></i>
+                                        <i class="c-icon fa fa-plus"></i>
 
                                     </a>
                                 </div>
@@ -52,6 +52,7 @@ Sep
 </div>
 @include('backend.registrasi.modal-sep')
 @include('backend.registrasi.modal-rujukan')
+@include('backend.registrasi.modal-skdp')
 @endsection
 @push('css')
 <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">

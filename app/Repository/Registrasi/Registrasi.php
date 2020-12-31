@@ -28,7 +28,7 @@ class Registrasi
                               ->orWhere('r.no_reg', 'like', $keywords);
                     }
                     if ($carabayar = $params->cara_bayar) {
-                        $query->orWhere('r.kd_cara_bayar', $carabayar);
+                        $query->orWhere('r.kd_cara_bayar', '=', $carabayar);
                     }
                 })
                 ->get();
@@ -49,7 +49,7 @@ class Registrasi
     public function getRawatInap($noReg)
     {
         return DB::connection($this->dbsimrs)->table('rawat_inap as ri')
-                ->select('ri.no_reg','ri.no_rm','p.alamat','p.nama_pasien','p.no_telp','p.nik','p.tgl_lahir', 'pg.nama_pegawai','su.nama_sub_unit')
+                ->select('ri.no_reg','ri.no_rm','p.alamat','p.nama_pasien','p.no_telp','p.nik','p.tgl_lahir', 'pg.nama_pegawai','su.nama_sub_unit', 'ru.kd_instansi')
                 ->join('pasien as p', 'ri.no_rm','p.no_rm')
                 ->join('pegawai as pg', 'ri.kd_dokter','pg.kd_pegawai')
                 ->join('tempat_tidur as tt',function($join){
@@ -61,6 +61,7 @@ class Registrasi
                                 });
                         });
                 })
+                ->leftJoin('rujukan as ru', 'rj.no_reg', 'ru.no_reg')
                 ->where('ri.no_reg', $noReg)
                 ->first();
     }
@@ -68,12 +69,13 @@ class Registrasi
     public function getRawatJalan($noReg)
     {
         return DB::connection($this->dbsimrs)->table('rawat_jalan as rj')
-                ->select('rj.no_reg','rj.no_rm','p.alamat','p.nama_pasien','p.no_telp','p.nik','p.tgl_lahir','pg.nama_pegawai','su.nama_sub_unit')
+                ->select('rj.no_reg','rj.no_rm','p.alamat','p.nama_pasien','p.no_telp','p.nik','p.tgl_lahir','pg.nama_pegawai','su.nama_sub_unit', 'ru.kd_instansi')
                 ->join('pasien as p','rj.no_rm','p.no_rm')
                 ->join('pegawai as pg','rj.kd_dokter','pg.kd_pegawai')
                 ->join('sub_unit as su', function($join) {
                     $join->on('rj.kd_poliklinik', '=', 'su.kd_sub_unit');
                 })
+                ->leftJoin('rujukan as ru', 'rj.no_reg', 'ru.no_reg')
                 ->where('rj.no_reg', $noReg)
                 ->first();
     }

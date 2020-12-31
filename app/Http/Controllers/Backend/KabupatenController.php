@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Repository\Kabupaten\Kabupaten;
 use Illuminate\Http\Request;
 
 class KabupatenController extends Controller
@@ -14,9 +15,11 @@ class KabupatenController extends Controller
         $this->kabupaten = new Kabupaten;
     }
 
-    public function ajaxListKabupaten()
+    public function ajaxListKabupaten(Request $request)
     {
-        $dataKabupaten = $this->kabupaten->getKabupaten(); 
-        return response()->json($dataKabupaten);
+        if ($request->ajax()) {
+            $dataKabupaten = $this->kabupaten->getKabupaten($request); 
+            return response()->json($dataKabupaten);
+        }
     }
 }

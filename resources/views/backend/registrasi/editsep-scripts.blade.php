@@ -41,10 +41,14 @@
         $('#tgl-reg').val(data.tgl_sep)
         $('#tgl-sep').val(data.tgl_sep)
         $('#no-sep').val(data.no_sep)
+        $('#header-sep').append('<span>'+data.no_sep+'</span>');
 
         if (data.jns_pelayanan == 2) {
             $('#nama-pelayanan b').append('<span>Rawat Jalan</span>')
             $('#poli-tujuan b').append('<span>Poli Tujuan : '+data.nama_sub_unit+'</span>')
+            $('#form-asal-pasien').show()
+            getAsalPasien(data.asal_pasien)
+            getInstansi(data.kd_instansi)
         } else {
             $('#nama-pelayanan b').append('<span>Rawat Inap</span>')
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
@@ -54,8 +58,6 @@
         getKelas()
         getPeserta()
         getCaraBayar(data.cara_bayar)
-        getAsalPasien(data.asal_pasien)
-        getInstansi()
         getDataSep(data.no_sep, data.no_reg)
         showCatatan(data.no_sep)
     }
@@ -91,7 +93,6 @@
                 no_sep: no_sep
             },
             success: function(res) {
-                // console.log(res);
                 setDataSep(res);
             }
         })
@@ -99,18 +100,22 @@
 
     // CHANGE TO API
     function setDataSep(res) {
-        $('#no-rujukan').val(res.No_Rujukan)
-        $('#tgl-rujukan').val(res.Tgl_Rujukan)
-        $('#ppk-rujukan').val(res.Kd_Faskes)
-        $('#nama-faskes').val(res.Nama_Faskes)
-        $('#kode-diagnosa').val(res.Kd_Diagnosa)
-        $('#nama-diagnosa').val(res.Nama_Diagnosa) 
-        $('#kode-poli').val(res.Kd_Poli)
-        $('#nama-poli').val(res.Nama_Poli)
-        $('#no-surat').val(res.no_surat_kontrol)
-        $('#no-surat-lama').val(res.no_surat_kontrol)
-        $('#kode-dpjp').val(res.kd_dpjp)     
-        $('#header-sep').append('<span>'+res.no_SJP+'</span>');
+        if (res.no_SJP) {
+            $('#header-sep span').remove();
+            $('#no-rujukan').val(res.No_Rujukan)
+            $('#tgl-rujukan').val(res.Tgl_Rujukan)
+            $('#ppk-rujukan').val(res.Kd_Faskes)
+            $('#nama-faskes').val(res.Nama_Faskes)
+            $('#kode-diagnosa').val(res.Kd_Diagnosa)
+            $('#nama-diagnosa').val(res.Nama_Diagnosa) 
+            $('#kode-poli').val(res.Kd_Poli)
+            $('#nama-poli').val(res.Nama_Poli)
+            $('#no-surat').val(res.no_surat_kontrol)
+            $('#no-surat-lama').val(res.no_surat_kontrol)
+            $('#kode-dpjp').val(res.kd_dpjp)     
+            $('#asal-rujukan option[value='+res.Asal_Faskes+']').attr('selected','selected').closest('#asal-rujukan');
+            $('#header-sep').append('<span>'+res.no_SJP+'</span>');
+        }
     }
 
     $(document).on('click', '#update-sep', function() {
@@ -132,7 +137,7 @@
                 // console.log(data)
                 if (data.response !== null) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
-                    $('#success-sep').html(data.metaData.message+" No Sep :"+data.response.sep.noSep).hide()
+                    $('#success-sep').html(data.metaData.message+" Update No Sep :"+data.response).hide()
                         .fadeIn(1500, function() { $('#success-sep') });
                     setTimeout(clearMessage, 5000);
                     // sementara load 
@@ -144,6 +149,19 @@
                     setTimeout(clearMessage, 5000);
                 }
                 $('#modal-sep').modal('hide');
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON
+                $.each(errors.errors, function(key, value) {
+                    $("[name='"+key+"']").addClass('is-invalid')
+                                .closest('.form-group')
+                                .append('<span class="invalid-feedback"><strong>' +value[0]+ '</strong></span>');
+                    $("[name='"+key.replace("kode","nama")+"']").addClass('is-invalid')
+                                .closest('.form-group');
+                     $("[id='"+key.replace("ppk_","nama-")+"']").addClass('is-invalid')
+                                .closest('.form-group');
+
+                })
             }
         })
     })

@@ -31,9 +31,7 @@ class RegistrasiController extends Controller
     public function indexAjax(Request $request)
     {
         if ($request->ajax()) {
-
             $registrasi = $this->registrasi->getRegistrasi($request);
-            // dd($registrasi);
             return DataTables::of($registrasi)
                 ->setRowId('idx')
                 ->addIndexColumn()
@@ -69,16 +67,19 @@ class RegistrasiController extends Controller
             $registrasi->tgl_reg = (new DateTime($registrasi->tgl_reg))->format('Y-m-d');
             // CEK JIKA RANAP
             if ($registrasi->jns_rawat == 2) {
+                // Rawat INAP
                 $response = $this->registrasi->getRawatInap($registrasi->no_reg);
+                $response->kd_instansi = $response->kd_instansi == null ? "" : trim($response->kd_instansi);
                 $response->jns_pelayanan = '1';
                 $response->cara_bayar = $registrasi->kd_cara_bayar;
                 $response->user_id = $registrasi->user_id;
                 $response->no_kartu = $registrasi->no_kartu;
                 $response->tgl_sep = $registrasi->tgl_reg;
             } else if ($registrasi->jns_rawat == 1) {
-
+                // Rawat JALAN
                 $response = $this->registrasi->getRawatJalan($registrasi->no_reg);
                 $response->jns_pelayanan = '2';
+                $response->kd_instansi = $response->kd_instansi == null ? "" : trim($response->kd_instansi);
                 $response->asal_pasien = trim($registrasi->kd_asal_pasien) == "" ? "" : trim($registrasi->kd_asal_pasien);
                 $response->cara_bayar = $registrasi->kd_cara_bayar;
                 $response->user_id = $registrasi->user_id;

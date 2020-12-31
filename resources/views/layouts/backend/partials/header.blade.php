@@ -19,7 +19,7 @@
     </ul>
     <ul class="c-header-nav ml-auto mr-4">
         <li class="c-header-nav-item d-md-down-none mx-2">
-        Selamat datang <b>{{ (Auth::user() != null ? Auth::user()->name : 'Brow' ) }}</b>      
+        Selamat datang <b>{{ (Auth::user() != null ? Auth::user()->nama_pegawai : 'Brow' ) }}</b>      
     </li> 
         <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                 <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('img/profile/profile.png') }}" alt="profile"></div>

@@ -56,3 +56,9 @@ function jenisPelayanan($nilai)
 {
     return $nilai == "1" ? "Rawat Inap" : "Rawat Jalan"; 
 }
+
+function noSurat($nilai)
+{
+    $arrNoSurat = explode("/", $nilai);
+    return substr($arrNoSurat[0], -6);
+}

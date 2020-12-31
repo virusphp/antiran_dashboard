@@ -93,7 +93,7 @@
 
     function ajaxLoad() {
         var term = $('#term').val(),
-            cara_bayar = $('#cara-bayar').val(),
+            cara_bayar = $('#carabayar').val(),
             jns_rawat = $("input[name=jns_rawat]:checked").val(),
             tanggal = $('#tgl_reg').val();
 

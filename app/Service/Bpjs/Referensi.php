@@ -33,4 +33,11 @@ class Referensi extends ServiceBPJS
         $dpjp = $this->bpjs->getRequest($endpoint);
         return $dpjp;
     }
+
+    public function getFaskes($params)
+    {
+        $endpoint = "/referensi/faskes/". $params->term . "/". $params->asal_rujukan;
+        $dpjp = $this->bpjs->getRequest($endpoint);
+        return $dpjp;
+    }
 }

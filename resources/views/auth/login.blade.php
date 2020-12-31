@@ -15,10 +15,10 @@ Admin Login
                             <p class="text-muted">{{ __('Hi. How are you?') }}</p>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend"><span class="input-group-text">
-                                        <i class="c-icon cil-user"></i></span></div>
-                                <input id="email" name="email" class="form-control @error('email') is-invalid @enderror" type="text" placeholder="Email" value="{{ old('email') }}" autocomplete="email" autofocus>
+                                        <i class="c-icon fa fa-user"></i></span></div>
+                                <input id="username" name="username" class="form-control @error('username') is-invalid @enderror" type="text" placeholder="Username" value="{{ old('username') }}" autocomplete="username" autofocus>
 
-                                @error('email')
+                                @error('username')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -26,13 +26,13 @@ Admin Login
                             </div>
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend"><span class="input-group-text">
-                                        <i class="c-icon cil-lock-locked"> </i></span></div>
+                                        <i class="c-icon fa fa-lock"> </i></span></div>
                                 <input id="password" name="password" class="form-control @error('password') is-invalid @enderror" type="password" placeholder="Password" value="{{ old('password') }}" autocomplete="current-password">
 
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="c-icon cil-happy" id="password-show"> </i>
-                                        <i class="c-icon cil-frown sembunyi" id="password-hide"> </i>
+                                        <i class="c-icon fa fa-eye-slash" id="password-show"> </i>
+                                        <i class="c-icon fa fa-eye sembunyi" id="password-hide"> </i>
                                     </span>
                                 </div>
                                 @error('password')
@@ -74,7 +74,7 @@ Admin Login
 @push('scripts')
 <script>
     $(document).ready(function() {
-
+        $('#password-hide').hide();
 
         $("#password-show").click(function() {
             $("#password").attr("type", "text");

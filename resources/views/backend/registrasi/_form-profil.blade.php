@@ -53,10 +53,12 @@
                     <select id="asal-pasien" name="asal_pasien" class="form-control form-control-sm"></select>
                 </div>
                 </div>
-                <div class="form-group row">
+                <div class="row">
                     <div class="col-md-12">
-                    <label for="nama_instansi">Nama Instansi</label>
-                    <select id="nama-instansi" name="nama_instansi" class="form-control form-control-sm"></select>
+                    <div class="form-group">
+                        <label for="nama_instansi">Nama Instansi</label>
+                        <select id="nama-instansi" name="nama_instansi" class="form-control form-control-sm"></select>
+                    </div>
                 </div>
                 </div>
             </div>

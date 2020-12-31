@@ -20,9 +20,8 @@
     <!-- Main styles for this application-->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('coreui/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="https://coreui.io/demo/3.0-beta.0/vendors/@coreui/icons/css/free.min.css">
-    <link rel="stylesheet" href="https://coreui.io/demo/3.0-beta.0/vendors/@coreui/icons/css/brand.min.css">
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/all.min.css') }}">
 </head>
 
 <body class="c-app flex-row align-items-center">
