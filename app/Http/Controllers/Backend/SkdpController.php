@@ -25,7 +25,7 @@ class SkdpController extends Controller
                     'no' => $no++,
                     'no_surat' => '
                         <div class="btn-group">
-                            <button data-surat="'.noSurat($val->no_rujukan).'" id="h-no-surat" value="'.$val->kd_poli_dpjp.'" class="btn btn-sencodary btn-xs btn-cus">'.$val->no_rujukan.'</button>
+                            <button data-surat="'.noSurat($val->no_rujukan).'" data-jenissurat="'.$val->jenis_surat.'" id="h-skdp" value="'.$val->kd_poli_dpjp.'" class="btn btn-sencodary btn-xs btn-cus">'.$val->no_rujukan.'</button>
                         </div> ',
                     'kd_poli_dpjp' => $val->kd_poli_dpjp,
                     'no_rujukan' => $val->no_rujukan_bpjs,

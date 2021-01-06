@@ -54,6 +54,7 @@
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
         }
 
+        showDokterDPJP()
         // SELECT 2 DROP DOWN
         getKelas()
         getPeserta()
@@ -110,11 +111,19 @@
             $('#nama-diagnosa').val(res.Nama_Diagnosa) 
             $('#kode-poli').val(res.Kd_Poli)
             $('#nama-poli').val(res.Nama_Poli)
-            $('#no-surat').val(res.no_surat_kontrol)
-            $('#no-surat-lama').val(res.no_surat_kontrol)
-            $('#kode-dpjp').val(res.kd_dpjp)     
             $('#asal-rujukan option[value='+res.Asal_Faskes+']').attr('selected','selected').closest('#asal-rujukan');
             $('#header-sep').append('<span>'+res.no_SJP+'</span>');
+
+            if (res.no_surat_kontrol != "000000") {
+                $('#form-skdp').show()
+                $('#no-surat').val(res.no_surat_kontrol)
+                $('#no-surat-lama').val(res.no_surat_kontrol)
+                // $('#nama-dpjp option[value='+res.kd_dpjp+']').attr('selected', 'selected').closest('#nama-dpjp');
+                $('#kode-dpjp').val(res.kd_dpjp)     
+                $('#nama-dpjp').val(res.kd_dpjp)
+                $('#nama-dpjp').select2().trigger('change')
+
+            }
         }
     }
 

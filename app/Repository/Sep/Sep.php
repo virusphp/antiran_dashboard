@@ -4,7 +4,6 @@ namespace App\Repository\Sep;
 
 use App\Service\Bpjs\Sep as AppSep;
 use DB;
-use Exception;
 
 class Sep
 {
@@ -47,6 +46,8 @@ class Sep
                 $message = $this->getMessage($result);
                 return $message;
             }
+        } else {
+            return $result;
         }
     }
 

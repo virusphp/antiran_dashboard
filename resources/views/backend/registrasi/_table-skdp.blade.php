@@ -7,9 +7,9 @@
         <tr>
             <th>#</th>
             <td>NO SURAT KONTROL</td>
+            <td>JENIS SURAT</td>
             <td>POLI DPJP</td>
             <td>NO RUJUKAN</td>
-            <td>JENIS SURAT</td>
             <td>NAMA DOKTER</td>
         </tr>
     </thead>

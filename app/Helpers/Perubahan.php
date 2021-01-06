@@ -62,3 +62,8 @@ function noSurat($nilai)
     $arrNoSurat = explode("/", $nilai);
     return substr($arrNoSurat[0], -6);
 }
+
+function noReg($nilai)
+{
+	return substr($nilai, 0, 2);
+}

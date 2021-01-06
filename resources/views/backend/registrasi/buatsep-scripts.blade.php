@@ -254,6 +254,27 @@
         }); 
     }
 
+    $(document).on('click', '#h-skdp', function() {
+        var no_surat = $(this).data('surat'),
+            jenis_surat = $(this).data('jenissurat'),
+            kode_poli = $(this).val();
+        $('#no-surat').val(no_surat)
+        $('#no-surat-lama').val(no_surat)
+
+        if (jenis_surat == "SRI") {
+            setSRI()
+        }
+
+        $('#modal-skdp').modal('hide')
+    })
+
+    function setSRI() {
+        // $("#asal-rujukan").val([2]);
+        $('#asal-rujukan option[value='+2+']').attr('selected','selected').closest('#asal-rujukan');
+        $('#nama-faskes').val("RSUD KRATON");
+        $('#ppk-rujukan').val("1105R001");
+    }
+
     $(document).on('click','#h-rujukan', function() {
         var no_rujukan = $(this).data('rujukan'),
             url = '/admin/ajax/bpjs/rujukan',
@@ -428,7 +449,7 @@
             dataType: "json",
             success: function(data) {
                 // console.log(data)
-                if (data.response !== null) {
+                if (data.metaData.code == 200) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
                     $('#success-sep').html(data.metaData.message+" No Sep : "+data.response.sep.noSep).hide()
                         .fadeIn(1500, function() { $('#success-sep') });
@@ -457,6 +478,13 @@
                 })
             }
         })
+    })
+
+    // PRINT SEP
+    $(document).on('click','#print-sep', function() {
+        var no_reg = $(this).data('reg'),
+            url = '{{ url("/admin/sep/print") }}/'+ no_reg;
+            var w = window.open(url, "_blank", "width=850, height=600");
     })
 
     // COB

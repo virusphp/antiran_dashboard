@@ -31,6 +31,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::post('/ajax/registrasi/edit/modalsep', 'RegistrasiController@ajaxEditModalSep');
     Route::post('/ajax/sep/editsep', 'SepController@ajaxEditSep');
 
+    Route::get('/sep/print/{noreg}', 'SepController@printSep');
     // GET RUJUKAN INTERNAL
     Route::get('/ajax/rujukaninternal', 'RujukanController@ajaxRujukanInternal');
 
