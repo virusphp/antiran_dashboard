@@ -34,7 +34,7 @@ Data User
                         <form class="form-horizontal">
                             <div class="row mb-3">
                                 <div class="col-lg-12 d-inline-flex justify-content-end align-items-center align-items-stretch">
-                                    <input type="text" class="form-control col-lg-3" id="term" name="term" placeholder="Pencarian">
+                                    <input type="text" class="form-control form-control-sm col-md-3" id="term" name="term" placeholder="Pencarian">
                                     <button type="submit" class="btn btn-sm btn-outline-primary mx-1"><i class="fas fa-search mx-2"></i></a>
                                 </div>
                             </div>

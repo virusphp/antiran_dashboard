@@ -100,10 +100,10 @@ $(function() {
             },
             "columns": [
                 {"mData": "DT_RowIndex"},
-                {"mData": "name"},
-                {"mData": "username"},
-                {"mData": "email"},
-                {"mData": "roles"},
+                {"mData": "kd_pegawai"},
+                {"mData": "nama_pegawai"},
+                {"mData": "role"},
+                {"mData": "unit_kerja"},
                 {"mData": "action"},
             ],
         })

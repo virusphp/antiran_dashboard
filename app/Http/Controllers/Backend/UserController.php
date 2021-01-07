@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Backend\BackendController;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use Hash;
 use App\Http\Requests\UserRequest;
 use App\Repository\User\User as UserRepo;
@@ -18,10 +17,6 @@ class UserController extends BackendController
     function __construct()
     {
         $this->user = new UserRepo;
-        $this->middleware('permission:read-user');
-        $this->middleware('permission:create-user', ['only' => ['create', 'store']]);
-        $this->middleware('permission:edit-user', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:delete-user', ['only' => ['destroy']]);
     }
 
     /**
@@ -45,21 +40,14 @@ class UserController extends BackendController
             return DataTables::of($user)
                 ->setRowId('idx')
                 ->addIndexColumn()
-                ->addColumn('roles', function ($user) {
-                    if (!empty($user->getRoleNames()))
-                        foreach ($user->getRoleNames() as $v) {
-                            $roles[] =    $v;
-                        }
-                    return $roles;
-                })
                 ->addColumn('action', function ($user) {
                     return view('datatables._action-user', [
-                        'idx' => $user->id,
-                        'name' => $user->name,
-                        'edit_url' => route('users.edit', $user->id)
+                        'idx' => $user->kd_pegawai,
+                        'name' => $user->nama_pegawai,
+                        'edit_url' => route('users.edit', $user->kd_pegawai)
                     ]);
                 })
-                ->rawColumns(['roles', 'action'])
+                ->rawColumns(['action'])
                 ->make(true);
         }
     }

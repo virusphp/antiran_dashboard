@@ -9,7 +9,10 @@ class User
 {
     public function getUser()
     {
-        return UserModel::query();
+        return DB::table('user_login_sep as u')
+            ->select('u.kd_pegawai','u.nama_pegawai','u.role','p.unit_kerja')
+            ->join('pegawai as p', 'u.kd_pegawai','p.kd_pegawai')
+            ->get();
     }
     
     public function getProfil($email)
