@@ -41,7 +41,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     //  LIST DROPDOWN
     Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
     Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
-    Route::get('/ajax/list/asalpasien', 'AsalpasienController@ajaxListAsalpasien');
+    Route::get('/ajax/list/asalpasien', 'AsalPasienController@ajaxListAsalpasien');
     Route::get('/ajax/list/instansi', 'InstansiController@ajaxListInstansi');
     Route::get('/ajax/list/propinsi', 'PropinsiController@ajaxListPropinsi');
     Route::post('/ajax/list/kabupaten', 'KabupatenController@ajaxListKabupaten');
