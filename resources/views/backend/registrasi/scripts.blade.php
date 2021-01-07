@@ -130,8 +130,18 @@
                 {"mData": "tanggal_reg", "width": "70"},
                 {"mData": "cara_bayar", "width" : "50"},
                 {"mData": "no_sep"},
+                {"mData": "status_rawat", "visible": false},
                 {"mData": "action", "className" : "text-center"},
             ],
+            "createdRow": function(row, data, dataIndex) {
+                console.log(data.status_rawat)
+                if (data.status_rawat == "Batal") {
+                    var panjang = $(row).find('td').length
+                    for (i = 0; i < panjang - 1; i++) {
+                        $(row).find('td').eq(i).addClass('merah');
+                    }
+                }
+            }
         })
         oTable = $('#tabel-registrasi').DataTable();
 

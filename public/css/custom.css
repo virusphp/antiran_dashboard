@@ -3,6 +3,11 @@
     font-size: 12px;
 }
 
+/* COLOR OF TD TABLE  */
+.merah {
+    background-color: crimson;
+    color: whitesmoke;
+}
 
 /* AUTOCOMPLETED */
     .ui-autocomplete-input {
