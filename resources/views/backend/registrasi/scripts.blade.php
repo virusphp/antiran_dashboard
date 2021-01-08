@@ -134,7 +134,7 @@
                 {"mData": "action", "className" : "text-center"},
             ],
             "createdRow": function(row, data, dataIndex) {
-                console.log(data.status_rawat)
+                // console.log(data.status_rawat)
                 if (data.status_rawat == "Batal") {
                     var panjang = $(row).find('td').length
                     for (i = 0; i < panjang - 1; i++) {

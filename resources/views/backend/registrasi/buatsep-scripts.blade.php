@@ -448,7 +448,7 @@
             data: form_sep.serialize(),
             dataType: "json",
             success: function(data) {
-                console.log(data)
+                // console.log(data)
                 if (data.metaData.code == 200 && data.metaData.response !== null) {
                     $('#tabel-message-success').show().html("<span class='text-success' id='success-sep'></span>");
                     $('#success-sep').html(data.metaData.message+" No Sep : "+data.response.sep.noSep).hide()
