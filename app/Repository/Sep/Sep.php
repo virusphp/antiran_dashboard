@@ -25,14 +25,15 @@ class Sep
     public function insertSep($data)
     { 
         $req = json_encode($this->mapSep($data));
-        // dd($req);
+        // dd($data);
         $result = $this->service->InsertSep($req);
         $res = json_decode($result);
         if ($res->metaData->code == 200) {
-            if ($res->response->peserta->noKartu == $data['no_kartu'] && $res->response->peserta->noRm == $data['no_rm']) {
+            if ($res->response->sep->peserta->noKartu == $data['no_kartu'] && $res->response->sep->peserta->noMr == $data['no_rm']) {
                 DB::beginTransaction();
                 try {
-                    $this->simpanSep($data, $result);
+                    // dd($res);
+                    $this->simpanSep($data, $res);
                     $this->simpanRujukan($data);
                     DB::commit();
                     return $result;
@@ -42,6 +43,7 @@ class Sep
                         return $result;
                     }
                 } 
+            //    return $result;
             } else {
                 $message = $this->getMessage($result);
                 return $message;
@@ -88,6 +90,7 @@ class Sep
     protected function simpanRujukan($dataRequest)
     {
         if ($dataRequest['jns_pelayanan'] == 2 ) {
+            
             $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                 ->where('no_reg', '=', $dataRequest['no_reg'])
                 ->update([
@@ -121,7 +124,7 @@ class Sep
         } else {
             $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
                 ->where('no_reg', '=', $dataRequest['no_reg'])
-                ->get();
+                ->first();
 
             if (!$uRujukan) {
                 $uRujukan = DB::connection($this->dbsimrs)->table('Rujukan')
@@ -146,7 +149,7 @@ class Sep
     {
           $simpanSep = DB::connection($this->dbsimrs)->table('sep_bpjs')->insert([
             'no_reg' => $dataRequest['no_reg'],
-            'no_SJP' => 'xxx',
+            'no_SJP' => $dataResponse->response->sep->noSep,
             'COB' => $dataRequest['cob'],
             'Kd_Faskes' => $dataRequest['ppk_rujukan'],
             'Nama_Faskes' => $dataRequest['nama_faskes'],
@@ -163,6 +166,14 @@ class Sep
             'no_surat_kontrol' => $dataRequest['no_surat'],
             'kd_dpjp' => $dataRequest['kode_dpjp']
         ]);
+
+        if ($simpanSep) {
+            $simpanSep = DB::connection($this->dbsimrs)->table('registrasi')
+                ->where('no_reg', '=', $dataRequest['no_reg'])
+                ->update([
+                    'no_SJP' => $dataResponse->response->sep->noSep
+                ]);
+        }
         
         return $simpanSep;
     }

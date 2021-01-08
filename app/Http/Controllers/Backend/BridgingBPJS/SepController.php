@@ -66,7 +66,7 @@ class SepController extends Controller
             }
             $data['ppk_pelayanan'] = '1105R001';
             $data['tgl_kejadian'] = date('Y-m-d', strtotime($data['tgl_kejadian']));
-            $data['user'] = Auth::user()->nama_pegawai;
+            $data['user'] = Auth::user()->kd_pegawai;
 
             if ($data['jns_pelayanan'] == "2") {
                 $data['kelas_rawat'] = "3";
