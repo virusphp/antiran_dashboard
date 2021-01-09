@@ -265,6 +265,10 @@
             setSRI()
         }
 
+        if (kode_poli == "IHD") {
+            showDokterDPJP();
+        }
+
         $('#modal-skdp').modal('hide')
     })
 
