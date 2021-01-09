@@ -8,7 +8,6 @@
             <th>#</th>
             <th>NAMA POLIKLINIK</th>
             <th>JUMLAH ANTRIAN</th>
-            <th class="text-right">Aksi</th>
         </tr>
     </thead>
     <tbody>

@@ -15,7 +15,7 @@ Antrian
                             <li class="list-inline-item float-left">
                                 <h4><i class="c-icon cil-menu"></i> Daftar Antrian</h4>
                             </li>
-                            <li class="list-inline-item float-right">
+                            {{-- <li class="list-inline-item float-right">
                                 <div class="d-none d-md-block">
                                     <a href="{{ route('antrian.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
                                         <i class="c-icon cil-plus"></i>
@@ -28,7 +28,7 @@ Antrian
 
                                     </a>
                                 </div>
-                            </li>
+                            </li> --}}
                         </ul>
                     </div>
 

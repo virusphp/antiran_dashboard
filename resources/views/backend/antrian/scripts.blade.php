@@ -128,7 +128,6 @@ $(function() {
                 {"mData": "DT_RowIndex"},
                 {"mData": "nama_poliklinik"},
                 {"mData": "jumlah_antrian"},
-                {"mData": "action"},
             ],
         })
         oTable = $('#tabel-antrian').DataTable();
