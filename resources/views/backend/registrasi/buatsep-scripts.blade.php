@@ -258,6 +258,7 @@
         var no_surat = $(this).data('surat'),
             jenis_surat = $(this).data('jenissurat'),
             kode_poli = $(this).val();
+            // console.log(kode_poli)
         $('#no-surat').val(no_surat)
         $('#no-surat-lama').val(no_surat)
 
@@ -265,7 +266,7 @@
             setSRI()
         }
 
-        if (kode_poli == "IHD") {
+        if (kode_poli == "HDL") {
             showDokterDPJP();
         }
 
