@@ -9,6 +9,54 @@
     color: whitesmoke;
 }
 
+#tgl-reg {
+    z-index: 9999 !important
+}
+
+/* ICON */
+.icon {
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    /* transition: all .3s linear; */
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    z-index: 0;
+    font-size: 50px;
+    color: rgba(0,0,0,0.15);
+}
+
+.text-box-footer {
+    padding: 0;
+    display: block;
+    z-index: 10;
+    background: rgba(0,0,0,0.1);
+}
+
+.text-box-footer p{
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.text-box {
+    -webkit-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    margin-top: 10px;
+    padding: 10px;
+    margin-right: 100px;
+    top: 5px;
+    left: 10px;
+    text-align: center;
+}
+
+.text-box h3 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+/* ICON ENDING */
+
 /* AUTOCOMPLETED */
     .ui-autocomplete-input {
         border: none; 
@@ -18,7 +66,7 @@
         padding-top: 2px;
         border: 1px solid #DDD !important;
         padding-top: 0px !important;
-        z-index: 1511;
+        z-index: 100;
         position: relative;
     }
 
@@ -26,7 +74,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1510 !important;
+        z-index: 1500 !important;
         float: left;
         display: none;
         min-width: 160px;
@@ -109,6 +157,22 @@ label {
 
 .bg-dark-green {
     background-color: #02731a;
+}
+
+.bg-hijau {
+    background-color: forestgreen;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
+.bg-pink {
+    background-color: orchid;
+}
+
+.bg-abu {
+    background-color: #555555;
 }
 
 .btn-success {

@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Repository\Registrasi\Registrasi;
 use Illuminate\Http\Request;
 
 class HomeController extends BackendController
 {
+
+    protected $registrasi;
+
     /**
      * Create a new controller instance.
      *
@@ -13,7 +17,7 @@ class HomeController extends BackendController
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->registrasi = new Registrasi;
     }
 
     /**
@@ -23,7 +27,18 @@ class HomeController extends BackendController
      */
     public function index()
     {
+        $registrasi = $this->getReportDay();
         $bcrum = $this->bcrum('Dashboard');
-        return view('backend.home', compact('bcrum'));
+        return view('backend.home', compact('bcrum', 'registrasi'));
+    }
+
+    private function getReportday()
+    {
+        return [
+            "rawat_jalan" => $this->registrasi->getRegistrasiBpjs(1),
+            "rawat_inap"  => $this->registrasi->getRegistrasiBpjs(2),
+            "rawat_darurat" => $this->registrasi->getRegistrasiBpjs(3),
+            "total" => $this->registrasi->getRegistrasiBpjs(1) + $this->registrasi->getRegistrasiBpjs(2) + $this->registrasi->getRegistrasiBpjs(3)
+        ];
     }
 }

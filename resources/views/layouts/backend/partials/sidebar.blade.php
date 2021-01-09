@@ -16,7 +16,7 @@
             <a class="c-sidebar-nav-link" href="{{ route('home') }}">
                 <i class="c-sidebar-nav-icon c-icon cil-home"></i> Dashboard</a>
         </li>
-
+        @if($user== 'developer' || $user == 'superadmin' || $user == 'admin')
         <li class="c-sidebar-nav-title">
             Management Master
         </li>
@@ -25,7 +25,7 @@
                 <i class="c-sidebar-nav-icon c-icon fa fa-user"></i> Pasien
             </a>
         </li>
-
+        @endif
         <li class="c-sidebar-nav-title">
             Transaksi
         </li>

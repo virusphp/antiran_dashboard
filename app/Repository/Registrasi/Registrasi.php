@@ -156,5 +156,19 @@ class Registrasi
             WHERE no_reg = '".$params->no_reg."'
             ");
     }
+
+    public function getRegistrasiBpjs($jenisRawat)
+    {
+        $tgl = date('Y-m-d');
+        return DB::table('registrasi')
+        ->where([
+            ['tgl_reg', '=', $tgl],
+            ['kd_cara_bayar', '=', 8],
+            ['status_keluar', '!=', 2],
+            ['jns_rawat', '=', $jenisRawat]
+        ])
+        ->whereRaw('LEN(no_sjp) > 15')
+        ->count();
+    }
     
 }

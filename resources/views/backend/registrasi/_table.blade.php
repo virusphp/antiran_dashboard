@@ -12,6 +12,7 @@
             <th>TGL REG</th>
             <th>BAYAR</th>
             <th>NO SEP</th>
+            <th>STATUS RAWAT</th>
             <th class="text-right">AKSI</th>
         </tr>
     </thead>

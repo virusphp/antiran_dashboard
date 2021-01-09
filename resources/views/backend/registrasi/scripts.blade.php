@@ -34,7 +34,7 @@
     $('#tgl-reg-klik').datetimepicker({
         //  format: 'L',
         defaultDate: new Date(), 
-        format: "YYYY-MM-DD"
+        format: "YYYY-MM-DD",
     });
     
     $('#tgl-kejadian-klik').datetimepicker({
