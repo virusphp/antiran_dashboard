@@ -313,7 +313,6 @@
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
         $('#no-rujukan').val(no_rujukan).attr('readonly', true);
         $('#nama-faskes').val(nama_faskes).attr('readonly', true);
-        $('#asal-rujukan option[value='+jns_pelayanan+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled', 'true');
 
         ajaxCariSep(no_rujukan, url, method, CSRF_TOKEN);
 
@@ -335,6 +334,8 @@
                     $('#tgl-rujukan').val(data.response.tglSep)
                     $('#ppk-rujukan').val(data.response.noSep.substr(0,8))
                     $('#internal-rujukan').val(data.response.noSep) 
+                    // setAsalRujukan(data.response.noSep.substr(0,8))
+                    $('#asal-rujukan option[value='+2+']').attr('selected','selected').closest('#asal-rujukan').attr('disabled', 'true');
                     showSuratKontrol(data.response.noSep, "SKO")
                     showDokterDPJP()
 
@@ -357,6 +358,22 @@
                 if (res !== null) {
                     setRujukan(res)
                 }
+            }
+        })
+    }
+
+    // BLOM DI PAKAI
+    function setAsalRujukan(ppk_rujukan)
+    {
+        var url = '/admin/ajax/ppkrujukan',
+            method = 'get';
+
+        $.ajax({
+            url:url,
+            method:method,
+            data: {ppk_rujukan : ppk_rujukan},
+            success: function(res) {
+                console.log(res)
             }
         })
     }
