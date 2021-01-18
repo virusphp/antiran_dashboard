@@ -2,24 +2,28 @@
 
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
+use App\Repository\Rujukan\Rujukan as AppRujukan;
 use App\Service\Bpjs\Rujukan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RujukanController extends BpjsController
 {
+    protected $service;
     protected $rujukan;
 
     public function __construct()
     {
         parent::__construct();
-        $this->rujukan = new Rujukan();
+        $this->service = new Rujukan;
+        $this->rujukan = new AppRujukan;
     }
 
     public function ajaxListRujukanBpjs(Request $request)
     {
         if ($request->ajax()) {
             $no = 1;
-            $data = json_decode($this->rujukan->getListRujukanPcare($request));
+            $data = json_decode($this->service->getListRujukanPcare($request));
             if ($data->response == null) {
                 $query = [];
             } else {
@@ -48,7 +52,7 @@ class RujukanController extends BpjsController
     {
         if ($request->ajax()) {
             $no = 1;
-            $data = json_decode($this->rujukan->getListRujukanRs($request));
+            $data = json_decode($this->service->getListRujukanRs($request));
             if ($data->response == null) {
                 $query = [];
             } else {
@@ -76,7 +80,7 @@ class RujukanController extends BpjsController
     public function ajaxRujukanBpjs(Request $request)
     {
         if ($request->ajax()) {
-            $rujukan = $this->rujukan->getRujukanPcare($request);
+            $rujukan = $this->service->getRujukanPcare($request);
             return $rujukan;
         }
     }
@@ -84,9 +88,20 @@ class RujukanController extends BpjsController
     public function ajaxRujukanRsBpjs(Request $request)
     {
         if ($request->ajax()) {
-            $rujukan = $this->rujukan->getRujukanRs($request);
+            $rujukan = $this->service->getRujukanRs($request);
             return $rujukan; 
         }
     }
   
+    public function ajaxInsertRujukanBpjs(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+            $data['user'] = Auth::user()->nama_pegawai;
+            $data['kode_asal_rujukan'] = getKodeAsalRujukan($data['no_sep']);
+            $data['nama_asal_rujukan'] = "RSUD KRATON";
+            $result = $this->rujukan->insertRujukan($data);
+            return $result;
+        }
+    }
 }

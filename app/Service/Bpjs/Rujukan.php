@@ -40,4 +40,11 @@ class Rujukan extends ServiceBPJS
         return $rujukan;
     }
 
+    public function insertRujukan($dataJson)
+    {
+        $endpoint = '/Rujukan/insert';
+        $rujukan  = $this->bpjs->postRequest($endpoint, $dataJson);
+        return $rujukan;
+    }
+
 }

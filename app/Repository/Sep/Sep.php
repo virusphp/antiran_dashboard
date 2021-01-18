@@ -21,6 +21,29 @@ class Sep
             ->where([['no_reg', '=', $params->no_reg], ['no_sjp', '=', $params->no_sep]])
             ->first();
     }
+    
+    public function updatePulangSep($data)
+    {
+        $req = json_encode($this->mapPulang($data));
+        $result = $this->service->updatePulang($req);
+        $res = json_decode($result);
+        // dd($result);
+        if ($res->metaData->code == 200) {
+            DB::beginTransaction();
+            try {
+                $this->simpanPulang($data);
+                DB::commit();
+                return $result;
+            } catch (\illuminate\Database\QueryException $e) {
+                DB::rollback();
+                if ($e->getCode() == "23000") {
+                    return $result;
+                }
+            }
+        } else {
+            return $result;
+        }
+    }
 
     public function insertSep($data)
     { 
@@ -73,7 +96,7 @@ class Sep
         if ($res->metaData->code == 200) {
             DB::beginTransaction();
             try {
-                $this->simpanSep($data, $result);
+                $this->perbaruiSep($data, $res);
                 $this->simpanRujukan($data);
                 DB::commit();
                 return $result;
@@ -145,6 +168,44 @@ class Sep
         return $uRujukan;
     }
 
+    protected function simpanPulang($dataRequest)
+    {
+        $simpanPlg = DB::table('SEP_PULANG')->insert([
+            'no_sep' => $dataRequest['noSep'],
+            'tgl_pulang' => $dataRequest['tglPulang'],
+            'user' => $dataRequest['user']
+        ]);
+        return $simpanPlg;
+    }
+
+    protected function perbaruiSep($dataRequest, $dataResponse)
+    {
+        $updateSep = DB::connection($this->dbsimrs)->table('sep_bpjs')->where([
+                ['no_SJP', '=', $dataResponse->response],
+                ['no_reg', '=', $dataRequest['no_reg']]
+            ])
+            ->update([
+                'no_reg' => $dataRequest['no_reg'],
+                'no_SJP' => $dataResponse->response,
+                'COB' => $dataRequest['cob'],
+                'Kd_Faskes' => $dataRequest['ppk_rujukan'],
+                'Nama_Faskes' => $dataRequest['nama_faskes'],
+                'Kd_Diagnosa' => $dataRequest['kode_diagnosa'],
+                'Nama_Diagnosa' => $dataRequest['nama_diagnosa'],
+                'Kd_poli' => $dataRequest['kode_poli'],
+                'Nama_Poli' => $dataRequest['nama_poli'],
+                'Kd_Kelas_Rawat' => $dataRequest['kelas_rawat'],
+                'Nama_kelas_rawat' => $dataRequest['nama_kelas'],
+                'No_Rujukan' => $dataRequest['no_rujukan'],
+                'Asal_Faskes' => $dataRequest['asal_rujukan'],
+                'Tgl_Rujukan' => $dataRequest['tgl_rujukan'],
+                'Lakalantas' => $dataRequest['lakalantas'],
+                'no_surat_kontrol' => $dataRequest['no_surat'],
+                'kd_dpjp' => $dataRequest['kode_dpjp']
+            ]);
+        return $updateSep;
+    }
+
     protected function simpanSep($dataRequest, $dataResponse)
     {
           $simpanSep = DB::connection($this->dbsimrs)->table('sep_bpjs')->insert([
@@ -176,6 +237,22 @@ class Sep
         }
         
         return $simpanSep;
+    }
+
+    protected function mapPulang($data)
+    {
+        $res['noSep'] = $data['no_sep_p'];
+        $res['tglPulang'] = $data['tgl_pulang'];
+        $res['user'] = $data['user'];
+        $result = [
+            't_sep' => $res
+        ];
+
+        $request = [
+            'request' => $result
+        ];
+
+        return $request;
     }
 
     protected function mapSep($data)

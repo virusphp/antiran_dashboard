@@ -131,9 +131,7 @@
         var form_sep = $('#form-sep'),
             url = '/admin/ajax/bpjs/updatesep',
             method = 'PUT';
-
             // console.log(url, method)
-
         form_sep.find('#asal-rujukan').prop('disabled', false)
         form_sep.find('#kelas-rawat').prop('disabled', false);
 

@@ -2,16 +2,33 @@
 
 namespace App\Http\Controllers\Backend\BridgingBPJS;
 
-use App\Service\Bpjs\Bridging;
+use App\Http\Controllers\Controller;
+use App\Repository\Pasien\Pasien;
+use App\Service\Bpjs\Peserta;
+use Illuminate\Http\Request;
 
-class MonitoringController extends BpjsController
+class MonitoringController extends Controller
 {
-    protected $bpjs;
+    protected $servicePeserta;
+    protected $pasien;
 
     public function __construct()
     {
-        parent::__construct();
-        $this->bpjs = new Bridging($this->consid, $this->timestamp, $this->signature);
+        $this->pasien = new Pasien;
+        $this->servicePeserta = new Peserta;
+    }
+
+    public function ajaxHistoryPeserta(Request $request)
+    {
+        if ($request->ajax()) {
+            $reqPasien = $this->pasien->getNomorKartu($request);
+            $reqHistory = $this->servicePeserta->getHistoryPeserta($request, $reqPasien);
+            $dataHistory = json_decode($reqHistory);
+            $dataHistory->response->noKartu = $reqPasien->no_kartu;
+            $dataHistory->response->noRm = $reqPasien->no_rm;
+            $dataHistory->response->namaPeserta = $reqPasien->nama_pasien;
+            return response()->json($dataHistory);
+        }
     }
 
     public function Kunjungan($tglSep, $jnsPel)

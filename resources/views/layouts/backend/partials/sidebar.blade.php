@@ -35,6 +35,11 @@
             </a>
         </li>
         <li class="c-sidebar-nav-item">
+            <a class="c-sidebar-nav-link" href="{{ route('rujukan.index') }}">
+                <i class="c-sidebar-nav-icon c-icon fa fa-registered"></i> Pembuatan Rujukan
+            </a>
+        </li>
+        <li class="c-sidebar-nav-item">
             <a class="c-sidebar-nav-link" href="{{ route('antrian.index') }}">
                 <i class="c-sidebar-nav-icon c-icon fa fa-bell"></i> Antrian
             </a>

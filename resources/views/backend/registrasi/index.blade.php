@@ -18,23 +18,10 @@ Sep
                 <div class="card rounded-lg">
                     <div class="card-header d-flex-align-items-center pb-0">
                         <ul class="list-inline mb-0">
-                            <li class="list-inline-item float-left">
-                                <h4><i class="c-icon cil-menu"></i> Daftar Registrasi</h4>
-                            </li>
-                            <li class="list-inline-item float-right">
-                                <div class="d-none d-md-block">
-                                    <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
-                                        <i class="c-icon fa fa-plus"></i>
-                                        Registrasi
-                                    </a>
-                                </div>
-                                <div class="d-md-none float-right">
-                                    <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3">
-                                        <i class="c-icon fa fa-plus"></i>
-
-                                    </a>
-                                </div>
-                            </li>
+                            {{-- widget card-header list left --}}
+                            @include('backend.registrasi.widget._header-left')
+                            {{-- widget card-header list right --}}
+                            @include('backend.registrasi.widget._header-right')
                         </ul>
                     </div>
                     <div class="card-body">
@@ -53,6 +40,8 @@ Sep
 @include('backend.registrasi.modal-sep')
 @include('backend.registrasi.modal-rujukan')
 @include('backend.registrasi.modal-skdp')
+@include('backend.registrasi.modal-history')
+@include('backend.registrasi.modal-pulang')
 @endsection
 @push('css')
 <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -66,6 +55,7 @@ Sep
     <script src="{{ asset('lib/jquery-ui/jquery-ui.min.js') }}"></script> 
     @include('backend.registrasi.scripts-function')
     @include('backend.registrasi.scripts')
-    @include('backend.registrasi.buatsep-scripts')
-    @include('backend.registrasi.editsep-scripts')
+    @include('backend.registrasi.scripts-buatsep')
+    @include('backend.registrasi.scripts-editsep')
+    @include('backend.registrasi.scripts-update-pulang')
 @endpush

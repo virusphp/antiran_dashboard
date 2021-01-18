@@ -40,4 +40,12 @@ class Sep extends ServiceBPJS
         $sep = $this->bpjs->putRequest($endpoint, $dataJson);
         return $sep;
     }
+
+    public function updatePulang($dataJson)
+    {
+        // dd($dataJson);
+        $endpoint = "Sep/updtglplg";
+        $sep = $this->bpjs->putRequest($endpoint, $dataJson);
+        return $sep;
+    } 
 }

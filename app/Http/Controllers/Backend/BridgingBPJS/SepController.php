@@ -57,6 +57,15 @@ class SepController extends Controller
         }
     }
 
+    public function ajaxUpdatePulang(Request $request)
+    {
+        if ($request->ajax()) {
+            $data = $request->all();
+           $result = $this->sep->updatePulangSep($data);
+           return $result; 
+        }
+    }
+
     public function ajaxInsertSepBpjs(SepInsert $request)
     {
         if ($request->ajax()) {

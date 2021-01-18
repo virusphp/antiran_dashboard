@@ -63,4 +63,16 @@ class Pasien
                 ->where('p.no_rm', $noRm)
                 ->first();
     }
+
+    public function getNomorKartu($params)
+    {
+        return DB::connection($this->dbsimrs)
+                ->table('penjamin_pasien as pp')
+                ->select('pp.no_kartu','pp.no_rm','p.nama_pasien')
+                ->join('pasien as p','pp.no_rm','p.no_rm')
+                ->where('pp.no_rm', $params->no_rm)
+                ->whereIn('pp.kd_penjamin', [23,24])
+                ->whereNotNull('pp.no_kartu')
+                ->first();
+    }
 }

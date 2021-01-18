@@ -26,12 +26,19 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/registrasi', 'RegistrasiController');
+    Route::get('/rujukan', 'RujukanController@index')->name('rujukan.index');
+    Route::get('/ajax/rujukan/edit', 'RujukanController@ajaxEditRujukan')->name('rujukan.edit');
+    Route::get('/ajax/rujukan', 'RujukanController@indexAjax');
     Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
     Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');
     Route::post('/ajax/registrasi/edit/modalsep', 'RegistrasiController@ajaxEditModalSep');
+
+
     Route::post('/ajax/sep/editsep', 'SepController@ajaxEditSep');
 
     Route::get('/sep/print/{noreg}', 'SepController@printSep');
+    Route::get('/rujukan/print/{norujukan}', 'RujukanController@printRujukan');
+
     // GET RUJUKAN INTERNAL
     Route::get('/ajax/rujukaninternal', 'RujukanController@ajaxRujukanInternal');
 
@@ -48,6 +55,8 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::post('/ajax/list/kecamatan', 'KecamatanController@ajaxListKecamatan');
 
     Route::group(['namespace' => 'BridgingBPJS'], function() {
+        // GeT HISTORY PESERTA
+        Route::post('/ajax/bpjs/history/peserta', 'MonitoringController@ajaxHistoryPeserta');
         // GET PESERTA BPJS
         Route::post('/ajax/bpjs/list/faskes', 'ReferensiController@ajaxListFaskes');
         Route::post('/ajax/bpjs/list/dpjp', 'ReferensiController@ajaxListDpjp');
@@ -63,6 +72,11 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
         Route::post('/ajax/bpjs/carisep', 'SepController@ajaxCariSep');
         Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
         Route::put('/ajax/bpjs/updatesep', 'SepController@ajaxUpdateSepBpjs');
+        Route::post('/ajax/bpjs/sep/pulang', 'SepController@ajaxUpdatePulang');
+
+        // CREATE RUJUKAN
+        Route::post('/ajax/bpjs/insertrujukan', 'RujukanController@ajaxInsertRujukanBpjs');
+
     });
     
     // Master

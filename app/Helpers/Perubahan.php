@@ -57,6 +57,16 @@ function jenisPelayanan($nilai)
     return $nilai == "1" ? "Rawat Inap" : "Rawat Jalan"; 
 }
 
+function tipeRujukan($nilai)
+{
+    $tipe = [
+        0 => "Rujukan Penuh",
+        1 => "Rujukan Partial",
+        2 => "Rujukan Balik"
+    ];
+    return $tipe[$nilai];
+}
+
 function noSurat($nilai)
 {
     $arrNoSurat = explode("/", $nilai);
@@ -66,4 +76,9 @@ function noSurat($nilai)
 function noReg($nilai)
 {
 	return substr($nilai, 0, 2);
+}
+
+function getKodeAsalRujukan($nilai)
+{
+    return substr($nilai, 0, 8);
 }
