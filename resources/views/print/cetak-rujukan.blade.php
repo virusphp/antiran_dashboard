@@ -39,14 +39,14 @@
 
         @media print {
             body {
-                font-size: 11pt;
+                font-size: 12pt;
                 font-family: "Arial";
             }
         }
 
         @media screen {
             body {
-                font-size: 11pt;
+                font-size: 12pt;
                 font-family: "Arial";
             }
         }
@@ -56,18 +56,18 @@
             color: #000000;
             margin: 10px 5px 5px 10px;
             font-family: "Arial";
-            font-size:11px;
+            font-size:12px;
             padding: 1px;
         }
         
         table tr td {
-            font-size: 11pt;
+            font-size: 12pt;
             font-family:'Arial';
             padding: 1px;
         }
 
         i , i strong {
-            font-size: 10px;
+            font-size: 11px;
             vertical-align: top;
         }
      
@@ -120,7 +120,7 @@
         }
 
         .kanan {
-            font-size: 11px;
+            font-size: 12px;
         }
  
     </style>
