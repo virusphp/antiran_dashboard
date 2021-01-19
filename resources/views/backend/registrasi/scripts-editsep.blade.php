@@ -119,8 +119,7 @@
                 $('#no-surat').val(res.no_surat_kontrol)
                 $('#no-surat-lama').val(res.no_surat_kontrol)
                 $('#kode-dpjp').val(res.kd_dpjp)     
-                $('#nama-dpjp').val([res.kd_dpjp])
-                $('#nama-dpjp').select2().trigger('change')
+                $('#nama-dpjp').val([res.kd_dpjp]).select2().trigger('change')
                 $('#nama-dpjp option[value='+res.kd_dpjp+']').attr('selected', 'selected').closest('#nama-dpjp');
 
             }
