@@ -59,8 +59,8 @@
         getKelas()
         getPeserta()
         getCaraBayar(data.cara_bayar)
-        getDataSep(data.no_sep, data.no_reg)
         showCatatan(data.no_sep)
+        getDataSep(data.no_sep, data.no_reg)
     }
 
     function showCatatan(no_sep) {

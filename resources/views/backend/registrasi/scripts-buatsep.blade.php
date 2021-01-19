@@ -251,9 +251,10 @@
             kode_poli = $(this).val();
             // console.log(kode_poli)
         $('#no-surat').val(no_surat)
+        $('#kode-poli-dpjp').val(kode_poli)
         $('#no-surat-lama').val(no_surat)
 
-        if (jenis_surat == "SRI") {
+        if (jenis_surat == "SRI" && $('#jns-pelayanan').val() == 1) {
             setSRI()
         }
 
