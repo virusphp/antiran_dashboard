@@ -69,7 +69,8 @@
                     $('#asal-pasien option[value='+asalpasien+']').attr('selected','selected').closest('#asal-pasien');
                 }
                 $('#asal-pasien').select2({
-                    'placeholder': 'Pilih Asal pasien'
+                    placeholder: 'Pilih Asal Pasien',
+                    width: '100%',
                 })
             }
         })
@@ -93,7 +94,8 @@
                     $('#kelas-rawat option[value='+hakkelas+']').attr('selected','selected').closest('#kelas-rawat').attr('disabled', true);
                 }
                 $('#kelas-rawat').select2({
-                    'placeholder': 'Pilih kelas'
+                    placeholder: 'Pilih Kelas',
+                    width: '100%',
                 })
             }
         })
@@ -117,7 +119,8 @@
                     $('#cara-bayar option[value='+carabayar+']').attr('selected','selected').closest('#cara-bayar');
                 }
                 $('#cara-bayar').select2({
-                    'placeholder': 'Pilih Cara bayar'
+                    placeholder: 'Pilih Cara bayar',
+                    width: '100%',
                 })
             }
         })
@@ -141,7 +144,8 @@
                     $('#nama-instansi option[value='+kode_instansi+']').attr('selected','selected').closest('#nama-instansi');
                 }
                 $('#nama-instansi').select2({
-                    'placeholder': 'Pilih Asal pasien'
+                    placeholder: 'Pilih Asal Instansi',
+                    width: '100%',
                 })
             }
         })
@@ -190,7 +194,8 @@
                         $('#nama-dpjp').append('<option value="'+value.kode+'">'+value.nama+'</option>');
                     });
                     $('#nama-dpjp').select2({
-                        'placeholder': 'Pilih Carabayar'
+                        placeholder: 'Pilih Carabayar',
+                        width: '100%',
                     })
                 }
               
@@ -260,7 +265,7 @@
             select : function(event, ui) {
                 $('#nama-poli').val(ui.item.value);
                 $('#kode-poli').val(ui.item.id);
-                getKatarak();
+                showKatarak();
                 return false;
             }
         })
