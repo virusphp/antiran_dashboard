@@ -171,8 +171,8 @@ class Sep
     protected function simpanPulang($dataRequest)
     {
         $simpanPlg = DB::table('SEP_PULANG')->insert([
-            'no_sep' => $dataRequest['noSep'],
-            'tgl_pulang' => $dataRequest['tglPulang'],
+            'no_sep' => $dataRequest['no_sep_p'],
+            'tgl_pulang' => $dataRequest['tgl_pulang'],
             'user' => $dataRequest['user']
         ]);
         return $simpanPlg;

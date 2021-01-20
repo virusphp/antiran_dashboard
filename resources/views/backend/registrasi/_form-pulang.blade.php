@@ -25,7 +25,7 @@
 
             <div class="form-group row">
                 <div class="col-md-12">
-                    <label for="nama_user">No Sep</label>
+                    <label for="nama_user">User</label>
                     <input class="form-control form-control-sm" id="user" name="user" type="text" value="{{ Auth::user()->nama_pegawai }}" placeholder="User" readonly>
                </div>
             </div>

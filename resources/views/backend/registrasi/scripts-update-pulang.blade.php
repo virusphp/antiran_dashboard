@@ -57,7 +57,7 @@
             options = {
                 'backdrop' : 'static'
             }; 
-            console.log(noSep)
+            // console.log(noSep)
             $('#no-sep-p').val(noSep)
             $('#modal-pulang').modal(options)
             $('#modal-history').modal('hide')
