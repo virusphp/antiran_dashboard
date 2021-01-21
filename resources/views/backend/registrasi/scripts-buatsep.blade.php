@@ -57,7 +57,18 @@
         } else {
             $('#nama-pelayanan b').append('<span>Rawat Inap</span>')
             $('#poli-tujuan b').append('<span>Ruang : '+data.nama_sub_unit+'</span>')
-            
+            showSuratKontrol()
+            showDokterDPJP()
+            $("#asal-rujukan option").each(function(){
+                if($(this).val()==2){ 
+                    $(this).prop("selected", true).attr('selected',true).closest('#asal-rujukan');
+                }
+            });
+            $('#nama-faskes').val("RSUD KRATON");
+            $('#ppk-rujukan').val("1105R001");
+            $('#no-surat').val("000000");
+            $('#kode-poli').val("000");
+            $('#nama-poli').val('000').attr('readonly', true);
         }
 
         // SELECT 2 DROP DOWN

@@ -25,6 +25,7 @@ class Registrasi
                         $keywords = "%". $term . "%";
                         $query->orWhere('p.nama_pasien','like', $keywords)
                               ->orWhere('r.no_rm', 'like', $keywords)
+                              ->orWhere('r.no_sjp', 'like', $keywords)
                               ->orWhere('r.no_reg', 'like', $keywords);
                     }
                     if ($carabayar = $params->cara_bayar) {
@@ -86,7 +87,6 @@ class Registrasi
         return DB::connection($this->dbsimrs)->table('rawat_darurat as rd')
                 ->select('rd.no_reg','rd.no_rm','p.alamat','p.nama_pasien','p.no_telp','p.nik','p.tgl_lahir')
                 ->join('pasien as p','rd.no_rm','p.no_rm')
-                ->join('pegawai as pg','rd.kd_dokter','pg.kd_pegawai')
                 ->join('pegawai as pg', function($join) {
                     $join->on('rd.kd_dokter','=','pg.kd_pegawai')
                         ->join('sub_unit as su', function($join) {
