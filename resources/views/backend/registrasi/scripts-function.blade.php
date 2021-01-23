@@ -1,11 +1,12 @@
 <script type="text/javascript">
     $('#modal-sep').on('hidden.bs.modal', function() {
         $(this).find('form')[0].reset();
+        $(this).find('#asal-rujukan').prop('disabled', false)
         $('#poli-tujuan b span').remove()
         $('#nama-pelayanan b span').remove()
         $("#header-sep span").remove(); 
-
         $('#asal-rujukan').find("option[selected]").removeAttr('selected');
+
     })
 
     $('#modal-history').on('hidden.bs.modal', function() {
@@ -21,6 +22,8 @@
         $("#form-penjamin-kll").hide();
         $('#form-asal-pasien').hide();
 
+        $('#no-rujukan').attr('readonly', false) 
+        $('#nama-faskes').attr('readonly', false) 
         $('#no-reg').val("")
         $('#no-rm').val("")
         $('#no-kartu').val("")

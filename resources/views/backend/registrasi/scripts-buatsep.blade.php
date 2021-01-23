@@ -83,7 +83,7 @@
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        getRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
+        ajaxRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
     })
 
     $('#rujukanrs-last').on('click', function() {
@@ -92,11 +92,11 @@
             method = 'POST',
             CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
 
-        getRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
+        ajaxRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
 
     })
 
-    function getRujukanPeserta(no_kartu, url, method, _token) {
+    function ajaxRujukanPeserta(no_kartu, url, method, _token) {
         $.ajax({
             url:url,
             method:method,
@@ -107,8 +107,7 @@
             },
             success: function(res) {
                 if (res.metaData.code == 200) {
-                    console.log(res.response.rujukan.noKunjungan)
-                    $('#no-rujukan').val(res.response.rujukan.noKunjungan)
+                    $('#no-rujukan').val(res.response.rujukan.noKunjungan).attr('readonly', true);
                     setRujukan(res.response)
                 }
             }
@@ -382,15 +381,14 @@
         $.ajax({
             url:url,
             method:method,
+            dataType: "JSON",
             data: {
                 no_rujukan: no_rujukan,
                 _token: CSRF_TOKEN
             },
             success: function(data) {
-                d = JSON.parse(data);
-                res = d.response;
-                if (res !== null) {
-                    setRujukan(res)
+                if (data.metaData.code == 200) {
+                    setRujukan(data.response)
                 }
             }
         })
