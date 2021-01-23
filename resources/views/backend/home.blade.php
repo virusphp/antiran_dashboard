@@ -73,6 +73,29 @@ Dashboard
         </div>
     </div>
 </div>
+
+<div class="align-self-center">
+  <div class="row">
+    @foreach($pegawaiUltah as $pg)
+    <div class="col-md-3">
+      <div class="card text-center">
+        <div class="card-header">
+          Selamat Ulang Tahun
+        </div>
+        <div class="card-body">
+          <img src="{{ asset('images/pegawai/'.$pg->kd_pegawai.'.jpg') }}" width="149" height="200"
+            alt="{{ $pg->nama_pegawai }}">
+          <p>
+            <strong>{{ $pg->nama_pegawai }}</strong> <br>
+            {{ tanggal($pg->tgl_lahir) }} <br>
+            {{ $pg->unit_kerja }}
+          </p>
+        </div>
+      </div>
+    </div>
+    @endforeach
+  </div>
+</div>
 @endsection
 @push('css')
 <link rel="stylesheet" href="{{ asset('toast/jquery.toast.css') }}">

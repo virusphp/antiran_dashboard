@@ -47,17 +47,17 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="no_rujukan">No Rujukan</label>
-                        <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan" type="button" value="Pcare">
-                        <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan-rs" type="button" value="RS">
-                        <input class="btn btn-ghost-primary btn-cus float-right" id="cari-sko" type="button" value="SKO">
+                        <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan" type="button"  data-toggle="tooltip" data-placement="top" title data-original-title="List Rujukan Pcare" value="Pcare">
+                        <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan-rs" type="button" data-toggle="tooltip" data-placement="top" title data-original-title="List Rujukan RS" value="RS">
+                        <input class="btn btn-ghost-primary btn-cus float-right" id="cari-sko" type="button" data-toggle="tooltip" data-placement="top" title data-original-title="List Sep Untuk SPO dan SKO" value="SKO">
                         <div class="controls">
                             <div class="input-group">
                                 <input class="form-control form-control-sm" id="no-rujukan" name="no_rujukan" type="text" placeholder="No Rujukan" tabindex="1">
                                 <input type="hidden" id="tgl-rujukan" name="tgl_rujukan">
                                 <input type="hidden" id="internal-rujukan" name="internal_rujukan" value="0">
                                 <div class="input-group-append">
-                                    <button id="rujukan-last" class="btn btn-sm btn-secondary" type="button">PC</button>
-                                    <button id="rujukanrs-last" class="btn btn-sm btn-dark" type="button">RS</button>
+                                    <button id="rujukan-last" class="btn btn-sm btn-secondary" type="button" data-toggle="tooltip" data-placement="top" title data-original-title="Rujukan Terakhir Pcare">PC</button>
+                                    <button id="rujukanrs-last" class="btn btn-sm btn-dark" type="button" data-toggle="tooltip" data-placement="top" title data-original-title="Rujukan Terakhir RS">RS</button>
                                 </div>
                             </div>
                         </div>

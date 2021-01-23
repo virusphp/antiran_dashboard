@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Intervention\Image\Facades\Image;
 
 class BackendController extends Controller
 {
@@ -32,5 +33,28 @@ class BackendController extends Controller
             'level'   => $level,
             'message' => $message
         ]);
+    }
+
+    protected function getPhoto($kodePegawai, $foto)
+    {
+        $wid = 472;
+        $hig = 709;
+
+        $dir = public_path(). DIRECTORY_SEPARATOR. "images" . DIRECTORY_SEPARATOR . "pegawai";
+        file_put_contents($dir.DIRECTORY_SEPARATOR.($filename = $kodePegawai.".jpg"), $foto);
+
+        $canvas = Image::canvas($wid, $hig);
+
+        $image = Image::make($dir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($wid, $hig, function($constraint){
+            $constraint->aspectRatio();
+        });
+
+        $canvas->insert($image, "center");
+
+        $canvas->save($dir. \DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
+
+        $fullPath = url("/") . $dir . DIRECTORY_SEPARATOR. $filename;
+        
+        return $dir;
     }
 }

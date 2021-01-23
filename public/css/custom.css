@@ -3,6 +3,11 @@
     font-size: 12px;
 }
 
+.text-center {
+    color: #001010;
+    font-size: medium;
+}
+
 /* IMG-THUMB HISTORY PESERTA*/
 .img-thumbnail {
     width: 150px;

@@ -23,4 +23,13 @@ class Pegawai
         ->where('pegawai.kode_pegawai', $kodePegawai)
         ->first();
     }
+
+    public function getUltahPegawai($hari, $bulan)
+    {
+        $data = DB::table('pegawai')->select('kd_pegawai','nama_pegawai','tgl_lahir','unit_kerja','foto')
+                ->whereMonth('tgl_lahir', $bulan)
+                ->whereDay('tgl_lahir', $hari)
+                ->get();
+        return $data;
+    }
 }
