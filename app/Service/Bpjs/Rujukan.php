@@ -40,6 +40,21 @@ class Rujukan extends ServiceBPJS
         return $rujukan;
     }
 
+    public function getRujukanPeserta($params)
+    {
+        $endpoint = "Rujukan/Peserta/" . $params->no_kartu;
+        $rujukan = $this->bpjs->getRequest($endpoint);
+        return $rujukan;
+    }
+
+    public function getRujukanRsPeserta($params)
+    {
+        $endpoint = "Rujukan/RS/Peserta/" . $params->no_kartu;
+        $rujukan = $this->bpjs->getRequest($endpoint);
+        return $rujukan;
+    }
+
+
     public function insertRujukan($dataJson)
     {
         $endpoint = '/Rujukan/insert';

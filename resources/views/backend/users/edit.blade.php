@@ -18,7 +18,7 @@ Edit User
                     </div>
 
 
-                    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id]]) !!}
+                    {!! Form::model($user, ['method' => 'PATCH','route' => ['users.update', $user->id_user]]) !!}
 
                     @include('backend.users._form')
 

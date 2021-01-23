@@ -31,6 +31,16 @@ $(function() {
         }
     })
 
+    $(document).on('click','#tambah-user', function() {
+        $(this).addClass('edit-item-trigger-clicked');
+        var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),
+            options = {
+                'backdrop' : 'static'
+            };
+
+        $('#modal-user').modal(options);
+    });
+
     $(document).on('change','#term', function() {
         ajaxLoad();
     })

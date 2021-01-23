@@ -28,17 +28,19 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                   <label for="tgl_reg">Tanggal Registrasi</label>
+                    <label for="tgl_reg">Tanggal Registrasi</label>
                     <div class="form-group mx-2">
                         <div class="controls"> 
                             <div class="input-group date" id="tgl-reg-klik" data-target-input="nearest">
-                            <input type="text" id="tgl-reg" name="tgl_reg" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-reg-klik"/>
+                                <input type="text" id="tgl-reg" name="tgl_reg" class="form-control form-control-sm datetimepicker-input" data-target="#tgl-reg-klik"/>
                                 <div class="input-group-append" data-target="#tgl-reg-klik" data-toggle="datetimepicker">
-                                <div class="input-group-text"><i class="ci-icon fa fa-calendar"></i></div>
+                                    <div class="input-group-text">
+                                        <i class="ci-icon fa fa-calendar"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                 </div>
                </div>
             </div>
             <div class="row">
@@ -48,9 +50,17 @@
                         <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan" type="button" value="Pcare">
                         <input class="btn btn-ghost-primary btn-cus" id="cari-rujukan-rs" type="button" value="RS">
                         <input class="btn btn-ghost-primary btn-cus float-right" id="cari-sko" type="button" value="SKO">
-                        <input class="form-control form-control-sm" id="no-rujukan" name="no_rujukan" type="text" placeholder="No Rujukan" tabindex="1">
-                        <input type="hidden" id="tgl-rujukan" name="tgl_rujukan">
-                        <input type="hidden" id="internal-rujukan" name="internal_rujukan" value="0">
+                        <div class="controls">
+                            <div class="input-group">
+                                <input class="form-control form-control-sm" id="no-rujukan" name="no_rujukan" type="text" placeholder="No Rujukan" tabindex="1">
+                                <input type="hidden" id="tgl-rujukan" name="tgl_rujukan">
+                                <input type="hidden" id="internal-rujukan" name="internal_rujukan" value="0">
+                                <div class="input-group-append">
+                                    <button id="rujukan-last" class="btn btn-sm btn-secondary" type="button">PC</button>
+                                    <button id="rujukanrs-last" class="btn btn-sm btn-dark" type="button">RS</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-4">

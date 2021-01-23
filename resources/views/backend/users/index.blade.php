@@ -11,20 +11,14 @@ Data User
                     <div class="card-header pb-0">
                         <ul class="list-inline mb-0">
                             <li class="list-inline-item float-left">
-                                <h4><i class="c-icon cil-menu"></i> Daftar User</h4>
+                                <h4><i class="c-icon fa fa-menu"></i> Daftar User</h4>
                             </li>
                             <li class="list-inline-item float-right">
                                 <div class="d-none d-md-block">
-                                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
-                                        <i class="c-icon cil-plus mx-2"></i>
+                                    <button id="tambah-user" class="btn btn-sm btn-primary mb-3">
+                                        <i class="c-icon fa fa-plus mx-2"></i>
                                         User
-                                    </a>
-                                </div>
-                                <div class="d-md-none float-right">
-                                    <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary mb-3">
-                                        <i class="c-icon cil-plus mx-2"></i>
-
-                                    </a>
+                                    </button>
                                 </div>
                             </li>
                         </ul>
@@ -51,6 +45,7 @@ Data User
         </div>
     </div>
 </div>
+@include('backend.users.modal-user')
 @endsection
 
 @push('scripts')

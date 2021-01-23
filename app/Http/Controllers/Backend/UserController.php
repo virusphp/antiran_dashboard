@@ -44,7 +44,7 @@ class UserController extends BackendController
                     return view('datatables._action-user', [
                         'idx' => $user->kd_pegawai,
                         'name' => $user->nama_pegawai,
-                        'edit_url' => route('users.edit', $user->kd_pegawai)
+                        'edit_url' => route('users.edit', $user->id_user)
                     ]);
                 })
                 ->rawColumns(['action'])
@@ -60,10 +60,9 @@ class UserController extends BackendController
      */
     public function create(User $user)
     {
-
         $bcrum = $this->bcrum('Create', route('users.index'), 'Data User');
-        $roles = Role::pluck('name', 'name')->all();
-        return view('backend.users.create', compact('user', 'roles', 'bcrum'));
+        $roles = listRole();
+        return view('backend.users.create', compact('user', 'roles',  'bcrum'));
     }
 
 
@@ -109,12 +108,10 @@ class UserController extends BackendController
      */
     public function edit($id)
     {
-
         $bcrum = $this->bcrum('Edit', route('users.index'), 'Data User');
 
         $user = User::find($id);
-        $roles = Role::pluck('name', 'name')->all();
-        $userRole = $user->roles->pluck('name', 'name')->all();
+        $roles = listRole();
 
         return view('backend.users.edit', compact('user', 'roles', 'bcrum'));
     }
@@ -133,10 +130,6 @@ class UserController extends BackendController
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('model_has_roles')->where('model_id', $id)->delete();
-
-        $user->assignRole($request->input('roles'));
-
 
         $this->notification('success','Perhatian', 'User ' . $user->name . ' berhasil di ubah!');
 

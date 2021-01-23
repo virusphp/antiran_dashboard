@@ -65,10 +65,13 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
         Route::post('/ajax/bpjs/list/rujukan', 'RujukanController@ajaxListRujukanBpjs');
         Route::post('/ajax/bpjs/list/rujukanrs', 'RujukanController@ajaxListRujukanRsBpjs');
         Route::post('/ajax/bpjs/list/sep', 'SepController@ajaxListSep');
-
         Route::post('/ajax/bpjs/peserta', 'PesertaController@ajaxPesertaBpjs');
+
         Route::post('/ajax/bpjs/rujukan', 'RujukanController@ajaxRujukanBpjs');
         Route::post('/ajax/bpjs/rujukanrs', 'RujukanController@ajaxRujukanRsBpjs');
+        Route::post('/ajax/bpjs/rujukan/peserta', 'RujukanController@ajaxRujukanPeserta');
+        Route::post('/ajax/bpjs/rujukan/rs/peserta', 'RujukanController@ajaxRujukanRsPeserta');
+
         Route::post('/ajax/bpjs/carisep', 'SepController@ajaxCariSep');
         Route::post('/ajax/bpjs/insertsep', 'SepController@ajaxInsertSepBpjs');
         Route::put('/ajax/bpjs/updatesep', 'SepController@ajaxUpdateSepBpjs');

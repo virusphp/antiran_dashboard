@@ -77,6 +77,44 @@
         getCaraBayar(data.cara_bayar)
     }
 
+    $('#rujukan-last').on('click', function() {
+        var no_kartu = $('#no-kartu').val(),
+            url = '/admin/ajax/bpjs/rujukan/peserta',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        getRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
+    })
+
+    $('#rujukanrs-last').on('click', function() {
+        var no_kartu = $('#no-kartu').val(),
+            url = '/admin/ajax/bpjs/rujukan/rs/peserta',
+            method = 'POST',
+            CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+        getRujukanPeserta(no_kartu, url, method, CSRF_TOKEN)
+
+    })
+
+    function getRujukanPeserta(no_kartu, url, method, _token) {
+        $.ajax({
+            url:url,
+            method:method,
+            dataType: "JSON",
+            data: {
+                no_kartu: no_kartu,
+                _token: _token
+            },
+            success: function(res) {
+                if (res.metaData.code == 200) {
+                    console.log(res.response.rujukan.noKunjungan)
+                    $('#no-rujukan').val(res.response.rujukan.noKunjungan)
+                    setRujukan(res.response)
+                }
+            }
+        })
+    }
+
     $('#cari-rujukan').on('click', function() {
         var no_kartu = $('#no-kartu').val(),
             url = '/admin/ajax/bpjs/list/rujukan',

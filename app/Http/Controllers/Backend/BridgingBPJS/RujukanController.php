@@ -92,6 +92,22 @@ class RujukanController extends BpjsController
             return $rujukan; 
         }
     }
+
+    public function ajaxRujukanPeserta(Request $request)
+    {
+        if ($request->ajax()) {
+            $rujukan = $this->service->getRujukanPeserta($request);
+            return $rujukan; 
+        }
+    }
+
+    public function ajaxRujukanRsPeserta(Request $request)
+    {
+        if ($request->ajax()) {
+            $rujukan = $this->service->getRujukanRsPeserta($request);
+            return $rujukan; 
+        }
+    }
   
     public function ajaxInsertRujukanBpjs(Request $request)
     {

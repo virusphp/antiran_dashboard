@@ -25,11 +25,10 @@ class UserRequest extends FormRequest
     {
         $id = $this->user ?? '';
         $rules = [
-            'name' => 'required',
-            'username' => 'required',
-            'email' => 'required|email|unique:users,email,' . $id,
+            'nama_pegawai' => 'required',
+            'kd_pegawai' => 'required',
             'password' => 'required|confirmed',
-            'roles' => 'required'
+            'role' => 'required'
         ];
 
         if ($this->isMethod('PATCH')) {

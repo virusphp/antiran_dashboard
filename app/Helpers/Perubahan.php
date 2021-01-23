@@ -82,3 +82,11 @@ function getKodeAsalRujukan($nilai)
 {
     return substr($nilai, 0, 8);
 }
+
+function listRole()
+{
+    return [
+        'admin' => 'Admin',
+        'operator' => 'Operator',
+    ];
+}
