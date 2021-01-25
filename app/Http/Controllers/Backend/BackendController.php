@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 class BackendController extends Controller
@@ -42,6 +43,7 @@ class BackendController extends Controller
 
         $dir = public_path(). DIRECTORY_SEPARATOR. "images" . DIRECTORY_SEPARATOR . "pegawai";
         file_put_contents($dir.DIRECTORY_SEPARATOR.($filename = $kodePegawai.".jpg"), $foto);
+        // Storage::disk('pegawai').put($kodePegawai.".jpg", $foto);
 
         $canvas = Image::canvas($wid, $hig);
 
