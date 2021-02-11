@@ -2,7 +2,6 @@
 return [
 	'image' => [
 		'directory' => 'images'. DIRECTORY_SEPARATOR. 'pegawai',
-		'directory' => 'images'. DIRECTORY_SEPARATOR. 'pegawai',
 		'small' => [
 			'width' => 472,
 			'height' => 709

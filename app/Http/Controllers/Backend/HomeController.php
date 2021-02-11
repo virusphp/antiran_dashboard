@@ -56,12 +56,13 @@ class HomeController extends BackendController
             $dataPegawai = [];
             foreach ($pegawai as $key => $val) {
                 $dataPegawai[$key] = $val;
-                $dataPegawai[$key]->photo = $this->getPhoto($val->kd_pegawai, $val->foto);
+                $dataPegawai[$key]->photo = "storage".DIRECTORY_SEPARATOR. $this->getPhoto($val->kd_pegawai, $val->foto);
                 unset($val->foto);
             }
         } else {
             $dataPegawai = [];
         }
+        // dd($dataPegawai);
 
         return $dataPegawai;
     }

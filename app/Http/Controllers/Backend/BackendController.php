@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use File;
 
 class BackendController extends Controller
 {
@@ -45,18 +46,22 @@ class BackendController extends Controller
         $destination = config('photo.image.directory');
 
         $publicDir = public_path().DIRECTORY_SEPARATOR. $destination;
-        file_put_contents($publicDir.DIRECTORY_SEPARATOR.$filename, $foto);
+        $storageDir = storage_path("app/public".DIRECTORY_SEPARATOR. $destination);
+        if (!is_dir($storageDir)) {
+            File::makeDirectory($storageDir, 0777, true, true);
+        }
+        file_put_contents($storageDir.DIRECTORY_SEPARATOR.$filename, $foto);
 
-        if (mime_content_type($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg") == "image/jpeg") {
+        if (mime_content_type($storageDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg") == "image/jpeg") {
             $canvas = Image::canvas($width, $height);
 
-            $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
+            $image = Image::make($storageDir .DIRECTORY_SEPARATOR. $kodePegawai.".jpg")->resize($width, $height, function($constraint){
                 $constraint->aspectRatio();
             });
 
             $canvas->insert($image, "center");
 
-            $canvas->save($publicDir. DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
+            $canvas->save($storageDir .DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
 
             $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
             
