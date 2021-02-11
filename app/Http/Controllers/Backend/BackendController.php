@@ -49,22 +49,15 @@ class BackendController extends Controller
 
         $image = ['images' => $publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg"];
 
-        $rules = [
-            'images' => 'mimes:jpeg,jpg,png,gif'
-        ];
-
-        $validator = Validator::make($image, $rules);
 
         $canvas = Image::canvas($width, $height);
-        if (!$validator->fails()) {
 
-            $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
-                $constraint->aspectRatio();
-            });
-    
-        }
+        $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
+            $constraint->aspectRatio();
+        });
+
         $canvas->insert($image, "center");
-    
+
         $canvas->save($publicDir. DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
 
         $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
