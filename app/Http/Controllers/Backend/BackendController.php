@@ -47,21 +47,25 @@ class BackendController extends Controller
         $publicDir = public_path().DIRECTORY_SEPARATOR. $destination;
         file_put_contents($publicDir.DIRECTORY_SEPARATOR.$filename, $foto);
 
-        $image = ['images' => $publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg"];
+        if (mime_content_type($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg") == "image/jpeg") {
+            $canvas = Image::canvas($width, $height);
 
+            $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
+                $constraint->aspectRatio();
+            });
 
-        $canvas = Image::canvas($width, $height);
+            $canvas->insert($image, "center");
 
-        $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
-            $constraint->aspectRatio();
-        });
+            $canvas->save($publicDir. DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
 
-        $canvas->insert($image, "center");
-
-        $canvas->save($publicDir. DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
-
-        $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
-        
-        return $fullPath;
+            $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
+            
+            return $fullPath;
+        } else {
+            $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
+            
+            return $fullPath;
+        }
+           
     }
 }
