@@ -1,3 +1,4 @@
+/public/images
 /node_modules
 /storage/*.key
 /vendor
