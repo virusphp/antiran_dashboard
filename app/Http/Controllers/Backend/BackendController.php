@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
 
 class BackendController extends Controller
@@ -36,27 +36,39 @@ class BackendController extends Controller
         ]);
     }
 
+    // CONVERT FILE BLOB TO IMAGE 
     protected function getPhoto($kodePegawai, $foto)
     {
-        $wid = 472;
-        $hig = 709;
+        $width = config('photo.image.small.width');
+        $height = config('photo.image.small.height');
+        $filename = $kodePegawai. ".jpg";
+        $destination = config('photo.image.directory');
 
-        $dir = public_path(). DIRECTORY_SEPARATOR. "images" . DIRECTORY_SEPARATOR . "pegawai";
-        file_put_contents($dir.DIRECTORY_SEPARATOR.($filename = $kodePegawai.".jpg"), $foto);
-        // Storage::disk('pegawai').put($kodePegawai.".jpg", $foto);
+        $publicDir = public_path().DIRECTORY_SEPARATOR. $destination;
+        file_put_contents($publicDir.DIRECTORY_SEPARATOR.$filename, $foto);
 
-        $canvas = Image::canvas($wid, $hig);
+        $image = ['images' => $publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg"];
 
-        $image = Image::make($dir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($wid, $hig, function($constraint){
-            $constraint->aspectRatio();
-        });
+        $rules = [
+            'images' => 'mimes:jpeg,jpg,png,gif'
+        ];
 
+        $validator = Validator::make($image, $rules);
+
+        $canvas = Image::canvas($width, $height);
+        if (!$validator->fails()) {
+
+            $image = Image::make($publicDir.DIRECTORY_SEPARATOR.$kodePegawai.".jpg")->resize($width, $height, function($constraint){
+                $constraint->aspectRatio();
+            });
+    
+        }
         $canvas->insert($image, "center");
+    
+        $canvas->save($publicDir. DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
 
-        $canvas->save($dir. \DIRECTORY_SEPARATOR. $kodePegawai. ".jpg");
-
-        $fullPath = url("/") . $dir . DIRECTORY_SEPARATOR. $filename;
+        $fullPath =  $destination . DIRECTORY_SEPARATOR. $filename;
         
-        return $dir;
+        return $fullPath;
     }
 }

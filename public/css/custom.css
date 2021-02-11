@@ -16,10 +16,20 @@
     margin-right: 50px;
 }
 
+.c-avatar-img {
+    width: 36px;
+    height: 36px;
+    border-radius: 7em;
+}
+
 /* COLOR OF TD TABLE  */
 .merah {
     background-color: crimson;
     color: whitesmoke;
+}
+
+#user-biodata .form-group {
+    margin-bottom: 0;
 }
 
 #tgl-reg {

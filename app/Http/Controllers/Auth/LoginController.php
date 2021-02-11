@@ -9,9 +9,11 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Session;
+use App\Http\Traits\ImageConvert;
 
 class LoginController extends Controller
 {
+    use ImageConvert;
     /*
     |--------------------------------------------------------------------------
     | Login Controller
@@ -52,12 +54,17 @@ class LoginController extends Controller
         $this->validate($request,$this->validate,$this->message);
         $count = User::where('kd_pegawai', '=', $request->username)->count();
         if ($count > 0) {   
-            $data = User::where('kd_pegawai', '=', $request->username)->first();    
+            $data = User::select('user_login_sep.kd_pegawai','user_login_sep.nama_pegawai','user_login_sep.role','pegawai.foto')
+                    ->where('user_login_sep.kd_pegawai', '=', $request->username)
+                    ->leftJoin('pegawai', 'user_login_sep.kd_pegawai','pegawai.kd_pegawai')
+                    ->first();    
+            $photoProfil = $data['foto'] == null ? "img/profile/profile.png" : $this->getPhoto($data['kd_pegawai'], $data['foto']);
             if (Auth::attempt(['kd_pegawai'=>$request->username,'password'=>$request->password])) {
                 $user = array(
-                    'kd_pegawai' => $data['username'],
-                    'nama_pegawai' => $data['name'],
+                    'kd_pegawai' => $data['kd_pegawai'],
+                    'nama_pegawai' => $data['nama_pegawai'],
                     'role' => $data['role'],                                    
+                    'foto' => $photoProfil
                 );
                 Session::put('user',$user);    
                 return redirect('admin/home')->with('type','success')->with('message','Berhasil login dengan selamat!');                   

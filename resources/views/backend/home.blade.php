@@ -83,7 +83,7 @@ Dashboard
           Selamat Ulang Tahun
         </div>
         <div class="card-body">
-          <img src="{{ asset('images/pegawai/'.$pg->kd_pegawai.'.jpg') }}" width="149" height="200"
+          <img src="{{ asset($pg->photo) }}" width="149" height="200"
             alt="{{ $pg->nama_pegawai }}">
           <p>
             <strong>{{ $pg->nama_pegawai }}</strong> <br>
@@ -97,45 +97,60 @@ Dashboard
   </div>
 </div>
 @endsection
+@include('template.toast')
 @push('css')
-<link rel="stylesheet" href="{{ asset('toast/jquery.toast.css') }}">
+<link href="{{ asset('lib/sweetalert-bootstrap/bootstrap-4.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('lib/toastr/toastr.min.css') }}">
 @endpush
 @push('scripts')
-<script src="{{ asset('toast/jquery.toast.js') }}"></script>
+<script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
+<script src="{{ asset('lib/toastr/toastr.min.js') }}"></script>
 {{-- <script src="{{ asset('coreui/js/main.js') }}"></script> --}}
 <script type="text/javascript">
   $(function() {
-  @if(Session::has('message'))
-    $(document).ready(function() {         
-        var type = "{{ Session::get('type') }}";
-        switch(type){
-          case 'info':
-              Toast.fire({
-                type : "info",
-                title : "{{ Session::get('message') }}"
-              });
-              break;              
-          case 'warning':
-              Toast.fire({
-              type : "warning",
-                title : "{{ Session::get('message') }}"
-              });
-              break;
-          case 'success':
-              Toast.fire({
-              type : "success",
-                title : "{{ Session::get('message') }}"
-              });
-              break;
-          case 'error':
-              Toast.fire({
-              type : "error",
-                title : "{{ Session::get('message') }}"
-              });
-              break;
-        }       
-    });
-  @endif
+    const Toast = Swal.mixin({
+      toast: true,
+      position: 'top-end',
+      icon: 'success',
+      timerProgressBar: true,
+      timer: 3000,
+      onOpen: (toast) => {
+        toast.addEventListener('mouseenter', Swal.stopTimer)
+        toast.addEventListener('mouseleave', Swal.resumeTimer)
+      }
+    }); 
+
+    @if(Session::has('message'))
+      $(document).ready(function() {         
+          var type = "{{ Session::get('type') }}";
+          switch(type){
+            case 'info':
+                Toast.fire({
+                  type : type,
+                  title : "{{ Session::get('message') }}",
+                });
+                break;              
+            case 'warning':
+                Toast.fire({
+                  type : type,
+                  title : "{{ Session::get('message') }}",
+                });
+                break;
+            case 'success':
+                Toast.fire({
+                  type : type,
+                  title : "{{ Session::get('message') }}",
+                });
+                break;
+            case 'error':
+                Toast.fire({
+                  type : type,
+                  title : "{{ Session::get('message') }}",
+                });
+                break;
+          }       
+      });
+    @endif
 }); 
 </script>
 @endpush

@@ -160,7 +160,6 @@ class RegistrasiController extends Controller
      */
     public function store(RegistrasiRequest $request)
     {
-
         $data = $this->handleRequest($request);
 
         DB::beginTransaction();

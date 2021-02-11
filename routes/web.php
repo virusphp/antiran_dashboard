@@ -45,6 +45,9 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     // GET LIST NO SURAT SKDP
     Route::post('/ajax/list/skdp', 'SkdpController@ajaxListSkdp');
 
+    // GET LIST PEGAWAI
+    Route::get('ajax/list/pegawai', 'PegawaiController@ajaxListPegawai');
+
     //  LIST DROPDOWN
     Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
     Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');

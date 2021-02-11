@@ -31,6 +31,50 @@ $(function() {
         }
     })
 
+      // cari pegawai
+      $(document).ready(function() {
+            var url = "/admin/ajax/list/pegawai"
+                CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $('#nama_pegawai').autocomplete({
+                source : function (request, response) {
+                    $.ajax({
+                        url : url,
+                        dataType : "json",
+                        data : { term: request.term },
+                        success: function(data) {
+                            var array = data.error ? [] : $.map(data, function(m) {
+                                return {
+                                    id : m.kd_pegawai,
+                                    value : m.nama_pegawai,
+                                    alamat : m.alamat,
+                                    tglLahir : m.tgl_lahir,
+                                    tmptLahir : m.tempat_lahir,
+                                    unitKerja : m.unit_kerja,
+                                    foto : m.foto
+                                };
+                            });
+                            response(array);
+                        }
+                    });
+                },
+                minLength: 3,
+                select : function (event, ui) {
+                    $('#nama_pegawai').val(ui.item.value);
+                    $('#username').val(ui.item.id).attr('readonly', true);
+                    $('#v-username').val(ui.item.id).attr('readonly', true);
+                    $('#v-nama').val(ui.item.value).attr('readonly', true);
+                    $('#v-alamat').val(ui.item.alamat).attr('readonly', true);
+                    $('#v-tgl-lahir').val(ui.item.tglLahir).attr('readonly', true);
+                    $('#v-tmpt-lahir').val(ui.item.tmptLahir).attr('readonly', true);
+                    $('#v-unit-kerja').val(ui.item.unitKerja).attr('readonly', true);
+                    // $('#v-foto').attr('src', 'data:image/jpeg;base64,'+ui.item.foto);
+                    $('#v-foto').attr('src', '{{ asset('images/user') }}/'+ui.item.foto);
+                    return false;
+                },
+                autoFocus: true
+            });
+    });
+
     $(document).on('click','#tambah-user', function() {
         $(this).addClass('edit-item-trigger-clicked');
         var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content'),

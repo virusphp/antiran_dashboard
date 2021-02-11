@@ -5,23 +5,48 @@
             <small id="nama-pelayanan"><b></b></small>
             <small class="float-right" id="poli-tujuan"><b></b></small>
         </div>
-        <div class="card-body">
-            <table id="tabel-history-peserta" class="table table-responsive-sm table-bordered table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th>No Sep</th>
-                        <th>Tgl Sep</th>
-                        <th>Tgl Pulang Sep</th>
-                        <th>Jns Rawat</th>
-                        <th>Poli</th>
-                        <th>No Rujukan</th>
-                        <th>Faskes</th>
-                    </tr>
-                </thead>
-                <tbody id="isi-history">
-
-                </tbody>
-            </table> 
+        <div class="card-body" id="user-biodata">
+                <div class="col-md-4 float-left">
+                    <img id="v-foto" src="" width="150" height="200" class="img-thumbnail">
+                </div>
+                <div class="col-md-8 float-right">
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Username</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="username" type="text" name="username" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Nama</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="user-nama" type="text" name="nama_pegawai" placeholder="Nama Pegawai">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Alamat</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="user-alamat" type="text" name="alamat" placeholder="Alamat">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Tanggal Lahir</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="user-tgl-lahir" type="text" name="tgl_lahir" placeholder="Tanggal Lahir">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Tampat Lahir</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="user-tampat-lahir" type="text" name="tempat_lahir" placeholder="Tempat Lahir">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label" for="text-input">Unit Kerja</label>
+                        <div class="col-md-9">
+                            <input readonly class="form-control form-control-sm" id="user-unit" type="text" name="unit" placeholder="Unit Kerja">
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>

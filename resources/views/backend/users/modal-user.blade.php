@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <div class="col-md-4">
-            <h5 class="modal-title" id="header-sep">History Pelayanan Peserta </h5>
+            <h5 class="modal-title" id="header-user"> Management Users </h5>
           </div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -13,10 +13,10 @@
                 <div class="row">
 
                     {{-- Form PROFIL --}}
-                    @include('backend.registrasi._form-profil-pulang')
+                    @include('backend.users._form-profil')
 
                     {{-- Form BIODATA --}}
-                    @include('backend.registrasi._form-biodata-pulang')
+                    @include('backend.users._form-biodata')
 
                 </div>
         </div>

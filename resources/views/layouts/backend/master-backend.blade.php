@@ -25,7 +25,7 @@
 
     <!-- Main styles for this application-->
     <link href="{{ asset('coreui/css/style.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('toast/jquery.toast.css') }}">
+    {{-- <link rel="stylesheet" href="{{ asset('toast/jquery.toast.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/all.min.css') }}">
     @stack('css')
@@ -51,7 +51,7 @@
     <script src="{{ asset('coreui/node_modules/js/coreui.bundle.min.js') }}"></script>
     {{-- <script src="{{ asset('coreui/node_modules/chartjs/coreui-chartjs.bundle.js') }}"></script> --}}
     <script src="{{ asset('coreui/node_modules/utilsjs/coreui-utils.js') }}"></script>
-    <script src="{{ asset('toast/jquery.toast.js') }}"></script>
+    {{-- <script src="{{ asset('toast/jquery.toast.js') }}"></script> --}}
     <script src="{{ asset('coreui/js/tooltips.js') }}"></script>
     @stack('scripts')
     @include('layouts.backend.partials._flash')

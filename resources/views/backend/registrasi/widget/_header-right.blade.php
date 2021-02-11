@@ -12,10 +12,10 @@
             </div>
         </div>
         <div class="">
-            <a href="{{ route('registrasi.create') }}" class="btn btn-sm btn-primary mb-3 mr-auto">
+            <button id="registrasi-pasien" class="btn btn-sm btn-primary mb-3 mr-auto">
                 <i class="c-icon fa fa-plus"></i>
                 Registrasi
-            </a>
+            </button>
         </div>
 
     </div>

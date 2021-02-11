@@ -1,4 +1,5 @@
 <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+    <?php $user = Auth::user(); ?>
     <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
         <i class="c-icon c-icon-lg cil-menu"></i>
     </button>
@@ -19,10 +20,14 @@
     </ul>
     <ul class="c-header-nav ml-auto mr-4">
         <li class="c-header-nav-item d-md-down-none mx-2">
-        Selamat datang <b>{{ (Auth::user() != null ? Auth::user()->nama_pegawai : 'Brow' ) }}</b>      
+        Selamat datang <b>{{ ($user != null ? $user->nama_pegawai : 'Brow' ) }}</b>      
     </li> 
         <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+            @if(is_numeric($user->kd_pegawai)) 
+                <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('images/user/'.$user->kd_pegawai.'.jpg') }}" alt="profile"></div>
+                @else
                 <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('img/profile/profile.png') }}" alt="profile"></div>
+            @endif
             </a>
             <div class="dropdown-menu dropdown-menu-right pt-0">
                 <div class="dropdown-header bg-light py-2"><strong>Account</strong></div>
