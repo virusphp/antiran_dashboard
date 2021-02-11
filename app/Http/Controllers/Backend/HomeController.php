@@ -62,7 +62,6 @@ class HomeController extends BackendController
         } else {
             $dataPegawai = [];
         }
-        // dd($dataPegawai);
 
         return $dataPegawai;
     }
