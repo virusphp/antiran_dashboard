@@ -37,6 +37,12 @@
         format: "YYYY-MM-DD",
     });
 
+    $('#r-tgl-registrasi-klik').datetimepicker({
+        //  format: 'L',
+        defaultDate: new Date(), 
+        format: "YYYY-MM-DD",
+    });
+
     $('#tgl-pulang-klik').datetimepicker({
         //  format: 'L',
         defaultDate: new Date(), 

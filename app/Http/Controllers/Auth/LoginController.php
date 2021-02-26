@@ -58,7 +58,8 @@ class LoginController extends Controller
                     ->where('user_login_sep.kd_pegawai', '=', $request->username)
                     ->leftJoin('pegawai', 'user_login_sep.kd_pegawai','pegawai.kd_pegawai')
                     ->first();    
-            $photoProfil = $data['foto'] == null ? "img/profile/profile.png" : $this->getPhoto($data['kd_pegawai'], $data['foto']);
+            $photoProfil = $data['foto'] == null ? "img/profile/profile.png" : "storage". DIRECTORY_SEPARATOR. $this->getPhotos($data['kd_pegawai'], $data['foto']);
+            // dd($photoProfil);
             if (Auth::attempt(['kd_pegawai'=>$request->username,'password'=>$request->password])) {
                 $user = array(
                     'kd_pegawai' => $data['kd_pegawai'],

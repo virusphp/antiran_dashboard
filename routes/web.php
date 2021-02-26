@@ -48,6 +48,15 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     // GET LIST PEGAWAI
     Route::get('ajax/list/pegawai', 'PegawaiController@ajaxListPegawai');
 
+     // REGISTRASI RJ
+    Route::group(['namespace' => 'Registrasi'], function() {
+        Route::post('/ajax/generate/noregistrasi', 'RegistrasiController@generateCode');
+
+        // LIST DROP DOWN
+        Route::get('/ajax/list/poliklinik', 'PoliklinikController@ajaxListKlinik');
+        Route::get('/ajax/list/carabayar', 'PoliklinikController@ajaxListCarabayar');
+    });
+
     //  LIST DROPDOWN
     Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
     Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
@@ -89,13 +98,13 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::group(['namespace' => 'Master'], function() {
         Route::resource('/pasien', 'PasienController');
         Route::get('/ajax/pasien', 'PasienController@indexAjax');
+        Route::post('/ajax/pasien/cari', 'PasienController@ajaxCariPasien');
     });
 
     Route::group(['namespace' => 'Transaksi'], function() {
         Route::resource('/antrian', 'AntrianController');
         Route::get('/antrian/poli/{poli}/tanggal/{tanggal}', 'AntrianController@showPoli')->name('antrian.showpoli');
         Route::get('/ajax/antrian', 'AntrianController@indexAjax');
-
     });
 
      //user

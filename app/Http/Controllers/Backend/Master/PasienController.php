@@ -6,15 +6,18 @@ use App\Http\Controllers\Backend\BackendController as Controller;
 use Illuminate\Http\Request;
 // use App\Models\Pasien;
 use App\Repository\Pasien\Pasien;
+use App\Transform\TransformPasien;
 use DataTables;
 
 class PasienController extends Controller
 {
     protected $pasien;
+    protected $transform;
 
     public function __construct()
     {
         $this->pasien = new Pasien;
+        $this->transform = new TransformPasien;
     }
 
     public function index(Request $request)
@@ -49,6 +52,20 @@ class PasienController extends Controller
                     ->make(true);
         }
        
+    }
+
+    public function ajaxCariPasien(Request $request)
+    {
+        if ($request->ajax()) {
+            $pasien = $this->pasien->getPasienRegistrasi($request);
+            
+            if(!$pasien) {
+                return response()->jsonApi(201, "No Rekamedik tidak di temukan!");
+            }
+
+            $transform = $this->transform->mapperPasien($pasien);
+            return response()->jsonApi(200, "Sukses", $transform);
+        }
     }
 
     /**

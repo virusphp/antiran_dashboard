@@ -15,6 +15,16 @@ function tanggalLahir($nilai)
     return date('d-M-Y', strtotime($nilai));
 }
 
+function tanggalNilai($nilai)
+{
+    return date("N", strtotime($nilai)) + 1;
+}
+
+function tanggalIndo($nilai)
+{
+    return date('d-m-Y', strtotime($nilai));
+}
+
 function tanggalFormat($nilai)
 {
     return date('Y-m-d', strtotime($nilai));

@@ -121,7 +121,6 @@
                 $('#kode-dpjp').val(res.kd_dpjp)     
                 $('#nama-dpjp').val(res.kd_dpjp).trigger('change')
                 // $('#nama-dpjp option[value='+res.kd_dpjp+']').attr('selected', 'selected').closest('#nama-dpjp');
-
             }
         }
     }

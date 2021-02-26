@@ -134,18 +134,6 @@ class Registrasi
 
     public function getRegistrasiAntrian($params)
     {
-        // return DB::connection($this->dbsimrs)->table('registrasi as reg')
-        //         ->select(DB::raw("ROW_NUMBER() OVER (ORDER BY rj.no_reg ASC) as noantrian"))
-        //         ->whereIn('noantrian', function($query) {
-        //             $query->select()
-        //         })
-        // return DB::connection($this->dbsimrs)
-        //         ->select("SELECT noantrian FROM (
-        //             SELECT ROW_NUMBER() OVER (ORDER BY rj.no_reg ASC) as noantrian) FROM registrasi as r 
-        //                  INNER JOIN rawat_jalan as rj on r.no_reg=rj.no_reg WHERE rj.kd_poliklinik='".$params->kd_poliklinik."'
-        //                  AND r.tgl_reg='".tanggalFormat($params->tgl_reg)."') as registrasi_pasien WHERE no_reg='".$params->no_reg."'");
-                // ->where('reg.no_reg',  $params->no_reg)
-
         return DB::select("
             SELECT noantrian FROM (
                 SELECT
@@ -169,6 +157,18 @@ class Registrasi
         ])
         ->whereRaw('LEN(no_sjp) > 15')
         ->count();
+    }
+
+    public function generateCode($params)
+    {
+        $noReg = $params->jnsRawat . date('dmy');
+        $maxNoReg = DB::table('registrasi')
+                    ->where('no_reg', 'like', $noReg . '%')
+                    ->max('no_reg');
+        $noUrut = (int) substr($noReg, -4);
+        $noUrut++;
+        $newNoReg['no_reg'] = $noReg . sprintf("%04s", $noUrut);
+        return $newNoReg;
     }
     
 }

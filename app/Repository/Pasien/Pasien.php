@@ -50,6 +50,19 @@ class Pasien
             ->get();
     }
 
+    public function getPasienRegistrasi($params)
+    {
+        return DB::connection($this->dbsimrs)
+                ->table('pasien as p')
+                ->select('p.no_rm','p.nama_pasien','p.tempat_lahir','p.tgl_lahir','p.jns_kel','pp.no_kartu',
+                    'p.nik', 'p.alamat', 'p.rt','p.rw', 'kel.nama_kelurahan','kec.nama_kecamatan','p.no_telp','p.kd_agama',)
+                ->join('kelurahan as kel', 'p.kd_kelurahan','kel.kd_kelurahan')
+                ->join('kecamatan as kec', 'kel.kd_kecamatan','kec.kd_kecamatan')
+                ->leftJoin('penjamin_pasien as pp','p.no_rm','=','pp.no_rm')
+                ->where('p.no_rm', $params->no_rm)
+                ->first(); 
+    }
+
     public function getPasienEdit($noRm)
     {
         return DB::connection($this->dbsimrs)

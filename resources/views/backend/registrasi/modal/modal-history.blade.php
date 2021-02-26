@@ -13,10 +13,10 @@
                 <div class="row">
 
                     {{-- Form PROFIL --}}
-                    @include('backend.registrasi._form-profil-pulang')
+                    @include('backend.registrasi.form._form-profil-history')
 
                     {{-- Form BIODATA --}}
-                    @include('backend.registrasi._form-biodata-pulang')
+                    @include('backend.registrasi.form._form-biodata-history')
 
                 </div>
         </div>

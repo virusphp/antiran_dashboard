@@ -24,7 +24,7 @@
     </li> 
         <li class="c-header-nav-item dropdown"><a class="c-header-nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
             @if(is_numeric($user->kd_pegawai)) 
-                <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('images/user/'.$user->kd_pegawai.'.jpg') }}" alt="profile"></div>
+                <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('storage/images/user/'.$user->kd_pegawai.'.jpg') }}" alt="profile"></div>
                 @else
                 <div class="c-avatar"><img class="c-avatar-img" src="{{ asset('img/profile/profile.png') }}" alt="profile"></div>
             @endif

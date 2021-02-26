@@ -37,11 +37,13 @@ Sep
         </div>
     </div>
 </div>
-@include('backend.registrasi.modal-sep')
-@include('backend.registrasi.modal-rujukan')
-@include('backend.registrasi.modal-skdp')
-@include('backend.registrasi.modal-history')
-@include('backend.registrasi.modal-pulang')
+@include('backend.registrasi.modal.modal-sep')
+@include('backend.registrasi.modal.modal-rujukan')
+@include('backend.registrasi.modal.modal-skdp')
+@include('backend.registrasi.modal.modal-history')
+@include('backend.registrasi.modal-registrasi')
+@include('backend.registrasi.modal.modal-pulang')
+
 @endsection
 @push('css')
 <link href="{{ asset('lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
@@ -58,4 +60,5 @@ Sep
     @include('backend.registrasi.scripts-buatsep')
     @include('backend.registrasi.scripts-editsep')
     @include('backend.registrasi.scripts-update-pulang')
+    @include('backend.registrasi.scripts-registrasi')
 @endpush

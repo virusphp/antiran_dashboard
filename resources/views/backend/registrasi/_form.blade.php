@@ -177,7 +177,6 @@
 
 </div>
 
-
 @push('css')
 <link rel="stylesheet" href="{{ asset('coreui/datepicker/css/bootstrap-datetimepicker.min.css') }}" />
 <link rel="stylesheet" href="{{ asset('lib/sweetalert2/sweetalert2.min.css') }}">
@@ -186,7 +185,6 @@
 @push('scripts')
     <script type="text/javascript" src="{{ asset('coreui/datepicker/js/bootstrap-datetimepicker.min.js') }}"></script>
     <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
-
 
     <script type="text/javascript">
         $('input[name=nama_divisi]').focus();

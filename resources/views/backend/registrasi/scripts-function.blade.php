@@ -197,7 +197,7 @@
                         $('#nama-dpjp').append('<option value="'+value.kode+'">'+value.nama+'</option>');
                     });
                     $('#nama-dpjp').select2({
-                        placeholder: 'Pilih Carabayar',
+                        placeholder: 'Pilih Dpjp',
                         width: '100%',
                     })
                 }
