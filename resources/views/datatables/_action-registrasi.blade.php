@@ -18,7 +18,7 @@
         'id'    => 'print-sep',
         'disabled'
     ]) !!}
-@elseif($status_keluar == 2) 
+@elseif($status_keluar == 2 || $cara_bayar != 8) 
     {!! Form::button('<i class="c-icon c-icon-2x1 fa fa-id-card"></i>', [
         'type'  => 'button',
         'class' => 'btn btn-primary btn-sm',

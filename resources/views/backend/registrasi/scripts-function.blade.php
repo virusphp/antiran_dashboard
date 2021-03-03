@@ -105,7 +105,7 @@
     }
 
     // GET CARA BAYAR
-    function getCaraBayar(carabayar) {
+    function getCaraBayar(carabayar = null) {
         var url = '/admin/ajax/list/carabayar',
             method = 'get';
         $.ajax({
@@ -113,18 +113,20 @@
             method:method,
             data: {},
             success: function(data) {
-                $('#cara-bayar').empty();
-                $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')
-                $.each(data, function(key, value) {
-                    $('#cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
-                });
-                if (carabayar) {
-                    $('#cara-bayar option[value='+carabayar+']').attr('selected','selected').closest('#cara-bayar');
+                if (data.code == 200) {
+                    $('#cara-bayar').empty();
+                    $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')
+                    $.each(data.result.carabayar, function(key, value) {
+                        $('#cara-bayar').append('<option value="'+value.kode_carabayar+'">'+value.nama_carabayar+'</option>');
+                    });
+                    if (carabayar) {
+                        $('#cara-bayar option[value='+carabayar+']').attr('selected','selected').closest('#cara-bayar');
+                    }
+                    $('#cara-bayar').select2({
+                        placeholder: 'Pilih Cara bayar',
+                        width: '100%',
+                    })
                 }
-                $('#cara-bayar').select2({
-                    placeholder: 'Pilih Cara bayar',
-                    width: '100%',
-                })
             }
         })
     }

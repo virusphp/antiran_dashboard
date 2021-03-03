@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Backend;
+namespace App\Http\Controllers\Backend\Registrasi;
 
 use App\Http\Controllers\Controller;
 use App\Repository\Carabayar\Carabayar;
 use App\Transform\TransformCarabayar;
-use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Request;
 
 class CarabayarController extends Controller
 {
     protected $carabayar;
     protected $transform;
-
+    
     public function __construct()
     {
         $this->carabayar = new Carabayar;

@@ -1,6 +1,13 @@
 <script type="text/javascript">
     function loadModalRegistrasi() {
-      
+        $('#r-kode-poli').empty();
+        $('#r-kode-penjamin').empty();
+        $('#r-kode-dokter').empty();
+        $('#r-cara-bayar').empty();
+        $('#r-cara-masuk').empty();
+
+        $('#r-kode-tarif').val("");
+        $('#r-tarif-klinik').val("");
     }
 
     $(document).ready(function() {
@@ -25,6 +32,7 @@
         getKlinik()
         getDokter()
         getCaraBayar()
+        getCaraMasuk()
 
         $('#modal-registrasi').modal(options);
         $('#modal-registrasi').removeAttr('style');
@@ -131,33 +139,74 @@
             method:method,
             data: {},
             success: function(data) {
-                $('#r-cara-bayar').empty();
-                $('#r-cara-bayar').append('<option value="">Pilih Cara Bayar</option>')
-                $.each(data, function(key, value) {
-                    $('#r-cara-bayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
-                });
-                $('#r-cara-bayar').select2({
-                    placeholder: 'Pilih Carabayar',
-                    width: '100%',
-                })
+                if (data.code == 200) {
+                    $('#r-cara-bayar').empty();
+                    $('#r-cara-bayar').append('<option value="">Pilih Cara Bayar</option>')
+                    $.each(data.result.carabayar, function(key, value) {
+                        $('#r-cara-bayar').append('<option value="'+value.kode_carabayar+'">'+value.nama_carabayar+'</option>');
+                    });
+                    $('#r-cara-bayar').select2({
+                        placeholder: 'Pilih Carabayar',
+                        width: '100%',
+                    })
+                }
+            }
+        })
+    }
+
+     // GET CARA MASUK
+     function getCaraMasuk() {
+        var url = '/admin/ajax/list/caramasuk',
+            method = 'get';
+        $.ajax({
+            url:url,
+            method:method,
+            data: {},
+            success: function(data) {
+                if (data.code == 200) {
+                    $('#r-cara-masuk').empty();
+                    $('#r-cara-masuk').append('<option value="">Pilih Cara Masuk</option>')
+                    $.each(data.result.caramasuk, function(key, value) {
+                        $('#r-cara-masuk').append('<option value="'+value.kode_caramasuk+'">'+value.nama_caramasuk+'</option>');
+                    });
+                    $('#r-cara-masuk').select2({
+                        placeholder: 'Pilih Caramasuk',
+                        width: '100%',
+                    })
+                }
             }
         })
     }
 
     // GET PENJAMIN
     function getPenjamin(carabayar) {
-        console.log(carabayar)
         var url = '/admin/ajax/list/penjamin',
             method = 'POST';
-        $.ajax({
-           url:url,
-           method:method,
-           data: {carabayar:carabayar},
-           dataType: "JSON",
-           success: function(res) {
-               console.log(res)
-           } 
-        })
+        if (carabayar != 1 || carabayar != 9) {
+            $.ajax({
+                url:url,
+                method:method,
+                data: {carabayar:carabayar},
+                dataType: "JSON",
+                success: function(data) {
+                    if (data.code == 200) {
+                            $('#r-kode-penjamin').empty();
+                            $('#r-kode-penjamin').append('<option value="">Pilih Penjamin</option>')
+                            $.each(data.result.penjamin, function(key, value) {
+                                $('#r-kode-penjamin').append('<option value="'+$.trim(value.kode_penjamin)+'">'+value.nama_penjamin+'</option>');
+                            });
+
+                            $('#r-kode-penjamin').select2({
+                                placeholder: 'Pilih Penjamin',
+                                width: '100%',
+                            })
+                        } 
+                } 
+            })
+        } else {
+            $('#r-kode-penjamin').empty();
+        }
+        
     }
 
     function getDokter(kode_dokter = null) {

@@ -53,13 +53,14 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
         Route::post('/ajax/generate/noregistrasi', 'RegistrasiController@generateCode');
 
         // LIST DROP DOWN
+        Route::post('/ajax/list/penjamin', 'PenjaminController@ajaxListPenjamin');
         Route::get('/ajax/list/poliklinik', 'PoliklinikController@ajaxListKlinik');
-        Route::get('/ajax/list/carabayar', 'PoliklinikController@ajaxListCarabayar');
+        Route::get('/ajax/list/caramasuk', 'CaramasukController@ajaxListCaraMasuk');
+        Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
     });
 
     //  LIST DROPDOWN
     Route::get('/ajax/list/kelas', 'KelasRawatController@ajaxListKelas');
-    Route::get('/ajax/list/carabayar', 'CarabayarController@ajaxListCarabayar');
     Route::get('/ajax/list/asalpasien', 'AsalPasienController@ajaxListAsalpasien');
     Route::get('/ajax/list/instansi', 'InstansiController@ajaxListInstansi');
     Route::get('/ajax/list/propinsi', 'PropinsiController@ajaxListPropinsi');

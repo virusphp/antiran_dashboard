@@ -92,14 +92,17 @@
             method:method,
             data: {},
             success: function(data) {
-                $('#carabayar').empty();
-                $('#carabayar').append('<option value="">Pilih Cara bayar</option>')
-                $.each(data, function(key, value) {
-                    $('#carabayar').append('<option value="'+value.kd_cara_bayar+'">'+value.keterangan+'</option>');
-                });
-                $('#carabayar').select2({
-                    'placeholder': 'Pilih Cara bayar'
-                })
+                if (data.code == 200) {
+                    $('#carabayar').empty();
+                    $('#carabayar').append('<option value="">Pilih Cara bayar</option>')
+                    $.each(data.result.carabayar, function(key, value) {
+                        $('#carabayar').append('<option value="'+value.kode_carabayar+'">'+value.nama_carabayar+'</option>');
+                    });
+                    $('#carabayar').select2({
+                        placeholder: 'Pilih Cara bayar',
+                        width: '100%',
+                    })
+                }
             }
         })
     }

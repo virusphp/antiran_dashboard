@@ -155,7 +155,7 @@ class Registrasi
             ['status_keluar', '!=', 2],
             ['jns_rawat', '=', $jenisRawat]
         ])
-        ->whereRaw('LEN(no_sjp) > 15')
+        // ->whereRaw('LEN(no_sjp) > 15')
         ->count();
     }
 
