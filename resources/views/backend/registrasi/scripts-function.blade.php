@@ -89,7 +89,7 @@
             data: {},
             success: function(data) {
                 $('#kelas-rawat').empty();
-                $('#kelas-rawat').append('<option value="0">Pilih kelas</option>')
+                $('#kelas-rawat').append('<option value="">Pilih kelas</option>')
                 $.each(data, function(key, value) {
                     $('#kelas-rawat').append('<option value="'+key+'">'+value+'</option>');
                 });
@@ -113,6 +113,7 @@
             method:method,
             data: {},
             success: function(data) {
+                console.log(data);
                 if (data.code == 200) {
                     $('#cara-bayar').empty();
                     $('#cara-bayar').append('<option value="">Pilih Cara bayar</option>')

@@ -24,6 +24,7 @@ class SepInsert extends FormRequest
     public function rules()
     {
         return [
+            'kelas_rawat' => 'required',
             'no_rujukan' => 'required',
             'ppk_rujukan' => 'required',
             'kode_diagnosa' => 'required',
@@ -42,6 +43,7 @@ class SepInsert extends FormRequest
             'kode_poli.required' => 'Poli Tujuan tidak boleh kosong',
             'no_telp.required' => 'No Telp tidak boleh kosong',
             'catatan.required' => 'Catatan tidak boleh kosong',
+            'kelas_rawat.required' => 'Kelar Rawat tidak boleh kosong',
         ];
     }
 }

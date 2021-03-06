@@ -70,6 +70,7 @@ class SepController extends Controller
     {
         if ($request->ajax()) {
             $data = $request->all();
+            dd($data);
             if ($data['penjamin'] != 0) {
                 $data['penjamin'] = implode(',', $data['penjamin']);
             }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AccessResource;
 use App\Repository\Akun\Access;
 use App\Transform\TransformAccess;
 use App\Validation\LoginValidation;
@@ -36,7 +37,7 @@ class LoginPlatformController extends Controller
         }
 
         $akun =  $this->access->getProfil($data["username"]);
-        $transform = $this->transform->mapperFirst($akun);
+        $transform = new AccessResource($akun);
 
         return response()->jsonApi(200, "Login Sukses!", $transform);
 

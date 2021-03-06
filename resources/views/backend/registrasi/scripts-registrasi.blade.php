@@ -31,7 +31,7 @@
         nomorRegistrasi("01");
         getKlinik()
         getDokter()
-        getCaraBayar()
+        getRegCaraBayar()
         getCaraMasuk()
 
         $('#modal-registrasi').modal(options);
@@ -131,7 +131,7 @@
     }
 
     // GET CARA BAYAR
-    function getCaraBayar() {
+    function getRegCaraBayar() {
         var url = '/admin/ajax/list/carabayar',
             method = 'get';
         $.ajax({
