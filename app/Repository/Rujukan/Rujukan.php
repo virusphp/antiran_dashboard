@@ -54,8 +54,10 @@ class Rujukan
     public function getDetailRujukan($params)
     {
         return RujukanKeluarT::select(
-            'no_sep','jns_pelayanan','tgl_rujukan','tipe_rujukan','kode_diagnosa','nama_diagnosa',
-            'kode_tujuan_rujukan','nama_tujuan_rujukan','catatan')->where('no_sep', $params->no_sep)->first();
+                'no_sep','jns_pelayanan','tgl_rujukan','tipe_rujukan','kode_diagnosa','nama_diagnosa',
+                'kode_tujuan_rujukan','nama_tujuan_rujukan','kode_poli','nama_poli','catatan')
+            ->where('no_sep', $params->no_sep)
+            ->first();
     }
 
     public function insertRujukan($params)

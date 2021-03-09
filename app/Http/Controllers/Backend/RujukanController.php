@@ -47,7 +47,7 @@ class RujukanController extends Controller
     {
         if ($request->ajax()) {
             $dataRujukan = $this->rujukan->getDetailRujukan($request);
-            dd($dataRujukan);
+            return response()->jsonApi(200, "OK", $dataRujukan);
         }
     }
 

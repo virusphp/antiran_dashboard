@@ -9,6 +9,7 @@
             method = 'POST',
             url = '/admin/ajax/rujukan/edit/modalrujukan';;
 
+        setTypeRujukan()
         getEditRujukan(no_sep, method, url, CSRF_TOKEN)
 
         $('#modal-rujukan-post').modal(options);
@@ -27,7 +28,23 @@
             },
             dataType: "json",
             success: function(data) {
-                console.log(data);
+                if (data.code == 200) {
+                     // set profil
+                    $('#no-sep').val(data.result.no_sep)
+                    cariSep(data.result.no_sep)
+
+                    $('#no-sep-rujukan').val(data.result.no_sep)
+                    $('#jns-pelayanan option[value='+data.result.jns_pelayanan+']').attr('selected','selected').closest('#jns-pelayanan');
+                    $('#m-tgl-rujukan').val(data.result.tgl_rujukan)
+                    $('#tipe-rujukan option[value='+data.result.tipe_rujukan+']').attr('selected','selected').closest('#tipe-rujukan');
+                    $('#nama-diagnosa').val(data.result.nama_diagnosa)
+                    $('#kode-diagnosa').val(data.result.kode)
+                    $('#nama-faskes').val(data.result.nama_tujuan_rujukan)
+                    $('#ppk-dirujuk').val(data.result.kode_tujukan_rujukan)
+                    $('#nama-poli').val(data.result.nama_poli)
+                    $('#kode-poli').val(data.result.kode_poli)
+                    $('#catatan').val(data.result.catatan)
+                } 
             }
         });
     }
