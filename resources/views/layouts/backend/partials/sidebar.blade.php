@@ -2,14 +2,14 @@
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <div class="c-sidebar-brand d-md-down-none">
         <div class="c-sidebar-brand-full" width="118" height="46" alt="Master Data">
-            <img src="{{ asset('img/profile/logo-papua.png') }}" width="120" height="46">
+            <img src="{{ asset('img/profile/logo.png') }}" width="120" height="46">
         </div>
         <svg class="c-sidebar-brand-minimized" width="118" height="46" alt="CoreUI Logo">
             <use xlink:href="{{ asset('coreui/assets/brand/coreui.svg#signet') }}"></use>
         </svg>
     </div>
     <div class="c-sidebar-brand d-md-none">
-        <img src="{{ asset('img/profile/logo-papua.png') }}" width="120" height="46">
+        <img src="{{ asset('img/profile/logo.png') }}" width="120" height="46">
     </div>
     <ul class="c-sidebar-nav">
         <li class="c-sidebar-nav-item">
