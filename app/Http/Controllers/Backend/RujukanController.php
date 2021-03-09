@@ -36,11 +36,18 @@ class RujukanController extends Controller
                 ->addColumn('action', function ($rujukan) {
                     return view('datatables._action-rujukan', [
                         'no_rujukan' => $rujukan->no_rujukan,
-                        'no_sep' => $rujukan->no_sep, // nomor sep
-                        'edit_url' => route('rujukan.edit')
+                        'no_sep' => $rujukan->no_sep // nomor sep
                     ]);
                 })
                 ->make(true);
+        }
+    }
+
+    public function ajaxEditRujukan(Request $request)
+    {
+        if ($request->ajax()) {
+            $dataRujukan = $this->rujukan->getDetailRujukan($request);
+            dd($dataRujukan);
         }
     }
 
@@ -58,4 +65,6 @@ class RujukanController extends Controller
         $dataRujukan = $this->rujukan->getRujukanKeluar($noRujukan);
         return view('print.cetak-rujukan', compact('dataRujukan'));
     }
+    
+
 }

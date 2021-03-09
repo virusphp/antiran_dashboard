@@ -27,7 +27,7 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'Backend', 'prefix' => 'a
     Route::get('/home', 'HomeController@index')->name('home');
     Route::resource('/registrasi', 'RegistrasiController');
     Route::get('/rujukan', 'RujukanController@index')->name('rujukan.index');
-    Route::get('/ajax/rujukan/edit', 'RujukanController@ajaxEditRujukan')->name('rujukan.edit');
+    Route::post('/ajax/rujukan/edit/modalrujukan', 'RujukanController@ajaxEditRujukan');
     Route::get('/ajax/rujukan', 'RujukanController@indexAjax');
     Route::get('/ajax/registrasi', 'RegistrasiController@indexAjax');
     Route::post('/ajax/registrasi/modalsep', 'RegistrasiController@ajaxModalSep');

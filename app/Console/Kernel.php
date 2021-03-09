@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        'App\Console\Commands\BedManagement',
     ];
 
     /**
@@ -25,7 +25,10 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')
-        //          ->hourly();
+        //          ->hourly(); 
+
+        // UPDATE BRIDING KETERSEDIAAN KAMAR BPJ
+        $schedule->command('update:bed')->everySixHours();
     }
 
     /**

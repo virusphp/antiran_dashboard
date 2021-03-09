@@ -100,3 +100,31 @@ function listRole()
         'operator' => 'Operator',
     ];
 }
+
+function getKelas($nilai)
+{
+    $kelas = [
+        1 => 'KL1',
+        2 => 'KL2',
+        3 => 'KL3',
+        4 => 'VIP',
+        6 => 'NON',
+        10 => 'ICU',
+        11 => 'NON',
+        13 => 'SAL',
+        14 => 'NIC',
+        15 => 'PIC',
+        16 => 'ISO',
+        17 => 'HCU',
+        18 => 'NON',
+        19 => 'HCU',
+        20 => 'ICU'
+    ];
+
+    return $kelas[$nilai];
+}
+
+function gantiKata($nilai)
+{
+    return str_replace('Ruang ', '', $nilai);
+}

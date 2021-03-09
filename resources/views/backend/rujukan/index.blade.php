@@ -85,5 +85,7 @@ Rujukan
     <script src="{{ asset('lib/select2/js/select2.min.js') }}"></script> 
     <script src="{{ asset('lib/jquery-ui/jquery-ui.min.js') }}"></script> 
     @include('backend.rujukan.scripts-index')
+    @include('backend.rujukan.scripts-function')
     @include('backend.rujukan.scripts-buatrujukan')
+    @include('backend.rujukan.scripts-editrujukan')
 @endpush
