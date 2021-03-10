@@ -476,11 +476,13 @@
                     $("[name='"+key+"']").addClass('is-invalid')
                                 .closest('.form-group')
                                 .append('<span class="invalid-feedback"><strong>' +value[0]+ '</strong></span>');
+                    $("[name='"+key+"']").addClass('is-invalid')
+                                .closest('.input-group')
+                                .append('<span class="invalid-feedback"><strong>' +value[0]+ '</strong></span>')
                     $("[name='"+key.replace("kode","nama")+"']").addClass('is-invalid')
                                 .closest('.form-group');
-                     $("[id='"+key.replace("ppk_","nama-")+"']").addClass('is-invalid')
+                    $("[id='nama-faskes']").addClass('is-invalid')
                                 .closest('.form-group');
-
                 })
             }
         })

@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="{{ asset('lib/font-awesome/css/all.min.css') }}">
     @stack('css')
 
+    <!-- vue -->
+    <script src="{{ !config('vue.isProduction') ? asset('lib/vue/vue.js') : asset('lib/vue/vue.min.js') }}"></script>
+    <script src="{{ asset('lib/axios/axios.min.js') }}"></script>
+
 </head>
 
 <body class="c-app c-legacy-theme">

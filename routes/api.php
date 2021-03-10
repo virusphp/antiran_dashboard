@@ -20,24 +20,10 @@ Route::group(['namespace' => 'Api'], function() {
 
     Route::group(['middleware' => ['signature:api']], function (){
         Route::post('/login', 'LoginController@login');
-        // get and list divisi
-        Route::get('/divisi/getlist', 'DivisiController@getList');
-        Route::get('/divisi/getdetail/{kode}', 'DivisiController@getDetail');
-
+       
         // get and list pegawai
         Route::get('/pegawai/getlist', 'PegawaiController@getList');
         Route::get('/pegawai/getdetail/{kode}', 'PegawaiController@getDetail');
-
-        //get and list pekerjaan
-        Route::get('/pekerjaan/getlist', 'PekerjaanController@getList');
-        Route::get('/pekerjaan/getdetail/{kode}', 'PekerjaanController@getDetail');
-
-        // get and list proses
-        Route::get('/proses/getlist', 'ProsesController@getList');
-        Route::get('/proses/getdetail/{kode}', 'ProsesController@getDetail');
-
-        // get and list client
-        Route::get('/client/getlist', 'ClientController@getList');
-        Route::get('/client/getdetail/{kode}', 'ClientController@getDetail');
+   
     });
 });

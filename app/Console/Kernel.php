@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
         //          ->hourly(); 
 
         // UPDATE BRIDING KETERSEDIAAN KAMAR BPJ
-        $schedule->command('update:bed')->everySixHours();
+        $schedule->command('update:bed')->hourly();
     }
 
     /**
